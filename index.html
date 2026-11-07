@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="HayOS — онлайн-школа кибербезопасности. 9 месяцев практики на учебных стендах с ментором, от основ сетей до пентеста и SOC.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='none' stroke='%232B44E8' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6'/%3E%3Ccircle cx='14' cy='14' r='3.2' fill='%232B44E8' stroke='none'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>HayOS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: multi-page (hash views: home, program, pricing, about, contacts), mobile-first single column, 1120px container.
+   Shared: sticky header, signup block + footer under every page, sticky bottom CTA on phones.
+   Corner brackets = security perimeter; CVSS severity colors are the only loud colors besides cobalt. */
+:root{
+  --bg:#F2F4F8; --surface:#FFFFFF; --ink:#0D1424; --muted:#5A6478; --line:#DCE1EA;
+  --accent:#2B44E8; --accent-ink:#FFFFFF; --accent-soft:#E6E9FD;
+  --crit:#C2303A; --crit-soft:#FBE4E5; --high:#B86A00; --high-soft:#FCEED8;
+  --ok:#1B7F4E; --ok-soft:#DFF2E7;
+  --code-bg:#0E1526; --code-ink:#D5DBEA; --code-muted:#69738E; --code-hl:#1C2647;
+  --f-display:"Tektur","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A0E18; --surface:#121A2B; --ink:#E7EBF4; --muted:#909AB0; --line:#232C42;
+  --accent:#7488FF; --accent-ink:#0A0E18; --accent-soft:#1B2348;
+  --crit:#FF6E76; --crit-soft:#36171B; --high:#F2B04E; --high-soft:#33240F;
+  --ok:#4FCB8C; --ok-soft:#12291E;
+  --code-bg:#060911; --code-ink:#D5DBEA; --code-muted:#5F6982; --code-hl:#18213F;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0E18; --surface:#121A2B; --ink:#E7EBF4; --muted:#909AB0; --line:#232C42;
+  --accent:#7488FF; --accent-ink:#0A0E18; --accent-soft:#1B2348;
+  --crit:#FF6E76; --crit-soft:#36171B; --high:#F2B04E; --high-soft:#33240F;
+  --ok:#4FCB8C; --ok-soft:#12291E;
+  --code-bg:#060911; --code-ink:#D5DBEA; --code-muted:#5F6982; --code-hl:#18213F;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased;padding-bottom:84px}
+@media (min-width:860px){body{padding-bottom:0}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.12;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(25px,6.2vw,38px)}
+h3{font-size:19px;font-weight:500}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:30px}
+@media (min-width:860px){section{padding-block:48px}}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
+.eyebrow::before{content:"";width:8px;height:8px;border:1.5px solid currentColor;border-radius:2px}
+.head{display:grid;gap:12px;margin-bottom:24px;max-width:700px}
+.lead{color:var(--muted);font-size:17px}
+.more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--accent);font-weight:600;text-decoration:none;min-height:44px}
+.more:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.view{animation:fade .25s ease}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:12px;font:600 16px/1 var(--f-body);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-block{width:100%}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 20px/1 var(--f-display);letter-spacing:.01em}
+.logo svg{width:28px;height:28px;color:var(--accent)}
+.nav{display:none;gap:4px;margin-left:auto}
+.nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;padding:10px 12px;border-radius:10px}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
+.icon-btn svg{width:20px;height:20px}
+.top-phone{display:none;font:500 15px var(--f-mono);text-decoration:none;white-space:nowrap}
+.top-cta{display:none;min-height:44px;padding:0 18px;font-size:15px}
+@media (min-width:900px){
+  .nav{display:flex}.top-actions{margin-left:20px}.menu-btn,.call-btn{display:none}
+  .top-cta{display:inline-flex}
+}
+@media (min-width:1080px){.top-phone{display:inline-flex}}
+.sheet{border-top:1px solid var(--line);background:var(--surface)}
+.sheet .wrap{display:grid;gap:4px;padding-block:8px 20px}
+.sheet a.lnk{padding:14px 4px;text-decoration:none;font:500 18px var(--f-body);border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.sheet a.lnk[aria-current="page"]{color:var(--accent)}
+.sheet a.lnk span{font:400 13px var(--f-mono);color:var(--muted);align-self:center}
+.sheet .btn{margin-top:12px}
+
+/* page head (inner pages) */
+.phead{padding-block:32px 8px}
+@media (min-width:860px){.phead{padding-block:56px 16px}}
+.phead h1{font-size:clamp(29px,7.2vw,52px);margin:14px 0 12px}
+.phead .lead{max-width:640px}
+.crumbs{font:400 13px var(--f-mono);color:var(--muted);margin-bottom:6px}
+.crumbs a{text-decoration:none;color:var(--muted)}
+.crumbs a:hover{color:var(--accent)}
+
+/* hero */
+.hero{padding-block:32px 40px}
+.hero .wrap{display:grid;gap:32px}
+.hero h1{font-size:clamp(29px,7.6vw,58px);margin:16px 0 14px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{max-width:540px}
+.cta-row{display:grid;gap:10px;margin-top:24px}
+@media (min-width:520px){.cta-row{display:flex;flex-wrap:wrap}}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:28px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.facts div{background:var(--surface);padding:12px 12px 14px;display:grid;gap:4px;min-width:0;align-content:start}
+.facts b{font:700 17px/1.1 var(--f-display)}
+.facts span{font-size:12.5px;color:var(--muted);line-height:1.3}
+@media (min-width:960px){.hero .wrap{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}.hero{padding-block:72px 64px}}
+
+/* challenge (desktop only) */
+.challenge{position:relative;background:var(--code-bg);color:var(--code-ink);border-radius:18px;padding:18px 0 0;min-width:0;display:none}
+@media (min-width:960px){.challenge{display:block}}
+.challenge::before,.challenge::after{content:"";position:absolute;width:22px;height:22px;border:2px solid var(--accent)}
+.challenge::before{top:-8px;left:-8px;border-right:0;border-bottom:0;border-top-left-radius:6px}
+.challenge::after{bottom:-8px;right:-8px;border-left:0;border-top:0;border-bottom-right-radius:6px}
+.ch-head{padding:0 18px 14px;display:grid;gap:6px}
+.ch-head .tag{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--code-muted)}
+.ch-head p{font-weight:600;font-size:16px}
+.code{font:400 13px/1.55 var(--f-mono);border-top:1px solid #ffffff14}
+.code button{display:grid;grid-template-columns:28px 1fr;gap:10px;width:100%;text-align:left;background:transparent;color:inherit;border:0;padding:7px 18px 7px 12px;font:inherit;cursor:pointer;border-left:3px solid transparent}
+.code button:hover{background:var(--code-hl)}
+.code .n{color:var(--code-muted);text-align:right;user-select:none}
+.code code{white-space:pre-wrap;word-break:break-word;min-width:0}
+.code .kw{color:#8FA2FF}.code .st{color:#F2C46B}.code .fn{color:#7DD8B5}
+.code button.hit{background:#12362a;border-left-color:#4FCB8C}
+.code button.miss{background:#1f2335;border-left-color:#F2C46B}
+.ch-out{padding:14px 18px 18px;font-size:14px;line-height:1.5;border-top:1px solid #ffffff14;color:var(--code-ink);min-height:74px}
+.ch-out b{color:#fff}
+.ch-out .ok{color:#7DE0AE}.ch-out .no{color:#F2C46B}
+
+/* generic cards / grids */
+.grid{display:grid;gap:12px}
+@media (min-width:700px){.g2{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:860px){.g3{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:700px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.g4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.card p{color:var(--muted);font-size:15px}
+.card .big{font:700 26px/1 var(--f-display);color:var(--accent)}
+
+/* audience tabs */
+.tabs{display:flex;gap:6px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;min-height:44px;padding:0 16px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:600 15px var(--f-body);cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent)}
+.panel{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:16px}
+@media (min-width:860px){.panel{grid-template-columns:1.2fr 1fr;gap:40px;padding:32px}}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:8px}
+.checks li::before{content:"";width:14px;height:14px;margin-top:5px;border:2px solid var(--ok);border-radius:4px;background:linear-gradient(var(--ok),var(--ok)) center/6px 6px no-repeat}
+.rec{font:500 13px var(--f-mono);color:var(--muted);padding-top:14px;border-top:1px dashed var(--line)}
+.rec b{color:var(--ink);font-family:var(--f-body)}
+
+/* module teaser (home) */
+.mods{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (min-width:700px){.mods{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.mods{grid-template-columns:repeat(3,1fr)}}
+.mods div{background:var(--surface);padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.mods .no{font:500 13px var(--f-mono);color:var(--accent)}
+.mods .t{font-weight:600;min-width:0}
+.mods .w{font:400 12.5px var(--f-mono);color:var(--muted);white-space:nowrap}
+
+/* program page */
+.program{display:grid;gap:10px}
+.mod{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.mod summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:18px;cursor:pointer}
+.mod summary::-webkit-details-marker{display:none}
+.mod .no{font:500 13px var(--f-mono);color:var(--accent);width:28px}
+.mod .t{font-weight:600;font-size:17px;min-width:0}
+.mod .t small{display:block;font:400 14px var(--f-body);color:var(--muted);margin-top:2px}
+.mod .w{font:400 12.5px var(--f-mono);color:var(--muted);white-space:nowrap}
+.mod[open]{border-color:var(--accent)}
+.mod .body{padding:0 18px 20px;display:grid;gap:18px}
+@media (min-width:860px){.mod .body{grid-template-columns:1.3fr 1fr;padding:0 18px 22px 60px;gap:32px}}
+.mod h4{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.mod ul.topics{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font:500 12px/1 var(--f-mono);padding:7px 9px;border:1px solid var(--line);border-radius:7px;color:var(--ink);background:var(--bg)}
+.outcome{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--ok-soft);font-size:14.5px}
+.outcome b{color:var(--ok)}
+.week{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (min-width:860px){.week{grid-template-columns:repeat(4,1fr)}}
+.week li{background:var(--surface);padding:16px 18px;display:grid;gap:4px}
+.week .d{font:500 12px var(--f-mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.week b{font-size:16px}
+.week span{font-size:14.5px;color:var(--muted)}
+.streams{display:grid;gap:10px}
+@media (min-width:860px){.streams{grid-template-columns:repeat(3,1fr)}}
+.stream{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px}
+.stream.first{border:2px solid var(--accent)}
+.stream .date{font:700 22px/1.1 var(--f-display)}
+.stream .seats{font:500 13px var(--f-mono);color:var(--muted)}
+.stream.first .seats{color:var(--crit)}
+
+/* portfolio */
+.case{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
+.sev{display:flex;align-items:center;gap:10px}
+.score{font:700 28px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.pill{font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:6px}
+.c-crit .score{color:var(--crit)}.c-crit .pill{background:var(--crit-soft);color:var(--crit)}
+.c-high .score{color:var(--high)}.c-high .pill{background:var(--high-soft);color:var(--high)}
+.c-med .score{color:var(--accent)}.c-med .pill{background:var(--accent-soft);color:var(--accent)}
+.case .meta{font:400 12.5px var(--f-mono);color:var(--muted)}
+.case p{color:var(--muted);font-size:15px}
+
+/* pricing */
+.toggle{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+.toggle button{min-height:40px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 14px var(--f-body);cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.plans{display:grid;gap:14px}
+@media (min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;position:relative}
+.plan.best{border:2px solid var(--accent)}
+.plan .badge{position:absolute;top:-12px;left:20px;background:var(--accent);color:var(--accent-ink);font:600 12px/1 var(--f-body);padding:7px 10px;border-radius:8px}
+.plan .name{font:500 15px var(--f-mono);color:var(--muted)}
+.price{font:700 34px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.price small{font:500 15px var(--f-body);color:var(--muted)}
+.old{font-size:13px;color:var(--muted);margin-top:4px}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px;flex:1}
+.plan li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.plan li::before{content:"+";font:600 15px var(--f-mono);color:var(--accent)}
+.plan li.off{color:var(--muted)}
+.plan li.off::before{content:"–";color:var(--muted)}
+.teaser{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:14px}
+@media (min-width:860px){.teaser{grid-template-columns:1fr auto;align-items:center;padding:28px 32px}}
+.teaser .price{font-size:30px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{padding:13px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font:500 12px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+thead th.hl{color:var(--accent)}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{color:var(--muted);width:34%}
+td.y{color:var(--ok);font-weight:600}
+td.n{color:var(--muted)}
+td.hl{background:var(--accent-soft)}
+.pay{display:grid;gap:12px}
+@media (min-width:860px){.pay{grid-template-columns:repeat(3,1fr)}}
+.disc{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (min-width:700px){.disc{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.disc{grid-template-columns:repeat(4,1fr)}}
+.disc div{background:var(--surface);padding:18px;display:grid;gap:4px;align-content:start}
+.disc b{font:700 26px/1 var(--f-display);color:var(--accent)}
+.disc span{font-size:14.5px;color:var(--muted)}
+
+/* trust */
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+@media (min-width:860px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats div{background:var(--surface);padding:18px;display:grid;gap:6px;align-content:start}
+.stats b{font:700 30px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.stats span{font-size:13.5px;color:var(--muted);line-height:1.35}
+.mentor{display:grid;grid-template-columns:56px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;align-items:start}
+.ava{width:56px;height:56px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:700 19px var(--f-display)}
+.mentor b{display:block;font-size:16px}
+.mentor .role{font-size:14px;color:var(--muted);display:block}
+.mentor .bio{font-size:14px;margin-top:8px}
+.certs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.certs span{font:500 11px/1 var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
+.reviews-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.demo{font:500 11px/1.3 var(--f-mono);color:var(--high);border:1px dashed var(--high);padding:5px 8px;border-radius:6px}
+.reviews{display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
+@media (min-width:860px){.reviews{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible}}
+.review{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px;align-content:space-between;min-width:0}
+.review p{font-size:15.5px}
+.who{display:flex;gap:12px;align-items:center}
+.who .ava{width:42px;height:42px;border-radius:50%;font-size:15px}
+.who b{display:block;font-size:15px}
+.who span{font-size:13px;color:var(--muted)}
+.change{font:500 12px var(--f-mono);color:var(--ok)}
+.docs{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.docs li{background:var(--surface);padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.docs li span{font-size:14px;color:var(--muted);display:block}
+.docs .tag{font:500 11px var(--f-mono);color:var(--muted);border:1px solid var(--line);padding:5px 7px;border-radius:6px}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:64px 1fr;gap:16px;padding-bottom:18px;position:relative}
+.timeline li:not(:last-child)::after{content:"";position:absolute;left:31px;top:30px;bottom:0;border-left:1.5px dashed var(--line)}
+.timeline .y{font:700 17px/1 var(--f-display);color:var(--accent);background:var(--bg);padding:6px 0;text-align:center;border:1.5px solid var(--accent);border-radius:10px;height:max-content;z-index:1}
+.timeline b{display:block}
+.timeline p{color:var(--muted);font-size:15px}
+
+/* steps */
+.steps{display:grid;gap:0;counter-reset:s;list-style:none;margin:0;padding:0}
+@media (min-width:860px){.steps{grid-template-columns:repeat(4,1fr);gap:16px}}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding-bottom:22px;position:relative}
+.steps li::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;border:1.5px solid var(--accent);color:var(--accent);display:grid;place-items:center;font:700 18px var(--f-display);background:var(--surface);z-index:1}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:21px;top:44px;bottom:0;border-left:1.5px dashed var(--line)}
+@media (min-width:860px){.steps li{grid-template-columns:1fr;gap:14px}.steps li:not(:last-child)::after{left:44px;right:-16px;top:22px;bottom:auto;border-left:0;border-top:1.5px dashed var(--line)}}
+.steps b{display:block;font-size:17px;margin-bottom:4px;padding-top:10px}
+@media (min-width:860px){.steps b{padding-top:0}}
+.steps p{color:var(--muted);font-size:15px}
+
+/* guarantees */
+.g{border-radius:var(--r);padding:20px;background:var(--ok-soft);display:grid;gap:8px;align-content:start}
+.g b{font-size:17px}
+.g p{font-size:15px;color:var(--muted)}
+.g svg{width:24px;height:24px;color:var(--ok)}
+
+/* faq */
+.faq{display:grid;gap:0;max-width:820px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:16px 0;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:16.5px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:500 20px/1 var(--f-mono);color:var(--accent);transition:transform .2s;flex:none}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 0 18px;color:var(--muted)}
+
+/* contacts */
+.ct{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px;align-content:start;min-width:0}
+.ct .k{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ct .v{font-size:17px;font-weight:600;user-select:all;overflow-wrap:anywhere}
+.ct .v a{text-decoration:none}
+.ct .sub{font-size:14px;color:var(--muted)}
+.copy{justify-self:start;margin-top:6px;background:none;border:1px solid var(--line);color:var(--muted);font:500 12.5px var(--f-mono);padding:8px 10px;border-radius:8px;cursor:pointer;min-height:36px}
+.maplink{color:var(--accent);font-size:14px;font-weight:500;margin-top:4px}
+.hours{width:100%;min-width:0;font-size:15px}
+.hours td{padding:10px 0}
+.hours td:first-child{width:auto}
+.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14px;color:var(--ink)}
+
+/* signup */
+.signup{background:var(--ink);color:var(--bg);margin-top:24px}
+.signup .wrap{display:grid;gap:28px;padding-block:24px}
+@media (min-width:900px){.signup .wrap{grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding-block:40px}}
+.signup .eyebrow{color:var(--bg);opacity:.75}
+.signup .lead{color:var(--bg);opacity:.72}
+.signup ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;opacity:.85}
+.signup li::before{content:"→ ";font-family:var(--f-mono)}
+form{background:var(--surface);color:var(--ink);border-radius:18px;padding:22px;display:grid;gap:14px}
+label{display:grid;gap:6px;font-size:14px;font-weight:500}
+input[type=text],select{width:100%;min-height:52px;padding:0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:400 16px var(--f-body)}
+input:focus,select:focus{outline:none;border-color:var(--accent)}
+.err{color:var(--crit);font-size:13px}
+.check{display:grid;grid-template-columns:22px 1fr;gap:10px;font-weight:400;font-size:13px;color:var(--muted);align-items:start}
+.check input{width:20px;height:20px;margin:0;accent-color:var(--accent)}
+.done{text-align:center;display:grid;gap:10px;padding:16px 4px;justify-items:center}
+.done svg{width:48px;height:48px;color:var(--ok)}
+.done .note{font:400 12px var(--f-mono);color:var(--muted)}
+
+/* footer */
+footer{padding-block:36px 28px;border-top:1px solid var(--line)}
+footer .cols{display:grid;gap:24px}
+@media (min-width:860px){footer .cols{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+footer h4{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+footer ul a{text-decoration:none}
+footer ul a:hover{color:var(--accent)}
+footer .about{color:var(--muted);font-size:14.5px;margin-top:10px;max-width:320px}
+footer .legal{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:6px;font-size:13px;color:var(--muted)}
+
+/* sticky mobile cta */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px;transform:translateY(110%);transition:transform .25s}
+.mcta.show{transform:none}
+.mcta .btn{flex:1;min-height:50px}
+.mcta .icon-btn{width:50px;height:50px;flex:none}
+@media (min-width:860px){.mcta{display:none}}
+</style>
+</head>
+<body>
+<div lang="ru">
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="HayOS, на главную">
+      <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6"/><circle cx="14" cy="14" r="3.2" fill="currentColor" stroke="none"/></svg>
+      HayOS
+    </a>
+    <nav class="nav" aria-label="Разделы сайта">
+      <a href="#home" data-nav="home">Главная</a>
+      <a href="#program" data-nav="program">Программа</a>
+      <a href="#pricing" data-nav="pricing">Цены</a>
+      <a href="#about" data-nav="about">О школе</a>
+      <a href="#contacts" data-nav="contacts">Контакты</a>
+    </nav>
+    <div class="top-actions">
+      <a class="top-phone" href="tel:+37410000000">+374 10 00-00-00</a>
+      <a class="btn btn-primary top-cta" href="#signup">Бесплатный урок</a>
+      <a class="icon-btn call-btn" href="#contacts" aria-label="Контакты">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+      </a>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="sheet" aria-label="Меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="sheet" id="sheet" hidden>
+    <div class="wrap">
+      <a class="lnk" href="#home" data-nav="home">Главная</a>
+      <a class="lnk" href="#program" data-nav="program">Программа <span>6 модулей</span></a>
+      <a class="lnk" href="#pricing" data-nav="pricing">Цены <span>от 7 417 ₽/мес</span></a>
+      <a class="lnk" href="#about" data-nav="about">О школе и отзывы</a>
+      <a class="lnk" href="#contacts" data-nav="contacts">Контакты и вопросы</a>
+      <a class="btn btn-primary btn-block" href="#signup">Записаться на бесплатный урок</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ ГЛАВНАЯ ============ -->
+<div class="view" data-view="home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Онлайн-школа кибербезопасности</span>
+        <h1>Станьте специалистом по&nbsp;<em>кибербезопасности</em> за&nbsp;9&nbsp;месяцев</h1>
+        <p class="lead">Учим защищать сайты и сети и находить уязвимости раньше злоумышленников. 70% обучения — практика на учебных стендах с личным ментором.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#signup">Записаться на бесплатный урок</a>
+          <a class="btn btn-ghost" href="#pricing">Смотреть цены</a>
+        </div>
+        <div class="facts">
+          <div><b>1 декабря</b><span>старт ближайшего потока</span></div>
+          <div><b>6–8 ч</b><span>в неделю, можно совмещать с работой</span></div>
+          <div><b>0 ₽</b><span>первый урок и консультация</span></div>
+        </div>
+      </div>
+      <div class="challenge" aria-label="Мини-задание">
+        <div class="ch-head">
+          <span class="tag">Задание 0 · 30 секунд</span>
+          <p>Найдите строку, через которую можно войти без пароля. Нажмите на неё.</p>
+        </div>
+        <div class="code" id="code">
+          <button data-l="1"><span class="n">1</span><code><span class="kw">def</span> <span class="fn">login</span>(request):</code></button>
+          <button data-l="2"><span class="n">2</span><code>    user = request.POST[<span class="st">"user"</span>]</code></button>
+          <button data-l="3"><span class="n">3</span><code>    pwd = <span class="fn">sha256</span>(request.POST[<span class="st">"pass"</span>])</code></button>
+          <button data-l="4"><span class="n">4</span><code>    q = <span class="st">f"SELECT * FROM users WHERE name='{user}' AND pass='{pwd}'"</span></code></button>
+          <button data-l="5"><span class="n">5</span><code>    <span class="kw">return</span> db.<span class="fn">execute</span>(q).<span class="fn">fetchone</span>() <span class="kw">is not None</span></code></button>
+        </div>
+        <div class="ch-out" id="chOut" aria-live="polite">Подсказка: следите, куда попадает то, что ввёл пользователь.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Что вы получите</span><h2>Профессию, портфолио и помощь с первой работой</h2></div>
+      <div class="grid g4">
+        <div class="card"><span class="big">от 150 000 ₽</span><h3>Зарплата junior-специалиста</h3><p>Столько в среднем предлагают начинающим пентестерам и аналитикам SOC по данным вакансий.</p></div>
+        <div class="card"><span class="big">6 отчётов</span><h3>Портфолио для работодателя</h3><p>Каждый модуль заканчивается отчётом о найденных уязвимостях в формате реального аудита.</p></div>
+        <div class="card"><span class="big">24 ч</span><h3>Ментор отвечает в течение суток</h3><p>Разбирает ваши решения, а не присылает шаблон. Вы не застрянете на одной задаче на неделю.</p></div>
+        <div class="card"><span class="big">CEH · eJPT</span><h3>Готовность к сертификации</h3><p>Программа покрывает темы международных экзаменов. Пробный экзамен входит в курс.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Для кого</span><h2>Выберите, кто вы, и посмотрите свой маршрут</h2></div>
+      <div class="tabs" role="tablist" aria-label="Кто вы">
+        <button role="tab" id="t-new" aria-selected="true" aria-controls="aud">Начинаю с нуля</button>
+        <button role="tab" id="t-it" aria-selected="false" aria-controls="aud">Уже работаю в IT</button>
+        <button role="tab" id="t-team" aria-selected="false" aria-controls="aud">Обучаю команду</button>
+      </div>
+      <div class="panel" id="aud" role="tabpanel" aria-labelledby="t-new">
+        <div style="display:grid;gap:10px"><h3 id="audTitle"></h3><p class="lead" id="audText" style="font-size:16px"></p></div>
+        <div style="display:grid;gap:14px"><ul class="checks" id="audList"></ul><div class="rec" id="audRec"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Программа</span><h2>6 модулей: от основ сетей до дипломного пентеста</h2></div>
+      <div class="mods">
+        <div><span class="no">M1</span><span class="t">Основы: сети, Linux, Windows</span><span class="w">4 нед</span></div>
+        <div><span class="no">M2</span><span class="t">Безопасность веб-приложений</span><span class="w">6 нед</span></div>
+        <div><span class="no">M3</span><span class="t">Атаки на инфраструктуру</span><span class="w">6 нед</span></div>
+        <div><span class="no">M4</span><span class="t">Active Directory</span><span class="w">5 нед</span></div>
+        <div><span class="no">M5</span><span class="t">Защита и мониторинг (SOC)</span><span class="w">7 нед</span></div>
+        <div><span class="no">M6</span><span class="t">Дипломный проект</span><span class="w">8 нед</span></div>
+      </div>
+      <a class="more" href="#program">Подробная программа, инструменты и расписание →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Что будет в портфолио</span><h2>Так выглядят находки студентов в первом полугодии</h2><p class="lead">Оценка по шкале CVSS, как в настоящих отчётах. Все уязвимости найдены на учебных стендах школы.</p></div>
+      <div class="grid g3">
+        <article class="case c-crit"><div class="sev"><span class="score">9.8</span><span class="pill">Critical</span></div><h3>SQL-инъекция в форме входа</h3><span class="meta">CWE-89 · стенд «Интернет-магазин» · 2-й месяц</span><p>Обход авторизации и выгрузка таблицы пользователей. В отчёте шаги воспроизведения и исправленный запрос.</p></article>
+        <article class="case c-high"><div class="sev"><span class="score">8.1</span><span class="pill">High</span></div><h3>IDOR в API заказов</h3><span class="meta">CWE-639 · стенд «Служба доставки» · 3-й месяц</span><p>Подмена номера заказа в запросе открывала чужие адреса и телефоны. Предложена проверка владельца на сервере.</p></article>
+        <article class="case c-med"><div class="sev"><span class="score">5.4</span><span class="pill">Medium</span></div><h3>Хранимый XSS в комментариях</h3><span class="meta">CWE-79 · стенд «Блог» · 3-й месяц</span><p>Скрипт в комментарии похищал сессию модератора. Исправление: экранирование вывода и политика CSP.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="teaser">
+        <div style="display:grid;gap:8px">
+          <span class="eyebrow">Стоимость</span>
+          <div class="price">от 7 417 ₽<small> / мес</small></div>
+          <p class="lead" style="font-size:16px">Рассрочка на 12 месяцев без переплаты. Три тарифа, возврат 100% в первые 14 дней.</p>
+        </div>
+        <a class="btn btn-primary" href="#pricing">Сравнить тарифы</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reviews-head"><div class="head" style="margin:0"><span class="eyebrow">Отзывы</span><h2>Что говорят выпускники</h2></div><span class="demo">Пример: замените на реальные отзывы</span></div>
+      <div class="reviews" id="revHome"></div>
+      <a class="more" href="#about">Все отзывы и преподаватели →</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Как начать</span><h2>От заявки до первого урока — 4 шага</h2></div>
+      <ol class="steps">
+        <li><div><b>Оставьте заявку</b><p>Займёт минуту. Перезвоним или напишем в Telegram в течение 15 минут в рабочее время.</p></div></li>
+        <li><div><b>Бесплатный урок</b><p>Пройдёте вводное занятие и короткий тест. Поможем выбрать тариф и ответим на вопросы.</p></div></li>
+        <li><div><b>Договор и оплата</b><p>Онлайн, за 5 минут. Картой, по счёту для компаний или в рассрочку без переплаты.</p></div></li>
+        <li><div><b>Старт обучения</b><p>В день оплаты получите доступ к платформе, стендам и чату своей группы.</p></div></li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ПРОГРАММА ============ -->
+<div class="view" data-view="program" hidden>
+  <section class="phead">
+    <div class="wrap">
+      <div class="crumbs"><a href="#home">Главная</a> / Программа</div>
+      <span class="eyebrow">Программа курса</span>
+      <h1>Специалист по кибербезопасности</h1>
+      <p class="lead">36 недель, 6 модулей, 210 часов практики. Сначала учитесь атаковать, чтобы понимать, от чего защищать, а затем строите защиту и мониторинг.</p>
+      <div class="facts">
+        <div><b>9 мес</b><span>длительность</span></div>
+        <div><b>6–8 ч</b><span>нагрузка в неделю</span></div>
+        <div><b>Онлайн</b><span>стенды в облаке</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Модули</span><h2>Что вы будете изучать</h2><p class="lead">Нажмите на модуль, чтобы увидеть темы, инструменты и итоговую работу.</p></div>
+      <div class="program">
+        <details class="mod" open><summary><span class="no">M1</span><span class="t">Основы: сети, Linux, Windows<small>Фундамент, без которого не понять атаки</small></span><span class="w">4 нед</span></summary>
+          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Модель TCP/IP, DNS, HTTP и HTTPS</li><li>Командная строка Linux: файлы, права, процессы</li><li>Windows: пользователи, службы, реестр</li><li>Python и bash для автоматизации задач</li></ul></div>
+          <div><h4>Инструменты</h4><div class="chips"><span>Kali Linux</span><span>Wireshark</span><span>Python</span><span>VirtualBox</span></div><div class="outcome"><b>Итог:</b> разбор сетевого дампа и собственный сканер портов на Python.</div></div></div></details>
+        <details class="mod"><summary><span class="no">M2</span><span class="t">Безопасность веб-приложений<small>Самый востребованный навык на рынке</small></span><span class="w">6 нед</span></summary>
+          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>OWASP Top 10 и как его применять</li><li>SQL-инъекции, XSS, CSRF, IDOR, SSRF</li><li>Аутентификация, сессии и JWT</li><li>Безопасная разработка: как исправлять найденное</li></ul></div>
+          <div><h4>Инструменты</h4><div class="chips"><span>Burp Suite</span><span>sqlmap</span><span>ffuf</span><span>OWASP ZAP</span></div><div class="outcome"><b>Итог:</b> отчёт по аудиту стенда «Интернет-магазин».</div></div></div></details>
+        <details class="mod"><summary><span class="no">M3</span><span class="t">Атаки на инфраструктуру<small>Серверы, сервисы и повышение привилегий</small></span><span class="w">6 нед</span></summary>
+          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Разведка и сбор информации (OSINT)</li><li>Сканирование сети и поиск сервисов</li><li>Эксплуатация уязвимых сервисов</li><li>Повышение привилегий в Linux и Windows</li></ul></div>
+          <div><h4>Инструменты</h4><div class="chips"><span>Nmap</span><span>Metasploit</span><span>LinPEAS</span><span>Hydra</span></div><div class="outcome"><b>Итог:</b> захват 5 машин учебной сети и технический отчёт.</div></div></div></details>
+        <details class="mod"><summary><span class="no">M4</span><span class="t">Active Directory<small>Как атакуют и защищают корпоративные сети</small></span><span class="w">5 нед</span></summary>
+          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Устройство домена и протокол Kerberos</li><li>Kerberoasting и AS-REP Roasting</li><li>Pass-the-Hash и перемещение по сети</li><li>Защита: разделение привилегий, LAPS</li></ul></div>
+          <div><h4>Инструменты</h4><div class="chips"><span>BloodHound</span><span>Impacket</span><span>Mimikatz</span><span>PowerView</span></div><div class="outcome"><b>Итог:</b> компрометация учебного домена и план защиты.</div></div></div></details>
+        <details class="mod"><summary><span class="no">M5</span><span class="t">Защита и мониторинг (SOC)<small>Обнаружение атак и реагирование</small></span><span class="w">7 нед</span></summary>
+          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Журналы событий и Sysmon</li><li>SIEM и правила корреляции</li><li>Реагирование на инциденты по шагам</li><li>Поиск угроз (threat hunting)</li></ul></div>
+          <div><h4>Инструменты</h4><div class="chips"><span>Wazuh</span><span>ELK Stack</span><span>Sigma</span><span>Sysmon</span></div><div class="outcome"><b>Итог:</b> расследование атаки из прошлых модулей и набор правил обнаружения.</div></div></div></details>
+        <details class="mod"><summary><span class="no">M6</span><span class="t">Дипломный проект<small>Полный пентест и защита перед экспертом</small></span><span class="w">8 нед</span></summary>
+          <div class="body"><div><h4>Этапы</h4><ul class="topics"><li>Согласование рамок тестирования, как с реальным заказчиком</li><li>Полное тестирование сети вымышленной компании</li><li>Отчёт для руководства и для технических специалистов</li><li>Защита работы перед экспертом из индустрии</li></ul></div>
+          <div><h4>Что получите</h4><div class="chips"><span>Дипломный отчёт</span><span>Удостоверение</span><span>Сертификат</span></div><div class="outcome"><b>Итог:</b> главная работа в портфолио, которую можно показать на собеседовании.</div></div></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Формат</span><h2>Как проходит обычная неделя</h2></div>
+      <ul class="week">
+        <li><span class="d">Понедельник</span><b>Урок в записи</b><span>1–1,5 часа теории в удобное время</span></li>
+        <li><span class="d">Вт–Чт</span><b>Практика на стенде</b><span>3–5 часов заданий в облачной лаборатории</span></li>
+        <li><span class="d">В течение 24 ч</span><b>Проверка ментором</b><span>Подробный разбор вашего решения</span></li>
+        <li><span class="d">Суббота, 12:00</span><b>Живой разбор</b><span>Вопросы и сложные задачи недели, есть запись</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Ближайшие потоки</span><h2>Когда можно начать</h2></div>
+      <div class="streams">
+        <div class="stream first"><span class="date">1 декабря 2026</span><span class="seats">Осталось 12 мест из 40</span><a class="btn btn-primary btn-block" href="#signup" style="margin-top:8px">Занять место</a></div>
+        <div class="stream"><span class="date">9 февраля 2027</span><span class="seats">Набор открыт</span><a class="btn btn-ghost btn-block" href="#signup" style="margin-top:8px">Записаться</a></div>
+        <div class="stream"><span class="date">6 апреля 2027</span><span class="seats">Предзапись</span><a class="btn btn-ghost btn-block" href="#signup" style="margin-top:8px">Записаться</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid g2" style="gap:24px">
+      <div><div class="head"><span class="eyebrow">Что нужно для старта</span><h2>Требования</h2></div>
+        <ul class="checks"><li><span>Ноутбук или компьютер от 8 ГБ оперативной памяти, любая ОС</span></li><li><span>Интернет от 10 Мбит/с: все стенды работают в облаке</span></li><li><span>6–8 часов в неделю</span></li><li><span>Английский на уровне чтения документации. Если сложно, дадим глоссарий терминов</span></li></ul></div>
+      <div><div class="head"><span class="eyebrow">После выпуска</span><h2>Документы и портфолио</h2></div>
+        <ul class="checks"><li><span>Удостоверение о повышении квалификации</span></li><li><span>Сертификат HayOS с перечнем модулей и оценкой за диплом</span></li><li><span>6 отчётов о пентесте и расследовании в портфолио</span></li><li><span>Доступ к материалам курса ещё на 6 месяцев</span></li></ul></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ЦЕНЫ ============ -->
+<div class="view" data-view="pricing" hidden>
+  <section class="phead">
+    <div class="wrap">
+      <div class="crumbs"><a href="#home">Главная</a> / Цены</div>
+      <span class="eyebrow">Цены и оплата</span>
+      <h1>Тарифы без скрытых платежей</h1>
+      <p class="lead">Цена фиксируется в договоре и не меняется до конца обучения. Стенды, материалы и сертификат уже включены.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:12px">
+    <div class="wrap">
+      <div class="toggle" role="group" aria-label="Способ оплаты">
+        <button id="payMonth" aria-pressed="true">Рассрочка 12 мес, 0%</button>
+        <button id="payFull" aria-pressed="false">Сразу −10%</button>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <span class="name">Самостоятельный</span>
+          <div><div class="price" data-full="89000"></div><div class="old" data-old="89000"></div></div>
+          <ul><li>Все 6 модулей и записи уроков</li><li>Облачные стенды на 12 месяцев</li><li>Общий чат группы</li><li class="off">Проверка заданий ментором</li><li class="off">Помощь с трудоустройством</li></ul>
+          <a class="btn btn-ghost btn-block" href="#signup" data-plan="Самостоятельный">Выбрать</a>
+        </div>
+        <div class="plan best">
+          <span class="badge">Выбирают 7 из 10</span>
+          <span class="name">С ментором</span>
+          <div><div class="price" data-full="149000"></div><div class="old" data-old="149000"></div></div>
+          <ul><li>Всё из тарифа «Самостоятельный»</li><li>Проверка каждого задания, ответ за 24 ч</li><li>Еженедельные живые разборы</li><li>Пробный сертификационный экзамен</li><li class="off">Помощь с трудоустройством</li></ul>
+          <a class="btn btn-primary btn-block" href="#signup" data-plan="С ментором">Выбрать</a>
+        </div>
+        <div class="plan">
+          <span class="name">Pro + карьера</span>
+          <div><div class="price" data-full="219000"></div><div class="old" data-old="219000"></div></div>
+          <ul><li>Всё из тарифа «С ментором»</li><li>Личные встречи с ментором раз в 2 недели</li><li>Резюме и тренировочные собеседования</li><li>Рекомендации партнёрам-работодателям</li><li>Карьерная поддержка до оффера</li></ul>
+          <a class="btn btn-ghost btn-block" href="#signup" data-plan="Pro + карьера">Выбрать</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Сравнение</span><h2>Чем отличаются тарифы</h2></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Что входит</th><th>Самостоятельный</th><th class="hl">С ментором</th><th>Pro + карьера</th></tr></thead>
+          <tbody>
+            <tr><td>6 модулей и записи уроков</td><td class="y">Да</td><td class="y hl">Да</td><td class="y">Да</td></tr>
+            <tr><td>Облачные стенды</td><td>12 мес</td><td class="hl">18 мес</td><td>24 мес</td></tr>
+            <tr><td>Проверка заданий ментором</td><td class="n">Нет</td><td class="y hl">За 24 ч</td><td class="y">За 24 ч</td></tr>
+            <tr><td>Живые разборы</td><td class="n">Запись</td><td class="y hl">Каждую неделю</td><td class="y">Каждую неделю</td></tr>
+            <tr><td>Пробный экзамен</td><td class="n">Нет</td><td class="y hl">Да</td><td class="y">Да</td></tr>
+            <tr><td>Личные встречи с ментором</td><td class="n">Нет</td><td class="n hl">Нет</td><td class="y">Раз в 2 недели</td></tr>
+            <tr><td>Резюме и собеседования</td><td class="n">Нет</td><td class="n hl">Нет</td><td class="y">Да</td></tr>
+            <tr><td>Доступ после выпуска</td><td>6 мес</td><td class="hl">1 год</td><td>Навсегда</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Скидки</span><h2>Как заплатить меньше</h2></div>
+      <div class="disc">
+        <div><b>−10%</b><span>при оплате всего курса сразу</span></div>
+        <div><b>−15%</b><span>каждому, если приходите вдвоём с другом</span></div>
+        <div><b>−5%</b><span>студентам вузов и колледжей</span></div>
+        <div><b>13%</b><span>налоговый вычет за обучение для граждан РФ</span></div>
+      </div>
+      <p class="prog" style="margin-top:12px;font-size:14px;color:var(--muted)">Скидки не суммируются, применяется самая выгодная.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Оплата</span><h2>Способы оплаты</h2></div>
+      <div class="pay">
+        <div class="card"><h3>Картой онлайн</h3><p>Visa, Mastercard, МИР, ArCa. Чек приходит на почту сразу после оплаты.</p></div>
+        <div class="card"><h3>Рассрочка 0%</h3><p>Через банк-партнёр на 6, 12 или 24 месяца. Решение за 5 минут, первый платёж через месяц.</p></div>
+        <div class="card"><h3>По счёту для компаний</h3><p>Договор, счёт и закрывающие документы. Подходит, если обучение оплачивает работодатель.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Гарантии</span><h2>Если что-то пойдёт не так</h2></div>
+      <div class="grid g3">
+        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>Вернём 100% за 14 дней</b><p>Если в первые две недели поймёте, что профессия не ваша, вернём всю сумму без объяснения причин.</p></div>
+        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/></svg><b>Возврат за непройденное</b><p>Решили остановиться позже? Вернём деньги за модули, которые вы ещё не начали.</p></div>
+        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Заморозка до 3 месяцев</b><p>Болезнь, сессия или переезд — поставим обучение на паузу и переведём в следующий поток.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="teaser">
+        <div style="display:grid;gap:8px"><span class="eyebrow">Для компаний</span><h2 style="font-size:clamp(22px,5vw,30px)">Обучение команды от 5 человек</h2><p class="lead" style="font-size:16px">Закрытая группа, программа под ваш стек, отчёт о прогрессе каждого сотрудника. Стоимость считаем после 20-минутного звонка.</p></div>
+        <a class="btn btn-primary" href="#signup" data-plan="Обучение для компании">Обсудить обучение</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Вопросы об оплате</span><h2>Частые вопросы</h2></div>
+      <div class="faq">
+        <details><summary>Можно ли сменить тариф после начала?</summary><p>Да. В первые 2 месяца можно перейти на тариф выше, доплатив разницу. Переход на тариф ниже возможен в первые 14 дней.</p></details>
+        <details><summary>Что будет, если я не смогу платить по рассрочке?</summary><p>Напишите куратору заранее. Можно заморозить обучение и платежи или перейти на более длинную рассрочку через банк.</p></details>
+        <details><summary>Как оформить возврат?</summary><p>Напишите на почту или в Telegram. Деньги вернутся на карту в течение 10 рабочих дней. Для рассрочки банк закроет кредит без процентов.</p></details>
+        <details><summary>Есть ли дополнительные платежи?</summary><p>Нет. Стенды, программы, материалы и сертификат уже входят в стоимость. Отдельно оплачивается только официальный международный экзамен, если решите его сдавать.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ О ШКОЛЕ ============ -->
+<div class="view" data-view="about" hidden>
+  <section class="phead">
+    <div class="wrap">
+      <div class="crumbs"><a href="#home">Главная</a> / О школе</div>
+      <span class="eyebrow">О школе</span>
+      <h1>HayOS — школа, где учат практики</h1>
+      <p class="lead">Мы основали школу в Ереване в 2020 году, когда сами искали джунов в команды и не могли найти людей с реальными навыками. Сейчас учим онлайн студентов из Армении, России, Казахстана и других стран.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:12px">
+    <div class="wrap">
+      <div class="stats">
+        <div><b>6 лет</b><span>обучаем специалистов по информационной безопасности</span></div>
+        <div><b>3 400</b><span>выпускников</span></div>
+        <div><b>78%</b><span>нашли работу в ИБ в течение 6 месяцев после выпуска</span></div>
+        <div><b>4,8 / 5</b><span>средняя оценка уроков студентами</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Наши принципы</span><h2>Как мы учим</h2></div>
+      <div class="grid g3">
+        <div class="card"><h3>Только практика</h3><p>70% времени вы работаете руками на стендах, а не смотрите лекции. Теория даётся ровно под задачу.</p></div>
+        <div class="card"><h3>Честно о профессии</h3><p>Говорим, что первые полгода в ИБ даются тяжело, и показываем реальные зарплаты джунов, а не мечты.</p></div>
+        <div class="card"><h3>Законно и этично</h3><p>Атакуем только свои стенды. Отдельный урок про закон и этику: где граница между пентестом и преступлением.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Преподаватели</span><h2>Учат специалисты, которые работают в индустрии</h2><p class="lead">Каждый ментор совмещает преподавание с работой в ИБ и проходит отбор: тестовый разбор задания и пробный урок.</p></div>
+      <div class="grid g2" id="mentors"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reviews-head"><div class="head" style="margin:0"><span class="eyebrow">Отзывы</span><h2>Истории выпускников</h2></div><span class="demo">Пример: замените на реальные отзывы</span></div>
+      <div class="reviews" id="revAbout"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid g2" style="gap:32px">
+      <div>
+        <div class="head"><span class="eyebrow">История</span><h2>Как мы росли</h2></div>
+        <ol class="timeline">
+          <li><span class="y">2020</span><div><b>Первый поток</b><p>18 студентов, один модуль по веб-безопасности, занятия в офисе в Ереване.</p></div></li>
+          <li><span class="y">2022</span><div><b>Переход в онлайн</b><p>Запустили облачные стенды, и учиться стало можно из любой страны.</p></div></li>
+          <li><span class="y">2024</span><div><b>Модуль по защите</b><p>Добавили SOC и мониторинг: курс стал готовить не только пентестеров.</p></div></li>
+          <li><span class="y">2026</span><div><b>3 400 выпускников</b><p>Программы для компаний и карьерный трек с партнёрами-работодателями.</p></div></li>
+        </ol>
+      </div>
+      <div>
+        <div class="head"><span class="eyebrow">Документы</span><h2>Официально и прозрачно</h2></div>
+        <ul class="docs">
+          <li><div>Лицензия на образовательную деятельность<span>№ 0000 (пример, замените на реальный)</span></div><span class="tag">PDF</span></li>
+          <li><div>Договор-оферта<span>Условия обучения, оплаты и возврата</span></div><span class="tag">PDF</span></li>
+          <li><div>Политика конфиденциальности<span>Как мы храним и используем данные</span></div><span class="tag">PDF</span></li>
+          <li><div>Образец удостоверения<span>Документ, который получит выпускник</span></div><span class="tag">PDF</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ КОНТАКТЫ ============ -->
+<div class="view" data-view="contacts" hidden>
+  <section class="phead">
+    <div class="wrap">
+      <div class="crumbs"><a href="#home">Главная</a> / Контакты</div>
+      <span class="eyebrow">Контакты</span>
+      <h1>Ответит живой человек, а не бот</h1>
+      <p class="lead">Выберите удобный способ связи. Быстрее всего отвечаем в Telegram.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:12px">
+    <div class="wrap grid g4">
+      <div class="ct"><span class="k">Telegram</span><span class="v"><a href="https://t.me/hayos_school" target="_blank" rel="noopener">@hayos_school</a></span><span class="sub">Ответ в среднем за 5 минут, ежедневно до 22:00</span><button class="copy" data-copy="@hayos_school">Скопировать</button></div>
+      <div class="ct"><span class="k">Телефон</span><span class="v"><a href="tel:+37410000000">+374 10 00-00-00</a></span><span class="sub">Звонки в рабочее время</span><button class="copy" data-copy="+374 10 00-00-00">Скопировать</button></div>
+      <div class="ct"><span class="k">Почта</span><span class="v">hello@hayos.school</span><span class="sub">Для компаний, документов и возвратов. Ответ за 1 рабочий день</span><button class="copy" data-copy="hello@hayos.school">Скопировать</button></div>
+      <div class="ct"><span class="k">Офис для консультаций</span><span class="v">Ереван, ул. Абовяна, 12</span><span class="sub">По предварительной записи</span><a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Yerevan+Abovyan+12" target="_blank" rel="noopener">Открыть на карте →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid g2" style="gap:32px">
+      <div>
+        <div class="head"><span class="eyebrow">Время работы</span><h2>Когда мы на связи</h2></div>
+        <div class="card" style="padding:6px 20px">
+          <table class="hours"><tbody>
+            <tr><td>Понедельник – пятница</td><td>10:00–20:00</td></tr>
+            <tr><td>Суббота</td><td>11:00–17:00</td></tr>
+            <tr><td>Воскресенье</td><td>только Telegram</td></tr>
+            <tr><td>Техподдержка стендов</td><td>круглосуточно</td></tr>
+          </tbody></table>
+        </div>
+        <p style="margin-top:10px;font-size:14px;color:var(--muted)">Время указано по Еревану (UTC+4).</p>
+      </div>
+      <div>
+        <div class="head"><span class="eyebrow">Как добраться</span><h2>Офис в центре Еревана</h2></div>
+        <ul class="checks">
+          <li><span>5 минут пешком от станции метро «Еритасардакан»</span></li>
+          <li><span>Вход со двора, 3 этаж, звонок «HayOS»</span></li>
+          <li><span>Приходите на консультацию только по записи, чтобы ментор был свободен</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">Частые вопросы</span><h2>Ответы до того, как вы спросите</h2></div>
+      <div class="faq">
+        <details><summary>Нужно ли уметь программировать?</summary><p>Нет. Основы Python и bash даём внутри курса, ровно в том объёме, который нужен для работы.</p></details>
+        <details><summary>Сколько времени нужно в неделю?</summary><p>6–8 часов: урок в записи и практические задания. Живые разборы проходят по субботам и записываются.</p></details>
+        <details><summary>Какой нужен компьютер?</summary><p>Любой ноутбук от 8 ГБ оперативной памяти. Все стенды работают в облаке, ставить тяжёлые программы не нужно.</p></details>
+        <details><summary>Учиться взлому законно?</summary><p>Да. Вы атакуете только учебные стенды школы. Отдельный урок посвящён закону и этике: что можно делать в работе, а что нельзя.</p></details>
+        <details><summary>Какой документ я получу?</summary><p>Удостоверение о повышении квалификации и сертификат школы с перечнем пройденных модулей и оценкой за диплом.</p></details>
+        <details><summary>Можно ли учиться, если я живу не в Армении?</summary><p>Да. Обучение полностью онлайн, офис нужен только для очных консультаций по желанию.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ФОРМА (на всех страницах) ============ -->
+<section class="signup" id="signup">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Бесплатный урок</span>
+      <h2 style="margin:14px 0 12px">Попробуйте первый урок, прежде чем платить</h2>
+      <p class="lead">Оставьте контакт, и мы откроем доступ к вводному занятию и стенду. Это ни к чему не обязывает.</p>
+      <ul><li>Разберёте настоящую уязвимость за 40 минут</li><li>Получите консультацию по выбору тарифа</li><li>Узнаете, какая скидка доступна вам сейчас</li></ul>
+    </div>
+    <form id="form" novalidate>
+      <div id="formFields" style="display:grid;gap:14px">
+        <label for="fName">Как вас зовут<input type="text" id="fName" autocomplete="given-name" placeholder="Например, Анна"></label>
+        <label for="fContact">Телефон или Telegram<input type="text" id="fContact" autocomplete="tel" placeholder="+374 … или @username"></label>
+        <label for="fPlan">Что вас интересует
+          <select id="fPlan">
+            <option>Пока не знаю, нужна консультация</option>
+            <option>Самостоятельный</option>
+            <option>С ментором</option>
+            <option>Pro + карьера</option>
+            <option>Обучение для компании</option>
+          </select>
+        </label>
+        <label class="check" for="fAgree"><input type="checkbox" id="fAgree" checked><span>Согласен на обработку персональных данных</span></label>
+        <div class="err" id="fErr" aria-live="polite"></div>
+        <button class="btn btn-primary btn-block" type="submit">Получить бесплатный урок</button>
+      </div>
+      <div class="done" id="formDone" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></svg>
+        <h3>Заявка принята</h3>
+        <p style="color:var(--muted)">Свяжемся в течение 15 минут в рабочее время и пришлём ссылку на урок.</p>
+        <span class="note">Демо: заявка никуда не отправляется, подключите обработчик формы</span>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#home"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6"/><circle cx="14" cy="14" r="3.2" fill="currentColor" stroke="none"/></svg>HayOS</a>
+        <p class="about">Онлайн-школа кибербезопасности. Учим защищать системы и находить уязвимости с 2020 года.</p>
+      </div>
+      <div><h4>Разделы</h4><ul><li><a href="#program">Программа</a></li><li><a href="#pricing">Цены</a></li><li><a href="#about">О школе</a></li><li><a href="#contacts">Контакты</a></li></ul></div>
+      <div><h4>Связь</h4><ul><li>@hayos_school</li><li>+374 10 00-00-00</li><li>hello@hayos.school</li></ul></div>
+      <div><h4>Адрес</h4><ul><li>Ереван, ул. Абовяна, 12</li><li>Пн–Пт 10:00–20:00</li><li>Сб 11:00–17:00</li></ul></div>
+    </div>
+    <div class="legal">
+      <div>© 2026 Онлайн-школа кибербезопасности HayOS. Лицензия на образовательную деятельность № 0000.</div>
+      <div>Демо-сайт: цифры, имена, отзывы и контакты указаны как примеры и подлежат замене.</div>
+    </div>
+  </div>
+</footer>
+
+<div class="mcta" id="mcta">
+  <a class="btn btn-primary" href="#signup">Бесплатный урок</a>
+  <a class="icon-btn" href="#contacts" aria-label="Контакты">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+  </a>
+</div>
+</div>
+
+<script>
+(function(){
+  var VIEWS=['home','program','pricing','about','contacts'];
+  var NAMES={home:'',program:'Программа',pricing:'Цены',about:'О школе',contacts:'Контакты'};
+  var current='home';
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- data rendered into several pages ---
+  var reviews=[
+    {i:'МА',n:'Мария А.',r:'Аналитик SOC',c:'бухгалтер → SOC L1',t:'Пришла из бухгалтерии, Linux видела впервые. Первые две недели было тяжело, но ментор разбирал каждую ошибку. На третьем месяце нашла первую SQL-инъекцию сама.'},
+    {i:'ГС',n:'Гор С.',r:'Инженер ИБ',c:'сисадмин → инженер ИБ',t:'Работал сисадмином и хотел расти. Модуль по Active Directory оказался самым полезным: через месяц после выпуска провёл аудит сети у себя на работе.'},
+    {i:'ИЛ',n:'Илья Л.',r:'Junior-пентестер',c:'QA → пентест',t:'Брал тариф с карьерой. Сделали резюме и прогнали три тренировочных собеседования. На четвёртом настоящем получил оффер.'},
+    {i:'АМ',n:'Ани М.',r:'AppSec-стажёр',c:'frontend → AppSec',t:'Была фронтенд-разработчиком. После модуля по вебу стала по-другому смотреть на свой код и нашла две уязвимости в проекте, который сама писала.'},
+    {i:'ТК',n:'Тимур К.',r:'Студент 3 курса',c:'студент → стажировка',t:'Учился параллельно с университетом. Нагрузка выше, чем обещали, но стенды доступны ночью, а записи разборов спасали перед сессией.'}
+  ];
+  function revHTML(x){return '<div class="review"><p>'+x.t+'</p><div class="who"><div class="ava">'+x.i+'</div><div><b>'+x.n+'</b><span>'+x.r+'</span><div class="change">'+x.c+'</div></div></div></div>'}
+  document.getElementById('revHome').innerHTML=reviews.slice(0,3).map(revHTML).join('');
+  document.getElementById('revAbout').innerHTML=reviews.map(revHTML).join('');
+
+  var mentors=[
+    {i:'АП',n:'Арман Петросян',r:'Пентестер, 9 лет в ИБ',b:'Проводит тесты на проникновение для банков и телекома. Ведёт модули по инфраструктуре и Active Directory.',c:['OSCP','OSEP']},
+    {i:'ОС',n:'Ольга Смирнова',r:'Руководитель SOC, 11 лет в ИБ',b:'Строила центры мониторинга с нуля. Ведёт модуль по защите и отвечает за дипломные проекты.',c:['GCIH','CISSP']},
+    {i:'ДК',n:'Дмитрий Ким',r:'AppSec-инженер, 7 лет',b:'Ищет уязвимости в веб-приложениях и учит разработчиков писать безопасный код. Ведёт модуль по вебу.',c:['OSWE','BSCP']},
+    {i:'ЛГ',n:'Лусине Григорян',r:'Карьерный консультант, 8 лет в IT-рекрутинге',b:'Помогает выпускникам составить резюме, готовит к собеседованиям и ведёт переговоры с партнёрами.',c:['HR','IT-рекрутинг']}
+  ];
+  document.getElementById('mentors').innerHTML=mentors.map(function(m){return '<div class="mentor"><div class="ava">'+m.i+'</div><div><b>'+m.n+'</b><span class="role">'+m.r+'</span><p class="bio">'+m.b+'</p><div class="certs">'+m.c.map(function(c){return '<span>'+c+'</span>'}).join('')+'</div></div></div>'}).join('');
+
+  // --- router: one page per hash, other anchors scroll inside the current page ---
+  function show(v,scroll){
+    current=v;
+    document.querySelectorAll('[data-view]').forEach(function(el){el.hidden=el.dataset.view!==v});
+    document.querySelectorAll('[data-nav]').forEach(function(a){if(a.dataset.nav===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    document.title=NAMES[v]?'HayOS · '+NAMES[v]:'HayOS';
+    if(scroll!==false) window.scrollTo(0,0);
+    updBar();
+  }
+  function route(){var h=location.hash.slice(1);show(VIEWS.indexOf(h)>-1?h:'home');}
+  window.addEventListener('hashchange',route);
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]'); if(!a) return;
+    var id=a.getAttribute('href').slice(1);
+    closeMenu();
+    if(VIEWS.indexOf(id)>-1){
+      if(id===current){e.preventDefault();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});}
+      return; // hashchange does the rest
+    }
+    var el=document.getElementById(id);
+    if(el){e.preventDefault();el.scrollIntoView({behavior:reduce?'auto':'smooth'});}
+  });
+
+  // --- mobile menu ---
+  var mb=document.getElementById('menuBtn'), sh=document.getElementById('sheet');
+  function closeMenu(){sh.hidden=true;mb.setAttribute('aria-expanded','false')}
+  mb.addEventListener('click',function(e){e.stopPropagation();var o=sh.hidden;sh.hidden=!o;mb.setAttribute('aria-expanded',String(o));});
+
+  // --- mini challenge (desktop) ---
+  var out=document.getElementById('chOut');
+  var hints={1:'Это объявление функции, здесь ничего опасного.',2:'Ввод здесь только читается. Опасность в том, куда он попадёт дальше.',3:'Пароль хешируется, тут всё в порядке.',5:'Эта строка выполняет запрос, но сам запрос собран раньше.'};
+  document.getElementById('code').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    document.querySelectorAll('#code button').forEach(function(x){x.classList.remove('hit','miss')});
+    var l=b.dataset.l;
+    if(l==='4'){b.classList.add('hit');out.innerHTML='<span class="ok">Верно, это SQL-инъекция (CWE-89).</span> Если ввести имя <b>admin\'--</b>, всё после кавычки станет комментарием и проверка пароля исчезнет. Такие задачи вы решаете с первой недели. <a href="#signup" style="color:#9fb0ff">Попробовать урок →</a>';}
+    else{b.classList.add('miss');out.innerHTML='<span class="no">Не эта строка.</span> '+hints[l];}
+  });
+
+  // --- audience tabs ---
+  var aud={
+    'new':{t:'Вы не из IT и начинаете с нуля',p:'Программировать уметь не нужно. Начнём с того, как устроены сети, Linux и сайты, и только потом перейдём к атакам и защите.',l:['Вводный модуль по сетям и Linux','Ментор разбирает каждое задание','Через 3 месяца — первые находки на учебных стендах'],r:'Подойдёт тариф <b>«С ментором»</b>'},
+    'it':{t:'Вы сисадмин, разработчик или тестировщик',p:'Основы засчитаем по входному тесту, и вы сразу перейдёте к атакам на веб, инфраструктуру и Active Directory.',l:['Зачёт модуля M1 по тесту','Курс короче на 1 месяц','Упор на пентест и безопасную разработку'],r:'Подойдёт тариф <b>«Pro + карьера»</b>'},
+    'team':{t:'Вы обучаете сотрудников компании',p:'Для групп от 5 человек собираем программу под ваш стек и риски. Финал — учебный аудит на копии вашей инфраструктуры.',l:['Закрытая группа и удобное расписание','Договор и оплата по счёту','Отчёт о прогрессе каждого сотрудника'],r:'Стоимость — <b>индивидуальный расчёт</b>'}
+  };
+  var tabs=document.querySelectorAll('[role=tab]'), panel=document.getElementById('aud');
+  var tmap={'t-new':'new','t-it':'it','t-team':'team'};
+  function showAud(id){
+    var d=aud[tmap[id]];
+    document.getElementById('audTitle').textContent=d.t;
+    document.getElementById('audText').textContent=d.p;
+    document.getElementById('audList').innerHTML=d.l.map(function(x){return '<li><span>'+x+'</span></li>'}).join('');
+    document.getElementById('audRec').innerHTML=d.r;
+    tabs.forEach(function(t){t.setAttribute('aria-selected',String(t.id===id))});
+    panel.setAttribute('aria-labelledby',id);
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){showAud(t.id)})});
+  showAud('t-new');
+
+  // --- pricing ---
+  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ')};
+  var mode='month';
+  function renderPrices(){
+    document.querySelectorAll('.price[data-full]').forEach(function(p){
+      var f=+p.dataset.full;
+      p.innerHTML= mode==='month' ? fmt(f/12)+' ₽<small> / мес</small>' : fmt(f*0.9)+' ₽';
+    });
+    document.querySelectorAll('.old[data-old]').forEach(function(o){
+      var f=+o.dataset.old;
+      o.textContent= mode==='month' ? 'Полная стоимость '+fmt(f)+' ₽, 12 платежей' : 'Вместо '+fmt(f)+' ₽';
+    });
+    document.getElementById('payMonth').setAttribute('aria-pressed',String(mode==='month'));
+    document.getElementById('payFull').setAttribute('aria-pressed',String(mode==='full'));
+  }
+  document.getElementById('payMonth').onclick=function(){mode='month';renderPrices()};
+  document.getElementById('payFull').onclick=function(){mode='full';renderPrices()};
+  renderPrices();
+  document.querySelectorAll('[data-plan]').forEach(function(a){a.addEventListener('click',function(){
+    var s=document.getElementById('fPlan');[].forEach.call(s.options,function(o,i){if(o.text===a.dataset.plan)s.selectedIndex=i});
+  })});
+
+  // --- form ---
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('fName').value.trim(), c=document.getElementById('fContact').value.trim(), err=document.getElementById('fErr');
+    if(!n){err.textContent='Укажите имя, чтобы мы знали, как к вам обращаться.';return}
+    if(c.replace(/\D/g,'').length<7 && !/^@?[a-zA-Z0-9_]{4,}$/.test(c)){err.textContent='Введите номер телефона или ник в Telegram, например @username.';return}
+    if(!document.getElementById('fAgree').checked){err.textContent='Отметьте согласие на обработку данных.';return}
+    err.textContent='';
+    document.getElementById('formFields').hidden=true;
+    document.getElementById('formDone').hidden=false;
+  });
+
+  // --- copy buttons ---
+  document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){
+    var t=b.dataset.copy, done=function(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Скопировать'},1600)};
+    try{navigator.clipboard.writeText(t).then(done,function(){sel(b)})}catch(_){sel(b)}
+  })});
+  function sel(b){var v=b.parentNode.querySelector('.v');if(!v)return;var r=document.createRange();r.selectNodeContents(v);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+
+  // --- sticky mobile CTA: hidden on the home hero and near the form ---
+  var bar=document.getElementById('mcta'), heroIn=true, formIn=false;
+  function updBar(){bar.classList.toggle('show',!(current==='home'&&heroIn)&&!formIn)}
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){heroIn=es[0].isIntersecting;updBar()}).observe(document.querySelector('.hero .cta-row'));
+    new IntersectionObserver(function(es){formIn=es[0].isIntersecting;updBar()},{threshold:.15}).observe(document.getElementById('signup'));
+  } else { heroIn=false; }
+
+  route();
+})();
+</script>
+
+</body>
+</html>
