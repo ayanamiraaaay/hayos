@@ -407,11 +407,11 @@ footer{padding-block:36px;font-size:.86rem;color:var(--muted);border-top:1px sol
 .hero::after{right:6%;top:300px;width:22%;height:70px;background:var(--tint)}
 .hero-visual{position:relative;min-width:0}
 .hero-photo{aspect-ratio:16/11}
-.hero-photo img{transform:scaleX(-1);object-position:30% 70%}
+.hero-photo img{object-position:40% 60%}
 .hero-visual .route{margin:-64px 12px 0;z-index:2}
 @media (min-width:960px){
   .hero-grid{grid-template-columns:1.05fr .95fr}
-  .hero-photo{aspect-ratio:1/1}
+  .hero-photo{aspect-ratio:4/3.7}
   .hero-visual{padding-bottom:36px}
   .hero-visual .route{position:absolute;left:-48px;bottom:0;width:344px;margin:0;padding:18px}
   .hero-visual .route .stop{padding-bottom:12px}
