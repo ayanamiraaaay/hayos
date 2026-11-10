@@ -84,6 +84,7 @@ LEAD = """<section class="leadband" id="lead">
       <h2>Получите точный расчёт за {{responseMinutes}} минут</h2>
       <p class="lead">Оставьте телефон или Telegram. Менеджер уточнит детали и пришлёт цену, которую зафиксируем в договоре.</p>
       <ul class="lb-points"><li>Расчёт бесплатный и ни к чему не обязывает</li><li>Ответим в мессенджере, если неудобно говорить</li><li>Принимаем партии от 30 кг</li></ul>
+      <div class="mgr"><img src="assets/img/manager.jpg" alt="{{managerName}}" width="64" height="64" loading="lazy" decoding="async"><div><b>{{managerName}}</b><span>Менеджер по работе с клиентами. Отвечу на заявку за {{responseMinutes}} минут.</span><span class="sample">Пример</span></div></div>
     </div>
     <form class="form" id="lead-form" data-lead-form="lead" novalidate>
       <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>

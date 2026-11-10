@@ -115,7 +115,7 @@ html.no-samples .sample{display:none}
 .stop .d{font-size:.8rem;font-weight:600;color:var(--navy-muted);white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums}
 .route-foot{margin-top:20px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--navy-muted) 30%,transparent);display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--navy-muted)}
 .route-foot b{color:var(--navy-ink)}
-.route-foot a{color:var(--navy-ink)}
+.route-foot a{color:var(--navy-ink);white-space:nowrap}
 
 /* stats */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:28px}
@@ -391,6 +391,71 @@ footer{padding-block:36px;font-size:.86rem;color:var(--muted);border-top:1px sol
 .chk li::before{content:counter(k);width:32px;height:32px;border-radius:9px;background:var(--blue);color:#FFFFFF;display:grid;place-items:center;font-weight:800;font-size:.88rem}
 .chk b{display:block;margin-bottom:2px}
 .chk span{color:var(--muted);font-size:.93rem}
+
+/* ---------- Слои: фото, карточки поверх фото, косые полосы как у стрелок логотипа ---------- */
+:root{--shadow:0 24px 50px -24px rgb(14 26 48/.38);--shadow-sm:0 10px 28px -14px rgb(14 26 48/.22)}
+.photo{position:relative;border-radius:24px;overflow:hidden;background:var(--tint);box-shadow:var(--shadow);max-width:100%}
+.photo img{display:block;width:100%;height:100%;object-fit:cover}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgb(14 26 48/0) 55%,rgb(14 26 48/.28));pointer-events:none}
+.cap{position:absolute;left:12px;bottom:12px;z-index:1;display:inline-flex;align-items:center;gap:8px;background:rgb(255 255 255/.94);color:var(--ink);border-radius:10px;padding:7px 11px;font-size:.8rem;font-weight:600;box-shadow:var(--shadow-sm);max-width:calc(100% - 24px)}
+.chip-float{position:absolute;top:14px;right:14px;z-index:1;display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border-radius:12px;padding:9px 12px;font-size:.8rem;font-weight:600;box-shadow:var(--shadow-sm)}
+
+/* герой: фото справа, маршрут лежит поверх фото, полосы в фоне */
+.hero{position:relative;isolation:isolate;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;z-index:-1;transform:skewX(-35deg);border-radius:28px;pointer-events:none}
+.hero::before{right:-12%;top:-140px;width:62%;height:420px;background:var(--blue-soft)}
+.hero::after{right:6%;top:300px;width:22%;height:70px;background:var(--tint)}
+.hero-visual{position:relative;min-width:0}
+.hero-photo{aspect-ratio:16/11}
+.hero-photo img{transform:scaleX(-1);object-position:30% 70%}
+.hero-visual .route{margin:-64px 12px 0;z-index:2}
+@media (min-width:960px){
+  .hero-grid{grid-template-columns:1.05fr .95fr}
+  .hero-photo{aspect-ratio:1/1}
+  .hero-visual{padding-bottom:36px}
+  .hero-visual .route{position:absolute;left:-48px;bottom:0;width:344px;margin:0;padding:18px}
+  .hero-visual .route .stop{padding-bottom:12px}
+}
+
+/* блок «склады»: большое фото + маленькое поверх угла */
+.wh-grid{display:grid;gap:36px;align-items:center}
+@media (min-width:960px){.wh-grid{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.duo{position:relative;padding-bottom:48px;min-width:0}
+.duo .big{aspect-ratio:16/10}
+.duo .small{position:absolute;right:0;bottom:0;width:48%;aspect-ratio:4/3;border:6px solid #FFFFFF;border-radius:20px}
+.wh-list{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:0}
+.wh-list li{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.wh-list li:last-child{border-bottom:0}
+.wh-list b{display:block}
+.wh-list span{color:var(--muted);font-size:.92rem}
+.wh-list .k{width:36px;height:36px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800;font-size:.8rem}
+
+/* баннер с фото и карточкой поверх (о компании, поставщики) */
+.banner{aspect-ratio:16/10}
+@media (min-width:760px){.banner{aspect-ratio:21/8}}
+.stats.float{position:relative;z-index:1;margin:-44px 12px 0;box-shadow:var(--shadow)}
+@media (min-width:760px){.stats.float{margin:-56px 40px 0}}
+.float-card{position:relative;z-index:2;margin:-56px 12px 0;box-shadow:var(--shadow)}
+@media (min-width:960px){.float-card{position:absolute;left:-48px;bottom:0;width:360px;margin:0}}
+
+/* менеджер в форме заявки */
+.mgr{display:flex;gap:14px;align-items:center;background:rgb(255 255 255/.12);border:1px solid rgb(255 255 255/.28);border-radius:16px;padding:12px 14px;margin-top:24px;max-width:440px}
+.mgr img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #FFFFFF;flex:none}
+.mgr b{display:block;font-size:1rem}
+.mgr span{display:block;font-size:.84rem;color:var(--navy-muted)}
+.leadband .sample{color:#FFFFFF;border-color:rgb(255 255 255/.45);margin-top:6px}
+.leadband{position:relative;isolation:isolate;overflow:hidden}
+.leadband::before,.leadband::after{content:"";position:absolute;z-index:-1;background:#FFFFFF;transform:skewX(-35deg);border-radius:20px;pointer-events:none}
+.leadband::before{right:-6%;top:-60px;width:38%;height:200px;opacity:.08}
+.leadband::after{left:-10%;bottom:-40px;width:30%;height:90px;opacity:.06}
+
+/* фото в карточках складов */
+.whc .thumb{aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:8px;background:var(--tint)}
+.whc .thumb img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* лёгкая глубина у карточек при наведении */
+.benefit,.card,.case,.review{transition:box-shadow .2s,transform .2s,border-color .2s}
+@media (hover:hover){.benefit:hover,.case:hover,.review:hover{box-shadow:var(--shadow-sm)}}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 @media (prefers-reduced-motion:no-preference){.stop.now .pin,.tline li.now .pin{animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 9px rgb(45 116 224/0)}}}
