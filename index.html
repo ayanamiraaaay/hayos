@@ -3,891 +3,787 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="HayOS — онлайн-школа кибербезопасности. 9 месяцев практики на учебных стендах с ментором, от основ сетей до пентеста и SOC.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='none' stroke='%232B44E8' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6'/%3E%3Ccircle cx='14' cy='14' r='3.2' fill='%232B44E8' stroke='none'/%3E%3C/svg%3E">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>HayOS</title>
+<meta name="description" content="Доставка грузов из Китая в Россию под ключ: авто, ж/д, авиа и контейнеры. Калькулятор стоимости, фиксированная цена в договоре, страховка груза.">
+<meta name="theme-color" content="#FFFFFF">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Чистый путь Карго</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: multi-page (hash views: home, program, pricing, about, contacts), mobile-first single column, 1120px container.
-   Shared: sticky header, signup block + footer under every page, sticky bottom CTA on phones.
-   Corner brackets = security perimeter; CVSS severity colors are the only loud colors besides cobalt. */
+/* Layout: mobile-first, 6 страниц через #хэш; цвета и шрифт взяты из логотипа «Чистый путь» (синий + тёмно-синий, жирный гротеск) */
 :root{
-  --bg:#F2F4F8; --surface:#FFFFFF; --ink:#0D1424; --muted:#5A6478; --line:#DCE1EA;
-  --accent:#2B44E8; --accent-ink:#FFFFFF; --accent-soft:#E6E9FD;
-  --crit:#C2303A; --crit-soft:#FBE4E5; --high:#B86A00; --high-soft:#FCEED8;
-  --ok:#1B7F4E; --ok-soft:#DFF2E7;
-  --code-bg:#0E1526; --code-ink:#D5DBEA; --code-muted:#69738E; --code-hl:#1C2647;
-  /* один шрифт на весь сайт */
-  --f-display:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-mono:var(--f-body);
-  --f-code:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace; /* только для фрагмента кода в мини-тесте */
-  --r:14px;
+  --bg:#FFFFFF; --surface:#FFFFFF; --tint:#F2F7FE; --ink:#0E1A30; --muted:#5B6B82; --line:#E1E8F2;
+  --blue:#2D74E0; --blue-ink:#FFFFFF; --blue-soft:#E6F0FD; --on-blue-muted:#D6E5FB;
+  --navy:#0E1A30; --navy-ink:#FFFFFF; --navy-muted:#97A8C0; --ok:#1F8A5B; color-scheme:light;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --r:14px; --gut-l:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0A0E18; --surface:#121A2B; --ink:#E7EBF4; --muted:#909AB0; --line:#232C42;
-  --accent:#7488FF; --accent-ink:#0A0E18; --accent-soft:#1B2348;
-  --crit:#FF6E76; --crit-soft:#36171B; --high:#F2B04E; --high-soft:#33240F;
-  --ok:#4FCB8C; --ok-soft:#12291E;
-  --code-bg:#060911; --code-ink:#D5DBEA; --code-muted:#5F6982; --code-hl:#18213F;
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0A0E18; --surface:#121A2B; --ink:#E7EBF4; --muted:#909AB0; --line:#232C42;
-  --accent:#7488FF; --accent-ink:#0A0E18; --accent-soft:#1B2348;
-  --crit:#FF6E76; --crit-soft:#36171B; --high:#F2B04E; --high-soft:#33240F;
-  --ok:#4FCB8C; --ok-soft:#12291E;
-  --code-bg:#060911; --code-ink:#D5DBEA; --code-muted:#5F6982; --code-hl:#18213F;
-  color-scheme:dark}
+/* Сайт намеренно только светлый: белая основа, голубые акценты, тёмно-синие мелкие детали */
+
+/* Голубые блоки: переопределяем переменные внутри, чтобы текст стал белым */
+.route,.case-top,.leadband{--navy:var(--blue);--navy-ink:#FFFFFF;--navy-muted:var(--on-blue-muted)}
+.tinted{background:var(--tint)}
 
 *{box-sizing:border-box}
-html{scroll-padding-top:84px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-body);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;padding-bottom:84px}
-@media (min-width:860px){body{padding-bottom:0}}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+@media (min-width:900px){body{padding-bottom:0}}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
 a{color:inherit}
-h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.15;letter-spacing:-.015em;margin:0;text-wrap:balance}
-h2{font-size:clamp(25px,6.2vw,38px)}
-h3{font-size:19px;font-weight:600}
+h1,h2,h3{font-weight:800;line-height:1.12;letter-spacing:-.025em;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.55rem,6vw,2.4rem)}
+h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;line-height:1.3}
 p{margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-section{padding-block:30px}
-@media (min-width:860px){section{padding-block:48px}}
-.eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
-.eyebrow::before{content:"";width:8px;height:8px;border:1.5px solid currentColor;border-radius:2px}
-.head{display:grid;gap:12px;margin-bottom:24px;max-width:700px}
-.lead{color:var(--muted);font-size:17px}
-.more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--accent);font-weight:600;text-decoration:none;min-height:44px}
-.more:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+section{padding-block:52px}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::before{content:"";width:20px;height:3px;border-radius:2px;background:var(--ink);transform:skewX(-35deg)}
+.lead{color:var(--muted);max-width:60ch;margin-top:12px}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.more{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--blue);text-decoration:none;margin-top:20px}
+.more::after{content:"→";transition:transform .15s}.more:hover::after{transform:translateX(3px)}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:12px;font:600 16px/1 var(--f-body);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,background .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:12px;border:0;font:600 1rem var(--font);text-decoration:none;cursor:pointer;transition:transform .15s,filter .15s,border-color .15s}
 .btn:active{transform:scale(.98)}
-.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary{background:var(--blue);color:var(--blue-ink)}
 .btn-primary:hover{filter:brightness(1.08)}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn-ghost:hover{border-color:var(--ink)}
 .btn-block{width:100%}
 
-/* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
-.top > .wrap{display:flex;align-items:center;gap:12px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 20px/1 var(--f-display);letter-spacing:.01em}
-.logo svg{width:28px;height:28px;color:var(--accent)}
-.nav{display:none;gap:4px;margin-left:auto}
-.nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;padding:10px 12px;border-radius:10px}
-.nav a:hover{color:var(--ink)}
-.nav a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
-.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
-.icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
-.icon-btn svg{width:20px;height:20px}
-.top-phone{display:none;font:500 15px var(--f-mono);text-decoration:none;white-space:nowrap}
-.top-cta{display:none;min-height:44px;padding:0 18px;font-size:15px}
-@media (min-width:900px){
-  .nav{display:flex}.top-actions{margin-left:20px}.menu-btn,.call-btn{display:none}
-  .top-cta{display:inline-flex}
-}
-@media (min-width:1080px){.top-phone{display:inline-flex}}
-.sheet{border-top:1px solid var(--line);background:var(--surface);box-shadow:0 18px 30px -12px rgba(13,20,36,.28);max-height:calc(100vh - 64px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain}
-.sheet .wrap{display:grid;gap:4px;padding-block:8px 20px}
-.sheet a.lnk{padding:14px 4px;text-decoration:none;font:500 18px var(--f-body);border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.sheet a.lnk[aria-current="page"]{color:var(--accent)}
-.sheet a.lnk span{font:400 13px var(--f-mono);color:var(--muted);align-self:center}
-.sheet .btn{margin-top:12px}
+/* logo */
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.15rem;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
+.logo svg{width:44px;height:27px;flex:none}
+.logo .l-blue{fill:var(--blue)} .logo .l-ink{fill:var(--ink)}
 
-/* page head (inner pages) */
-.phead{padding-block:32px 8px}
-@media (min-width:860px){.phead{padding-block:56px 16px}}
-.phead h1{font-size:clamp(29px,7.2vw,52px);margin:14px 0 12px}
-.phead .lead{max-width:640px}
-.crumbs{font:400 13px var(--f-mono);color:var(--muted);margin-bottom:6px}
-.crumbs a{text-decoration:none;color:var(--muted)}
-.crumbs a:hover{color:var(--accent)}
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.nav{display:none;gap:4px;font-weight:500;font-size:.93rem}
+.nav a{text-decoration:none;color:var(--muted);padding:8px 12px;border-radius:8px}
+.nav a:hover{color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--blue);background:var(--blue-soft)}
+.top-right{display:flex;align-items:center;gap:14px}
+.top-phone{display:none;text-decoration:none;text-align:right;line-height:1.15}
+.top-phone b{font-weight:700;display:block;white-space:nowrap;font-variant-numeric:tabular-nums}
+.top-phone span{font-size:.72rem;color:var(--muted)}
+.burger{width:46px;height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.burger svg{width:22px;height:22px}
+.menu{position:fixed;inset:calc(64px + env(safe-area-inset-top,0px)) 0 0;z-index:49;background:var(--surface);padding:12px var(--gut-r) calc(24px + env(safe-area-inset-bottom,0px)) var(--gut-l);overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.menu a.mi{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-size:1.25rem;font-weight:700;letter-spacing:-.02em}
+.menu a.mi[aria-current="page"]{color:var(--blue)}
+.menu a.mi::after{content:"→";color:var(--muted);font-weight:400}
+.menu .menu-foot{margin-top:24px;display:grid;gap:10px}
+.menu .menu-foot p{color:var(--muted);font-size:.9rem}
+@media (min-width:1000px){.nav{display:flex}.burger{display:none}.menu{display:none!important}}
+@media (min-width:640px){.top-phone{display:block}}
+
+/* page header (inner pages) */
+.phead{padding-block:36px 8px}
+.phead h1{font-size:clamp(1.9rem,8vw,3rem)}
+.crumbs{font-size:.82rem;color:var(--muted);margin-bottom:14px}
+.crumbs a{color:var(--muted)}
 
 /* hero */
-.hero{padding-block:32px 40px}
-.hero .wrap{display:grid;gap:32px}
-.hero h1{font-size:clamp(29px,7.6vw,58px);margin:16px 0 14px}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero .lead{max-width:540px}
-.cta-row{display:grid;gap:10px;margin-top:24px}
-@media (min-width:520px){.cta-row{display:flex;flex-wrap:wrap}}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:28px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.facts div{background:var(--surface);padding:12px 12px 14px;display:grid;gap:4px;min-width:0;align-content:start}
-.facts b{font:700 17px/1.1 var(--f-display)}
-.facts span{font-size:12.5px;color:var(--muted);line-height:1.3}
-@media (min-width:960px){.hero .wrap{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}.hero{padding-block:72px 64px}}
+.hero{padding-block:28px 40px}
+.hero-grid{display:grid;gap:28px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;font-size:.8rem;font-weight:500;margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
+.hero h1{font-size:clamp(2rem,9vw,3.6rem);letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lead{font-size:1.05rem;margin-top:16px}
+.hero-cta{display:grid;gap:10px;margin-top:24px}
+.hero-note{font-size:.82rem;color:var(--muted);margin-top:12px;display:flex;gap:6px;align-items:center}
+@media (min-width:560px){.hero-cta{grid-template-columns:auto auto;justify-content:start}}
+@media (min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr;align-items:center;gap:48px}.hero{padding-block:56px 64px}}
 
-/* challenge (desktop only) */
-.challenge{position:relative;background:var(--code-bg);color:var(--code-ink);border-radius:18px;padding:18px 0 0;min-width:0;display:none}
-@media (min-width:960px){.challenge{display:block}}
-.challenge::before,.challenge::after{content:"";position:absolute;width:22px;height:22px;border:2px solid var(--accent)}
-.challenge::before{top:-8px;left:-8px;border-right:0;border-bottom:0;border-top-left-radius:6px}
-.challenge::after{bottom:-8px;right:-8px;border-left:0;border-top:0;border-bottom-right-radius:6px}
-.ch-head{padding:0 18px 14px;display:grid;gap:6px}
-.ch-head .tag{font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--code-muted)}
-.ch-head p{font-weight:600;font-size:16px}
-.code{font:400 13px/1.55 var(--f-code);border-top:1px solid #ffffff14}
-.code button{display:grid;grid-template-columns:28px 1fr;gap:10px;width:100%;text-align:left;background:transparent;color:inherit;border:0;padding:7px 18px 7px 12px;font:inherit;cursor:pointer;border-left:3px solid transparent}
-.code button:hover{background:var(--code-hl)}
-.code .n{color:var(--code-muted);text-align:right;user-select:none}
-.code code{white-space:pre-wrap;word-break:break-word;min-width:0}
-.code .kw{color:#8FA2FF}.code .st{color:#F2C46B}.code .fn{color:#7DD8B5}
-.code button.hit{background:#12362a;border-left-color:#4FCB8C}
-.code button.miss{background:#1f2335;border-left-color:#F2C46B}
-.ch-out{padding:14px 18px 18px;font-size:14px;line-height:1.5;border-top:1px solid #ffffff14;color:var(--code-ink);min-height:74px}
-.ch-out b{color:#fff}
-.ch-out .ok{color:#7DE0AE}.ch-out .no{color:#F2C46B}
+/* route card */
+.route{background:var(--navy);color:var(--navy-ink);border-radius:20px;padding:22px 20px;position:relative;overflow:hidden}
+.route{box-shadow:0 18px 40px -18px color-mix(in srgb,var(--blue) 60%,transparent)}
+.route::after{content:"";position:absolute;right:-40px;top:-30px;width:180px;height:60px;background:#FFFFFF;opacity:.12;transform:skewX(-40deg);border-radius:6px;pointer-events:none}
+.route-head{display:flex;justify-content:space-between;gap:12px;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-muted);position:relative;z-index:1}
+.stops{list-style:none;margin:20px 0 0;padding:0}
+.stop{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:start;position:relative;padding-bottom:18px}
+.stop:last-child{padding-bottom:0}
+.stop::before{content:"";position:absolute;left:10px;top:18px;bottom:-2px;width:2px;background:var(--navy-muted);opacity:.35}
+.stop.on::before{background:#FFFFFF;opacity:1}
+.stop:last-child::before{display:none}
+.pin{width:22px;height:22px;border-radius:50%;border:2px solid var(--navy-muted);background:var(--navy);position:relative;z-index:1;margin-top:1px}
+.stop.on .pin{border-color:#FFFFFF;background:#FFFFFF}
+.stop.now .pin{border-color:#FFFFFF;background:var(--ink);box-shadow:0 0 0 5px rgb(255 255 255/.3)}
+.stop b{display:block;font-weight:600}
+.stop span{font-size:.82rem;color:var(--navy-muted)}
+.stop .d{font-size:.8rem;font-weight:600;color:var(--navy-muted);white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums}
+.route-foot{margin-top:20px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--navy-muted) 30%,transparent);display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--navy-muted)}
+.route-foot b{color:var(--navy-ink)}
 
-/* generic cards / grids */
-.grid{display:grid;gap:12px}
-@media (min-width:700px){.g2{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:860px){.g3{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:700px){.g4{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1000px){.g4{grid-template-columns:repeat(4,1fr)}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
-.card p{color:var(--muted);font-size:15px}
-.card .big{font:700 26px/1 var(--f-display);color:var(--accent)}
+/* stats */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:28px}
+.stat{background:var(--surface);padding:16px}
+.stat b{display:block;color:var(--blue);font-size:1.55rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.8rem;color:var(--muted)}
+@media (min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
 
-/* audience tabs */
-.tabs{display:flex;gap:6px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow-x:auto;scrollbar-width:none}
+/* cards: benefits / services */
+.grid2{display:grid;gap:12px;margin-top:28px}
+@media (min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;gap:12px;margin-top:28px}
+@media (min-width:760px){.grid3{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.grid3{grid-template-columns:repeat(3,1fr)}}
+.benefit{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.ico{width:44px;height:44px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+.ico svg{width:22px;height:22px}
+.benefit p{color:var(--muted);font-size:.93rem;margin-top:6px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
+.svc .ico{margin-bottom:4px}
+.svc p{color:var(--muted);font-size:.93rem}
+.svc .meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;font-size:.85rem}
+.svc .meta span{color:var(--muted)} .svc .meta b{font-variant-numeric:tabular-nums}
+
+/* segments */
+.tabs{display:flex;gap:8px;overflow-x:auto;margin:24px calc(var(--gut-r) * -1) 0 calc(var(--gut-l) * -1);padding:2px var(--gut-r) 6px var(--gut-l);scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:1 0 auto;min-height:44px;padding:0 16px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:600 15px var(--f-body);cursor:pointer;white-space:nowrap}
-.tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent)}
-.panel{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:16px}
-@media (min-width:860px){.panel{grid-template-columns:1.2fr 1fr;gap:40px;padding:32px}}
-.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.checks li{display:grid;grid-template-columns:22px 1fr;gap:8px}
-.checks li::before{content:"";width:14px;height:14px;margin-top:5px;border:2px solid var(--ok);border-radius:4px;background:linear-gradient(var(--ok),var(--ok)) center/6px 6px no-repeat}
-.rec{font:500 13px var(--f-mono);color:var(--muted);padding-top:14px;border-top:1px dashed var(--line)}
-.rec b{color:var(--ink);font-family:var(--f-body)}
+.tab{flex:none;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:500 .92rem var(--font);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--blue);color:var(--blue-ink);border-color:var(--blue)}
+.panel{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;display:grid;gap:16px}
+.panel h3{font-size:1.15rem}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.95rem}
+.checks li::before{content:"";width:20px;height:20px;border-radius:6px;background:var(--blue-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%232D74E0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;margin-top:2px}
+.panel .btn{justify-self:start}
 
-/* module teaser (home) */
-.mods{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-@media (min-width:700px){.mods{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1000px){.mods{grid-template-columns:repeat(3,1fr)}}
-.mods div{background:var(--surface);padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
-.mods .no{font:500 13px var(--f-mono);color:var(--accent)}
-.mods .t{font-weight:600;min-width:0}
-.mods .w{font:400 12.5px var(--f-mono);color:var(--muted);white-space:nowrap}
+/* navy bands */
+.band{background:var(--tint);color:var(--ink);--navy-ink:var(--ink);--navy-muted:var(--muted)}
+.band .lead{color:var(--muted)}
+.band .calc{border:1px solid var(--line)}
 
-/* program page */
-.program{display:grid;gap:10px}
-.mod{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
-.mod summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:18px;cursor:pointer}
-.mod summary::-webkit-details-marker{display:none}
-.mod .no{font:500 13px var(--f-mono);color:var(--accent);width:28px}
-.mod .t{font-weight:600;font-size:17px;min-width:0}
-.mod .t small{display:block;font:400 14px var(--f-body);color:var(--muted);margin-top:2px}
-.mod .w{font:400 12.5px var(--f-mono);color:var(--muted);white-space:nowrap}
-.mod[open]{border-color:var(--accent)}
-.mod .body{padding:0 18px 20px;display:grid;gap:18px}
-@media (min-width:860px){.mod .body{grid-template-columns:1.3fr 1fr;padding:0 18px 22px 60px;gap:32px}}
-.mod h4{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-.mod ul.topics{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips span{font:500 12px/1 var(--f-mono);padding:7px 9px;border:1px solid var(--line);border-radius:7px;color:var(--ink);background:var(--bg)}
-.outcome{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--ok-soft);font-size:14.5px}
-.outcome b{color:var(--ok)}
-.week{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-@media (min-width:860px){.week{grid-template-columns:repeat(4,1fr)}}
-.week li{background:var(--surface);padding:16px 18px;display:grid;gap:4px}
-.week .d{font:500 12px var(--f-mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
-.week b{font-size:16px}
-.week span{font-size:14.5px;color:var(--muted)}
-.streams{display:grid;gap:10px}
-@media (min-width:860px){.streams{grid-template-columns:repeat(3,1fr)}}
-.stream{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px}
-.stream.first{border:2px solid var(--accent)}
-.stream .date{font:700 22px/1.1 var(--f-display)}
-.stream .seats{font:500 13px var(--f-mono);color:var(--muted)}
-.stream.first .seats{color:var(--crit)}
+/* rates */
+.rates{margin-top:24px;overflow-x:auto;border-radius:var(--r);border:1px solid var(--line);background:var(--surface)}
+.rates table{width:100%;border-collapse:collapse;min-width:540px;font-size:.93rem}
+.rates th,.rates td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.rates tr:last-child td{border-bottom:0}
+.rates th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.rates td.n{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.scroll-hint{font-size:.75rem;color:var(--muted);margin-top:8px}
+@media (min-width:600px){.scroll-hint{display:none}}
 
-/* portfolio */
-.case{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
-.sev{display:flex;align-items:center;gap:10px}
-.score{font:700 28px/1 var(--f-display);font-variant-numeric:tabular-nums}
-.pill{font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:6px}
-.c-crit .score{color:var(--crit)}.c-crit .pill{background:var(--crit-soft);color:var(--crit)}
-.c-high .score{color:var(--high)}.c-high .pill{background:var(--high-soft);color:var(--high)}
-.c-med .score{color:var(--accent)}.c-med .pill{background:var(--accent-soft);color:var(--accent)}
-.case .meta{font:400 12.5px var(--f-mono);color:var(--muted)}
-.case p{color:var(--muted);font-size:15px}
+/* calculator */
+.calc{background:var(--surface);color:var(--ink);border-radius:20px;padding:22px 20px;display:grid;gap:18px}
+.calc-wrap{display:grid;gap:24px;margin-top:28px}
+@media (min-width:960px){.calc-wrap{grid-template-columns:1.2fr .8fr;align-items:start}}
+.calc-grid{display:grid;gap:14px}
+@media (min-width:640px){.calc-grid{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-size:.84rem;font-weight:600;margin-bottom:6px}
+.field .hint{font-weight:400;color:var(--muted)}
+input,select,textarea{width:100%;min-height:50px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:500 1rem var(--font);padding:0 14px}
+textarea{padding:12px 14px;min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:4px;border-radius:12px;border:1.5px solid var(--line);position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none;width:1px;min-height:0}
+.seg label{margin:0;text-align:center;padding:10px 4px;border-radius:9px;font-size:.9rem;font-weight:600;cursor:pointer;color:var(--muted)}
+.seg input:checked+label{background:var(--blue);color:var(--blue-ink)}
+.seg input:focus-visible+label{outline:3px solid var(--blue);outline-offset:2px}
+.result{border-radius:14px;background:var(--blue-soft);padding:18px;display:grid;gap:8px}
+.result .lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.result .sum{font-size:clamp(1.6rem,7.5vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.result .meta{font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px}
+.result .meta b{color:var(--ink);font-variant-numeric:tabular-nums}
+.factors{display:grid;gap:12px}
+.factors .item{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.factors .item:last-child{border-bottom:0}
+.factors .k{width:36px;height:36px;border-radius:10px;background:var(--blue);color:var(--blue-ink);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.factors p{color:var(--navy-muted);font-size:.9rem;margin-top:2px}
 
-/* pricing */
-.toggle{display:inline-flex;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
-.toggle button{min-height:40px;padding:0 14px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 14px var(--f-body);cursor:pointer}
-.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.plans{display:grid;gap:14px}
-@media (min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
-.plan{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;position:relative}
-.plan.best{border:2px solid var(--accent)}
-.plan .badge{position:absolute;top:-12px;left:20px;background:var(--accent);color:var(--accent-ink);font:600 12px/1 var(--f-body);padding:7px 10px;border-radius:8px}
-.plan .name{font:500 15px var(--f-mono);color:var(--muted)}
-.price{font:700 34px/1 var(--f-display);font-variant-numeric:tabular-nums}
-.price small{font:500 15px var(--f-body);color:var(--muted)}
-.old{font-size:13px;color:var(--muted);margin-top:4px}
-.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px;flex:1}
-.plan li{display:grid;grid-template-columns:18px 1fr;gap:8px}
-.plan li::before{content:"+";font:600 15px var(--f-mono);color:var(--accent)}
-.plan li.off{color:var(--muted)}
-.plan li.off::before{content:"–";color:var(--muted)}
-.teaser{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:14px}
-@media (min-width:860px){.teaser{grid-template-columns:1fr auto;align-items:center;padding:28px 32px}}
-.teaser .price{font-size:30px}
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
-th,td{padding:13px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-thead th{font:500 12px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
-thead th.hl{color:var(--accent)}
-tbody tr:last-child td{border-bottom:0}
-td:first-child{color:var(--muted);width:34%}
-td.y{color:var(--ok);font-weight:600}
-td.n{color:var(--muted)}
-td.hl{background:var(--accent-soft)}
-.pay{display:grid;gap:12px}
-@media (min-width:860px){.pay{grid-template-columns:repeat(3,1fr)}}
-.disc{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-@media (min-width:700px){.disc{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1000px){.disc{grid-template-columns:repeat(4,1fr)}}
-.disc div{background:var(--surface);padding:18px;display:grid;gap:4px;align-content:start}
-.disc b{font:700 26px/1 var(--f-display);color:var(--accent)}
-.disc span{font-size:14.5px;color:var(--muted)}
+/* reviews / docs */
+.review{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px}
+.review q{quotes:none;font-size:.95rem}
+.who{display:flex;gap:12px;align-items:center;margin-top:auto}
+.ava{width:42px;height:42px;border-radius:50%;background:var(--ink);color:#FFFFFF;display:grid;place-items:center;font-weight:700;font-size:.85rem;flex:none}
+.who b{display:block;font-size:.92rem}
+.who span{font-size:.8rem;color:var(--muted)}
+.sample{font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:3px 7px;align-self:flex-start}
+.docs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+@media (min-width:760px){.docs{grid-template-columns:repeat(4,1fr)}}
+.doc{border:1px solid var(--line);border-radius:12px;padding:14px;font-size:.88rem;background:var(--surface)}
+.doc b{display:block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
 
-/* trust */
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-@media (min-width:860px){.stats{grid-template-columns:repeat(4,1fr)}}
-.stats div{background:var(--surface);padding:18px;display:grid;gap:6px;align-content:start}
-.stats b{font:700 30px/1 var(--f-display);font-variant-numeric:tabular-nums}
-.stats span{font-size:13.5px;color:var(--muted);line-height:1.35}
-.mentor{display:grid;grid-template-columns:56px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;align-items:start}
-.ava{width:56px;height:56px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:700 19px var(--f-display)}
-.mentor b{display:block;font-size:16px}
-.mentor .role{font-size:14px;color:var(--muted);display:block}
-.mentor .bio{font-size:14px;margin-top:8px}
-.certs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.certs span{font:500 11px/1 var(--f-mono);padding:5px 7px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
-.reviews-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.demo{font:500 11px/1.3 var(--f-mono);color:var(--high);border:1px dashed var(--high);padding:5px 8px;border-radius:6px}
-.reviews{display:grid;grid-auto-flow:column;grid-auto-columns:86%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
-@media (min-width:860px){.reviews{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible}}
-.review{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px;align-content:space-between;min-width:0}
-.review p{font-size:15.5px}
-.who{display:flex;gap:12px;align-items:center}
-.who .ava{width:42px;height:42px;border-radius:50%;font-size:15px}
-.who b{display:block;font-size:15px}
-.who span{font-size:13px;color:var(--muted)}
-.change{font:500 12px var(--f-mono);color:var(--ok)}
-.docs{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.docs li{background:var(--surface);padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
-.docs li span{font-size:14px;color:var(--muted);display:block}
-.docs .tag{font:500 11px var(--f-mono);color:var(--muted);border:1px solid var(--line);padding:5px 7px;border-radius:6px}
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.timeline li{display:grid;grid-template-columns:64px 1fr;gap:16px;padding-bottom:18px;position:relative}
-.timeline li:not(:last-child)::after{content:"";position:absolute;left:31px;top:30px;bottom:0;border-left:1.5px dashed var(--line)}
-.timeline .y{font:700 17px/1 var(--f-display);color:var(--accent);background:var(--bg);padding:6px 0;text-align:center;border:1.5px solid var(--accent);border-radius:10px;height:max-content;z-index:1}
-.timeline b{display:block}
-.timeline p{color:var(--muted);font-size:15px}
+/* cases */
+.case{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.case-top{background:var(--navy);color:var(--navy-ink);padding:18px 20px;display:grid;gap:6px}
+.case-top .tag{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-muted)}
+.case dl{margin:0;padding:18px 20px;display:grid;gap:12px;font-size:.93rem}
+.case dt{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.case dd{margin:2px 0 0}
+.case-res{margin-top:auto;border-top:1px solid var(--line);padding:14px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.case-res b{display:block;font-size:1.1rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--blue)}
+.case-res span{font-size:.74rem;color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
 
 /* steps */
-.steps{display:grid;gap:0;counter-reset:s;list-style:none;margin:0;padding:0}
-@media (min-width:860px){.steps{grid-template-columns:repeat(4,1fr);gap:16px}}
-.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding-bottom:22px;position:relative}
-.steps li::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;border:1.5px solid var(--accent);color:var(--accent);display:grid;place-items:center;font:700 18px var(--f-display);background:var(--surface);z-index:1}
-.steps li:not(:last-child)::after{content:"";position:absolute;left:21px;top:44px;bottom:0;border-left:1.5px dashed var(--line)}
-@media (min-width:860px){.steps li{grid-template-columns:1fr;gap:14px}.steps li:not(:last-child)::after{left:44px;right:-16px;top:22px;bottom:auto;border-left:0;border-top:1.5px dashed var(--line)}}
-.steps b{display:block;font-size:17px;margin-bottom:4px;padding-top:10px}
-@media (min-width:860px){.steps b{padding-top:0}}
-.steps p{color:var(--muted);font-size:15px}
+.steps{list-style:none;padding:0;margin:28px 0 0;counter-reset:s}
+.step{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:16px;position:relative;padding-bottom:24px}
+.step:last-child{padding-bottom:0}
+.step::before{content:counter(s);width:48px;height:48px;border-radius:14px;background:var(--blue-soft);color:var(--blue);border:1.5px solid var(--blue-soft);display:grid;place-items:center;font-weight:800;font-size:1.1rem;position:relative;z-index:1}
+.step:first-child::before{background:var(--blue);color:var(--blue-ink);border-color:var(--blue)}
+.step::after{content:"";position:absolute;left:23px;top:50px;bottom:2px;width:2px;background:var(--line)}
+.step:last-child::after{display:none}
+.step p{color:var(--muted);font-size:.93rem;margin-top:4px}
+.step .when{font-size:.78rem;font-weight:700;color:var(--ink);margin-top:6px;display:block}
+@media (min-width:960px){
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .step{grid-template-columns:1fr;padding-bottom:0}
+  .step::after{left:56px;right:-14px;top:23px;bottom:auto;width:auto;height:2px}
+}
+.pay{margin-top:24px;display:grid;gap:10px}
+@media (min-width:760px){.pay{grid-template-columns:repeat(3,1fr)}}
+.pay div{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);font-size:.92rem}
+.pay b{display:block;margin-bottom:4px}
 
 /* guarantees */
-.g{border-radius:var(--r);padding:20px;background:var(--ok-soft);display:grid;gap:8px;align-content:start}
-.g b{font-size:17px}
-.g p{font-size:15px;color:var(--muted)}
-.g svg{width:24px;height:24px;color:var(--ok)}
+.g{border-left:3px solid var(--blue);background:var(--surface);border-radius:0 var(--r) var(--r) 0;padding:18px 20px}
+.g p{color:var(--muted);font-size:.92rem;margin-top:6px}
+
+/* about */
+.about-grid{display:grid;gap:24px;margin-top:8px}
+@media (min-width:900px){.about-grid{grid-template-columns:1fr 1fr;align-items:start;gap:48px}}
+.about-text p+p{margin-top:14px}
+.about-text p{color:var(--muted)}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.timeline li:last-child{border-bottom:0}
+.timeline b{color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
+.timeline span{font-size:.93rem}
 
 /* faq */
-.faq{display:grid;gap:0;max-width:820px}
+.faq{margin-top:24px;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{list-style:none;cursor:pointer;padding:16px 0;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:16.5px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 36px 18px 0;font-weight:600;position:relative}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:500 20px/1 var(--f-mono);color:var(--accent);transition:transform .2s;flex:none}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq p{padding:0 0 18px;color:var(--muted)}
+.faq summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:400;color:var(--blue);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq details p{padding:0 0 18px;color:var(--muted);max-width:65ch}
 
-/* contacts */
-.ct{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px;align-content:start;min-width:0}
-.ct .k{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.ct .v{font-size:17px;font-weight:600;user-select:all;overflow-wrap:anywhere}
-.ct .v a{text-decoration:none}
-.ct .sub{font-size:14px;color:var(--muted)}
-.copy{justify-self:start;margin-top:6px;background:none;border:1px solid var(--line);color:var(--muted);font:500 12.5px var(--f-mono);padding:8px 10px;border-radius:8px;cursor:pointer;min-height:36px}
-.maplink{color:var(--accent);font-size:14px;font-weight:500;margin-top:4px}
-.hours{width:100%;min-width:0;font-size:15px}
-.hours td{padding:10px 0}
-.hours td:first-child{width:auto}
-.hours td:last-child{text-align:right;font-family:var(--f-mono);font-size:14px;color:var(--ink)}
+/* contacts page */
+.ccards{display:grid;gap:12px;margin-top:28px}
+@media (min-width:760px){.ccards{grid-template-columns:repeat(3,1fr)}}
+.cc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start}
+.cc .lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cc .big{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-decoration:none}
+.cc p{color:var(--muted);font-size:.92rem}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.chipbtn{display:inline-flex;align-items:center;min-height:42px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font:600 .88rem var(--font);cursor:pointer}
+.chipbtn:hover{border-color:var(--blue);color:var(--blue)}
+.wh{display:grid;gap:12px;margin-top:12px}
+@media (min-width:760px){.wh{grid-template-columns:1fr 1fr}}
+.whc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.whc .mapph{height:120px;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px,var(--blue-soft);position:relative}
+.whc .mapph::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--blue);box-shadow:0 0 0 6px color-mix(in srgb,var(--blue) 25%,transparent)}
+.whc .in{padding:18px 20px;display:grid;gap:6px}
+.whc p{color:var(--muted);font-size:.92rem}
+.hours{margin-top:24px;overflow-x:auto}
+.hours table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:320px}
+.hours td{padding:12px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
 
-/* signup */
-.signup{background:var(--ink);color:var(--bg);margin-top:24px}
-.signup .wrap{display:grid;gap:28px;padding-block:24px}
-@media (min-width:900px){.signup .wrap{grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding-block:40px}}
-.signup .eyebrow{color:var(--bg);opacity:.75}
-.signup .lead{color:var(--bg);opacity:.72}
-.signup ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px;opacity:.85}
-.signup li::before{content:"→ ";font-family:var(--f-mono)}
-form{background:var(--surface);color:var(--ink);border-radius:18px;padding:22px;display:grid;gap:14px}
-label{display:grid;gap:6px;font-size:14px;font-weight:500}
-input[type=text],select{width:100%;min-height:52px;padding:0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:400 16px var(--f-body)}
-input:focus,select:focus{outline:none;border-color:var(--accent)}
-.err{color:var(--crit);font-size:13px}
-.check{display:grid;grid-template-columns:22px 1fr;gap:10px;font-weight:400;font-size:13px;color:var(--muted);align-items:start}
-.check input{width:20px;height:20px;margin:0;accent-color:var(--accent)}
-.done{text-align:center;display:grid;gap:10px;padding:16px 4px;justify-items:center}
-.done svg{width:48px;height:48px;color:var(--ok)}
-.done .note{font:400 12px var(--f-mono);color:var(--muted)}
+/* privacy */
+.policy{max-width:72ch;display:grid;gap:28px}
+.policy h2{font-size:1.25rem;letter-spacing:-.015em;margin-bottom:10px}
+.policy p,.policy li{color:var(--muted)}
+.policy p+p{margin-top:10px}
+.policy ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+.policy .upd{font-size:.85rem;color:var(--muted)}
+.policy .req{background:var(--tint);border-radius:var(--r);padding:18px 20px;font-size:.93rem;display:grid;gap:4px}
+.policy .req b{color:var(--ink)}
 
-/* footer */
-footer{padding-block:36px 28px;border-top:1px solid var(--line)}
-footer .cols{display:grid;gap:24px}
-@media (min-width:860px){footer .cols{grid-template-columns:1.4fr 1fr 1fr 1fr}}
-footer h4{font:500 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
-footer ul a{text-decoration:none}
-footer ul a:hover{color:var(--accent)}
-footer .about{color:var(--muted);font-size:14.5px;margin-top:10px;max-width:320px}
-footer .legal{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:6px;font-size:13px;color:var(--muted)}
+/* lead band (на каждой странице) */
+.leadband{background:var(--navy);color:var(--navy-ink)}
+.leadband .lead{color:var(--navy-muted)}
+.lb-grid{display:grid;gap:28px}
+@media (min-width:900px){.lb-grid{grid-template-columns:1fr 1fr;align-items:center}}
+.lb-points{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.lb-points li{display:flex;gap:10px;align-items:center;font-size:.95rem}
+.leadband .eyebrow{color:#FFFFFF}
+.leadband .eyebrow::before{background:var(--ink)}
+.lb-points li::before{content:"";width:16px;height:4px;border-radius:2px;background:var(--ink);transform:skewX(-35deg);flex:none}
+.form{background:var(--surface);color:var(--ink);border-radius:20px;padding:22px 20px;display:grid;gap:14px}
+.form small{color:var(--muted);font-size:.78rem}
+.ok-msg{background:color-mix(in srgb,var(--ok) 14%,var(--surface));border:1px solid var(--ok);border-radius:12px;padding:16px;font-size:.95rem}
+.err{color:#D9412B;font-size:.88rem}
 
-/* sticky mobile cta */
-.mcta{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px;transform:translateY(110%);transition:transform .25s}
-.mcta.show{transform:none}
-.mcta .btn{flex:1;min-height:50px}
-.mcta .icon-btn{width:50px;height:50px;flex:none}
-@media (min-width:860px){.mcta{display:none}}
+footer{padding-block:32px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
+.f-grid{display:grid;gap:24px}
+@media (min-width:760px){.f-grid{grid-template-columns:1.2fr 1fr 1fr}}
+.f-grid nav{display:grid;gap:8px}
+.f-grid nav a{text-decoration:none;color:var(--muted)} .f-grid nav a:hover{color:var(--ink)}
+.f-grid h4{margin:0 0 4px;font-size:.8rem;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+.f-bottom{margin-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+/* mobile action bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--surface);border-top:1px solid var(--line);padding:10px var(--gut-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut-l);display:grid;grid-template-columns:52px 52px 1fr;gap:8px;box-shadow:0 -6px 20px rgb(0 0 0/.06)}
+.mbar a.sq{display:grid;place-items:center;border-radius:12px;border:1.5px solid var(--line);color:var(--ink);min-height:52px}
+.mbar svg{width:22px;height:22px}
+@media (min-width:900px){.mbar{display:none}}
+
+.page{animation:fade .25s ease}
+@keyframes fade{from{opacity:.4;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:no-preference){.stop.now .pin{animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--blue) 0%,transparent)}}}
 </style>
 </head>
 <body>
-<div lang="ru">
+<!-- Логотип: знак из двух стрелок (синяя + тёмная), повторяет присланный логотип -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 60 36">
+      <path class="l-blue" d="M2 33 L13.5 15 Q16 11.5 20 11.5 L47.5 11.5 L42 6 L48 6 L59 16.5 L21 16.5 Q19 16.5 17.8 18.2 L8 33 Z"/>
+      <path class="l-ink" d="M14 33 L19.8 24.5 Q21.6 22 25 22 L59 22 L48 33 L42 33 L47.5 27 L26 27 Q24 27 23 28.3 L19.8 33 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#home" aria-label="HayOS, на главную">
-      <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6"/><circle cx="14" cy="14" r="3.2" fill="currentColor" stroke="none"/></svg>
-      HayOS
-    </a>
-    <nav class="nav" aria-label="Разделы сайта">
-      <a href="#home" data-nav="home">Главная</a>
-      <a href="#program" data-nav="program">Программа</a>
-      <a href="#pricing" data-nav="pricing">Цены</a>
-      <a href="#about" data-nav="about">О школе</a>
-      <a href="#contacts" data-nav="contacts">Контакты</a>
+    <a class="logo" href="#home" aria-label="Чистый путь — на главную"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a>
+    <nav class="nav" aria-label="Страницы">
+      <a href="#home">Главная</a><a href="#services">Услуги</a><a href="#prices">Цены</a><a href="#cases">Кейсы</a><a href="#about">О компании</a><a href="#contacts">Контакты</a>
     </nav>
-    <div class="top-actions">
-      <a class="top-phone" href="tel:+37410000000">+374 10 00-00-00</a>
-      <a class="btn btn-primary top-cta" href="#signup">Бесплатный урок</a>
-      <a class="icon-btn call-btn" href="#contacts" aria-label="Контакты">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-      </a>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="sheet" aria-label="Меню">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    <div class="top-right">
+      <a class="top-phone" href="tel:+79001234567"><b>+7 900 123-45-67</b><span>ежедневно 9:00–21:00 МСК</span></a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Открыть меню">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path id="burger-ico" d="M4 7h16M4 12h16M4 17h10"/></svg>
       </button>
-    </div>
-  </div>
-  <div class="sheet" id="sheet" hidden>
-    <div class="wrap">
-      <a class="lnk" href="#home" data-nav="home">Главная</a>
-      <a class="lnk" href="#program" data-nav="program">Программа <span>6 модулей</span></a>
-      <a class="lnk" href="#pricing" data-nav="pricing">Цены <span>от 7 417 ₽/мес</span></a>
-      <a class="lnk" href="#about" data-nav="about">О школе и отзывы</a>
-      <a class="lnk" href="#contacts" data-nav="contacts">Контакты и вопросы</a>
-      <a class="btn btn-primary btn-block" href="#signup">Записаться на бесплатный урок</a>
     </div>
   </div>
 </header>
 
+<nav class="menu" id="menu" aria-label="Меню" hidden>
+  <a class="mi" href="#home">Главная</a>
+  <a class="mi" href="#services">Услуги</a>
+  <a class="mi" href="#prices">Цены и калькулятор</a>
+  <a class="mi" href="#cases">Кейсы</a>
+  <a class="mi" href="#about">О компании</a>
+  <a class="mi" href="#contacts">Контакты</a>
+  <div class="menu-foot">
+    <a class="btn btn-primary btn-block" href="#lead-band" data-lead>Оставить заявку</a>
+    <a class="btn btn-ghost btn-block" href="tel:+79001234567">+7 900 123-45-67</a>
+    <p>Ежедневно 9:00–21:00 по Москве</p>
+  </div>
+</nav>
+
 <main>
+
 <!-- ============ ГЛАВНАЯ ============ -->
-<div class="view" data-view="home">
+<div class="page" data-page="home">
   <section class="hero">
-    <div class="wrap">
+    <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow">Онлайн-школа кибербезопасности</span>
-        <h1>Станьте специалистом по&nbsp;<em>кибербезопасности</em> за&nbsp;9&nbsp;месяцев</h1>
-        <p class="lead">Учим защищать сайты и сети и находить уязвимости раньше злоумышленников. 70% обучения — практика на учебных стендах с личным ментором.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#signup">Записаться на бесплатный урок</a>
-          <a class="btn btn-ghost" href="#pricing">Смотреть цены</a>
+        <span class="badge"><span class="dot"></span>Принимаем грузы на складах в Гуанчжоу и Иу</span>
+        <h1>Доставим товар из Китая в Россию <em>за&nbsp;18–35&nbsp;дней</em> под ключ</h1>
+        <p class="lead">Выкуп у поставщика, проверка качества, таможня и доставка до вашего склада или пункта Wildberries и Ozon. Цена фиксируется в договоре до отправки.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#prices">Рассчитать стоимость</a>
+          <a class="btn btn-ghost" href="#lead-band" data-lead>Получить консультацию</a>
         </div>
-        <div class="facts">
-          <div><b>1 декабря</b><span>старт ближайшего потока</span></div>
-          <div><b>6–8 ч</b><span>в неделю, можно совмещать с работой</span></div>
-          <div><b>0 ₽</b><span>первый урок и консультация</span></div>
-        </div>
+        <p class="hero-note"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2v4c0 3.3-2.3 6-5.5 7-3.2-1-5.5-3.7-5.5-7v-4L8 1.5z" stroke="currentColor" stroke-width="1.5"/></svg>Каждый груз застрахован на 100% стоимости</p>
       </div>
-      <div class="challenge" aria-label="Мини-задание">
-        <div class="ch-head">
-          <span class="tag">Задание 0 · 30 секунд</span>
-          <p>Найдите строку, через которую можно войти без пароля. Нажмите на неё.</p>
-        </div>
-        <div class="code" id="code">
-          <button data-l="1"><span class="n">1</span><code><span class="kw">def</span> <span class="fn">login</span>(request):</code></button>
-          <button data-l="2"><span class="n">2</span><code>    user = request.POST[<span class="st">"user"</span>]</code></button>
-          <button data-l="3"><span class="n">3</span><code>    pwd = <span class="fn">sha256</span>(request.POST[<span class="st">"pass"</span>])</code></button>
-          <button data-l="4"><span class="n">4</span><code>    q = <span class="st">f"SELECT * FROM users WHERE name='{user}' AND pass='{pwd}'"</span></code></button>
-          <button data-l="5"><span class="n">5</span><code>    <span class="kw">return</span> db.<span class="fn">execute</span>(q).<span class="fn">fetchone</span>() <span class="kw">is not None</span></code></button>
-        </div>
-        <div class="ch-out" id="chOut" aria-live="polite">Подсказка: следите, куда попадает то, что ввёл пользователь.</div>
+      <aside class="route" aria-label="Пример маршрута груза">
+        <div class="route-head"><span>Трек ЧП-48213</span><span>Авто · 1,2 т</span></div>
+        <ol class="stops">
+          <li class="stop on"><span class="pin"></span><div><b>Гуанчжоу</b><span>Приёмка, фотоотчёт, упаковка</span></div><span class="d">день 0</span></li>
+          <li class="stop on"><span class="pin"></span><div><b>Урумчи</b><span>Консолидация, погрузка</span></div><span class="d">день 6</span></li>
+          <li class="stop now"><span class="pin"></span><div><b>Хоргос → Казахстан</b><span>Пересечение границы</span></div><span class="d">день 11</span></li>
+          <li class="stop"><span class="pin"></span><div><b>Москва, склад</b><span>Выдача или доставка до двери</span></div><span class="d">день 19</span></li>
+        </ol>
+        <div class="route-foot"><span>Статусы приходят в Telegram</span><b>Цена зафиксирована</b></div>
+      </aside>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><b>8 лет</b><span>возим из Китая</span></div>
+        <div class="stat"><b>14 200+</b><span>доставленных партий</span></div>
+        <div class="stat"><b>0,3%</b><span>грузов с претензиями</span></div>
+        <div class="stat"><b>от 30 кг</b><span>минимальная партия</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tinted">
+    <div class="wrap">
+      <div class="eyebrow">Что вы получаете</div>
+      <h2>Вы занимаетесь продажами, остальное берём на себя</h2>
+      <div class="grid2">
+        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><h3>Цена не вырастет в пути</h3><p>Ставка фиксируется в договоре. Никаких доплат «за курс» или «за склад» после отправки.</p></div></article>
+        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><div><h3>Проверим товар до оплаты доставки</h3><p>Вскрываем коробки, считаем, снимаем фото и видео. Брак возвращаем поставщику ещё в Китае.</p></div></article>
+        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><h3>Видите груз на каждом этапе</h3><p>Персональный менеджер и статусы в Telegram: склад, граница, таможня, выдача.</p></div></article>
+        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M7 7h7a3 3 0 010 6H8a3 3 0 000 6h9"/></svg></span><div><h3>Оплата поставщику в юанях</h3><p>Переводим деньги на Alipay, WeChat или счёт фабрики. Комиссия от 1,5%.</p></div></article>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Что вы получите</span><h2>Профессию, портфолио и помощь с первой работой</h2></div>
-      <div class="grid g4">
-        <div class="card"><span class="big">от 150 000 ₽</span><h3>Зарплата junior-специалиста</h3><p>Столько в среднем предлагают начинающим пентестерам и аналитикам SOC по данным вакансий.</p></div>
-        <div class="card"><span class="big">6 отчётов</span><h3>Портфолио для работодателя</h3><p>Каждый модуль заканчивается отчётом о найденных уязвимостях в формате реального аудита.</p></div>
-        <div class="card"><span class="big">24 ч</span><h3>Ментор отвечает в течение суток</h3><p>Разбирает ваши решения, а не присылает шаблон. Вы не застрянете на одной задаче на неделю.</p></div>
-        <div class="card"><span class="big">CEH · eJPT</span><h3>Готовность к сертификации</h3><p>Программа покрывает темы международных экзаменов. Пробный экзамен входит в курс.</p></div>
+      <div class="eyebrow">Для кого</div>
+      <h2>Выберите, кто вы, и посмотрите, чем поможем</h2>
+      <div class="tabs" role="tablist" aria-label="Тип клиента">
+        <button class="tab" role="tab" id="t-mp" aria-selected="true" aria-controls="p-mp">Селлер маркетплейса</button>
+        <button class="tab" role="tab" id="t-opt" aria-selected="false" aria-controls="p-opt">Оптовая торговля</button>
+        <button class="tab" role="tab" id="t-prod" aria-selected="false" aria-controls="p-prod">Производство</button>
+        <button class="tab" role="tab" id="t-new" aria-selected="false" aria-controls="p-new">Первая закупка</button>
+      </div>
+      <div class="panel" role="tabpanel" id="p-mp" aria-labelledby="t-mp">
+        <h3>Поставки на Wildberries, Ozon и Яндекс Маркет</h3>
+        <ul class="checks"><li>Маркировка «Честный знак» и этикетки маркетплейса ещё в Китае</li><li>Доставка сразу на склады Коледино, Электросталь, Казань</li><li>Белое оформление с документами для маркетплейса</li></ul>
+        <a class="btn btn-primary" href="#lead-band" data-lead>Рассчитать поставку</a>
+      </div>
+      <div class="panel" role="tabpanel" id="p-opt" aria-labelledby="t-opt" hidden>
+        <h3>Регулярные партии от 1 тонны</h3>
+        <ul class="checks"><li>Сниженная ставка при поставках от 2 раз в месяц</li><li>Консолидация товаров от разных фабрик в одну отправку</li><li>Отсрочка оплаты доставки для постоянных клиентов</li></ul>
+        <a class="btn btn-primary" href="#lead-band" data-lead>Обсудить условия для опта</a>
+      </div>
+      <div class="panel" role="tabpanel" id="p-prod" aria-labelledby="t-prod" hidden>
+        <h3>Оборудование, сырьё, комплектующие</h3>
+        <ul class="checks"><li>Подбор кода ТН ВЭД и расчёт пошлин до закупки</li><li>Сертификаты и декларации соответствия ЕАЭС</li><li>Негабарит и ж/д контейнеры 20 и 40 футов</li></ul>
+        <a class="btn btn-primary" href="#lead-band" data-lead>Отправить спецификацию</a>
+      </div>
+      <div class="panel" role="tabpanel" id="p-new" aria-labelledby="t-new" hidden>
+        <h3>Первый раз закупаете в Китае</h3>
+        <ul class="checks"><li>Проверим фабрику перед оплатой: лицензия, отзывы, видеозвонок</li><li>Выкупим товар с 1688 и Taobao, если нет прямого контакта</li><li>Принимаем небольшие партии от 30 кг</li></ul>
+        <a class="btn btn-primary" href="#lead-band" data-lead>Получить консультацию</a>
       </div>
     </div>
   </section>
 
-  <section>
+  <section style="padding-top:0">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Для кого</span><h2>Выберите, кто вы, и посмотрите свой маршрут</h2></div>
-      <div class="tabs" role="tablist" aria-label="Кто вы">
-        <button role="tab" id="t-new" aria-selected="true" aria-controls="aud">Начинаю с нуля</button>
-        <button role="tab" id="t-it" aria-selected="false" aria-controls="aud">Уже работаю в IT</button>
-        <button role="tab" id="t-team" aria-selected="false" aria-controls="aud">Обучаю команду</button>
-      </div>
-      <div class="panel" id="aud" role="tabpanel" aria-labelledby="t-new">
-        <div style="display:grid;gap:10px"><h3 id="audTitle"></h3><p class="lead" id="audText" style="font-size:16px"></p></div>
-        <div style="display:grid;gap:14px"><ul class="checks" id="audList"></ul><div class="rec" id="audRec"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Программа</span><h2>6 модулей: от основ сетей до дипломного пентеста</h2></div>
-      <div class="mods">
-        <div><span class="no">M1</span><span class="t">Основы: сети, Linux, Windows</span><span class="w">4 нед</span></div>
-        <div><span class="no">M2</span><span class="t">Безопасность веб-приложений</span><span class="w">6 нед</span></div>
-        <div><span class="no">M3</span><span class="t">Атаки на инфраструктуру</span><span class="w">6 нед</span></div>
-        <div><span class="no">M4</span><span class="t">Active Directory</span><span class="w">5 нед</span></div>
-        <div><span class="no">M5</span><span class="t">Защита и мониторинг (SOC)</span><span class="w">7 нед</span></div>
-        <div><span class="no">M6</span><span class="t">Дипломный проект</span><span class="w">8 нед</span></div>
-      </div>
-      <a class="more" href="#program">Подробная программа, инструменты и расписание →</a>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Что будет в портфолио</span><h2>Так выглядят находки студентов в первом полугодии</h2><p class="lead">Оценка по шкале CVSS, как в настоящих отчётах. Все уязвимости найдены на учебных стендах школы.</p></div>
-      <div class="grid g3">
-        <article class="case c-crit"><div class="sev"><span class="score">9.8</span><span class="pill">Critical</span></div><h3>SQL-инъекция в форме входа</h3><span class="meta">CWE-89 · стенд «Интернет-магазин» · 2-й месяц</span><p>Обход авторизации и выгрузка таблицы пользователей. В отчёте шаги воспроизведения и исправленный запрос.</p></article>
-        <article class="case c-high"><div class="sev"><span class="score">8.1</span><span class="pill">High</span></div><h3>IDOR в API заказов</h3><span class="meta">CWE-639 · стенд «Служба доставки» · 3-й месяц</span><p>Подмена номера заказа в запросе открывала чужие адреса и телефоны. Предложена проверка владельца на сервере.</p></article>
-        <article class="case c-med"><div class="sev"><span class="score">5.4</span><span class="pill">Medium</span></div><h3>Хранимый XSS в комментариях</h3><span class="meta">CWE-79 · стенд «Блог» · 3-й месяц</span><p>Скрипт в комментарии похищал сессию модератора. Исправление: экранирование вывода и политика CSP.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="teaser">
-        <div style="display:grid;gap:8px">
-          <span class="eyebrow">Стоимость</span>
-          <div class="price">от 7 417 ₽<small> / мес</small></div>
-          <p class="lead" style="font-size:16px">Рассрочка на 12 месяцев без переплаты. Три тарифа, возврат 100% в первые 14 дней.</p>
-        </div>
-        <a class="btn btn-primary" href="#pricing">Сравнить тарифы</a>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="reviews-head"><div class="head" style="margin:0"><span class="eyebrow">Отзывы</span><h2>Что говорят выпускники</h2></div><span class="demo">Пример: замените на реальные отзывы</span></div>
-      <div class="reviews" id="revHome"></div>
-      <a class="more" href="#about">Все отзывы и преподаватели →</a>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Как начать</span><h2>От заявки до первого урока — 4 шага</h2></div>
-      <ol class="steps">
-        <li><div><b>Оставьте заявку</b><p>Займёт минуту. Перезвоним или напишем в Telegram в течение 15 минут в рабочее время.</p></div></li>
-        <li><div><b>Бесплатный урок</b><p>Пройдёте вводное занятие и короткий тест. Поможем выбрать тариф и ответим на вопросы.</p></div></li>
-        <li><div><b>Договор и оплата</b><p>Онлайн, за 5 минут. Картой, по счёту для компаний или в рассрочку без переплаты.</p></div></li>
-        <li><div><b>Старт обучения</b><p>В день оплаты получите доступ к платформе, стендам и чату своей группы.</p></div></li>
-      </ol>
+      <div class="eyebrow">Кейсы</div>
+      <h2>Последние доставки</h2>
+      <div class="grid2" id="home-cases"></div>
+      <a class="more" href="#cases">Все кейсы</a>
     </div>
   </section>
 </div>
 
-<!-- ============ ПРОГРАММА ============ -->
-<div class="view" data-view="program" hidden>
-  <section class="phead">
+<!-- ============ УСЛУГИ ============ -->
+<div class="page" data-page="services" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / Услуги</div>
+    <h1>Услуги</h1>
+    <p class="lead">Возьмём на себя весь путь товара: от поиска фабрики до выдачи на складе в России. Можно заказать всё сразу или отдельную услугу.</p>
+  </div>
+  <section style="padding-top:12px">
     <div class="wrap">
-      <div class="crumbs"><a href="#home">Главная</a> / Программа</div>
-      <span class="eyebrow">Программа курса</span>
-      <h1>Специалист по кибербезопасности</h1>
-      <p class="lead">36 недель, 6 модулей, 210 часов практики. Сначала учитесь атаковать, чтобы понимать, от чего защищать, а затем строите защиту и мониторинг.</p>
-      <div class="facts">
-        <div><b>9 мес</b><span>длительность</span></div>
-        <div><b>6–8 ч</b><span>нагрузка в неделю</span></div>
-        <div><b>Онлайн</b><span>стенды в облаке</span></div>
+      <div class="eyebrow">Доставка</div>
+      <h2>Способы перевозки</h2>
+      <div class="grid2">
+        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 10h4l4 4v2h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><h3>Автодоставка</h3><p>Самый популярный вариант для сборных грузов. Через Казахстан или Забайкальск.</p><div class="meta"><span>18–25 дней</span><b>от 2,4 $/кг</b></div></article>
+        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 21l2-4M16 21l-2-4"/></svg></span><h3>Железная дорога</h3><p>Для тяжёлых и крупных партий. Сборный груз или контейнер целиком.</p><div class="meta"><span>25–35 дней</span><b>от 1,9 $/кг</b></div></article>
+        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M10 14l-7-2 1-2 7 1 4-7h2l-2 8 5 1 1-2h1l-1 4 1 4h-1l-1-2-5 1 2 8h-2l-4-7z"/></svg></span><h3>Авиадоставка</h3><p>Когда нужно срочно: образцы, электроника, дорогой товар.</p><div class="meta"><span>7–12 дней</span><b>от 6,5 $/кг</b></div></article>
+        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="1"/><path d="M6 9v6M10 9v6M14 9v6M18 9v6"/></svg></span><h3>Контейнер 20′ / 40′</h3><p>Полная загрузка от 10 тонн. Ж/д или море до Владивостока и далее.</p><div class="meta"><span>35–45 дней</span><b>от $4 900</b></div></article>
       </div>
     </div>
   </section>
-
-  <section>
+  <section class="tinted">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Модули</span><h2>Что вы будете изучать</h2><p class="lead">Нажмите на модуль, чтобы увидеть темы, инструменты и итоговую работу.</p></div>
-      <div class="program">
-        <details class="mod" open><summary><span class="no">M1</span><span class="t">Основы: сети, Linux, Windows<small>Фундамент, без которого не понять атаки</small></span><span class="w">4 нед</span></summary>
-          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Модель TCP/IP, DNS, HTTP и HTTPS</li><li>Командная строка Linux: файлы, права, процессы</li><li>Windows: пользователи, службы, реестр</li><li>Python и bash для автоматизации задач</li></ul></div>
-          <div><h4>Инструменты</h4><div class="chips"><span>Kali Linux</span><span>Wireshark</span><span>Python</span><span>VirtualBox</span></div><div class="outcome"><b>Итог:</b> разбор сетевого дампа и собственный сканер портов на Python.</div></div></div></details>
-        <details class="mod"><summary><span class="no">M2</span><span class="t">Безопасность веб-приложений<small>Самый востребованный навык на рынке</small></span><span class="w">6 нед</span></summary>
-          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>OWASP Top 10 и как его применять</li><li>SQL-инъекции, XSS, CSRF, IDOR, SSRF</li><li>Аутентификация, сессии и JWT</li><li>Безопасная разработка: как исправлять найденное</li></ul></div>
-          <div><h4>Инструменты</h4><div class="chips"><span>Burp Suite</span><span>sqlmap</span><span>ffuf</span><span>OWASP ZAP</span></div><div class="outcome"><b>Итог:</b> отчёт по аудиту стенда «Интернет-магазин».</div></div></div></details>
-        <details class="mod"><summary><span class="no">M3</span><span class="t">Атаки на инфраструктуру<small>Серверы, сервисы и повышение привилегий</small></span><span class="w">6 нед</span></summary>
-          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Разведка и сбор информации (OSINT)</li><li>Сканирование сети и поиск сервисов</li><li>Эксплуатация уязвимых сервисов</li><li>Повышение привилегий в Linux и Windows</li></ul></div>
-          <div><h4>Инструменты</h4><div class="chips"><span>Nmap</span><span>Metasploit</span><span>LinPEAS</span><span>Hydra</span></div><div class="outcome"><b>Итог:</b> захват 5 машин учебной сети и технический отчёт.</div></div></div></details>
-        <details class="mod"><summary><span class="no">M4</span><span class="t">Active Directory<small>Как атакуют и защищают корпоративные сети</small></span><span class="w">5 нед</span></summary>
-          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Устройство домена и протокол Kerberos</li><li>Kerberoasting и AS-REP Roasting</li><li>Pass-the-Hash и перемещение по сети</li><li>Защита: разделение привилегий, LAPS</li></ul></div>
-          <div><h4>Инструменты</h4><div class="chips"><span>BloodHound</span><span>Impacket</span><span>Mimikatz</span><span>PowerView</span></div><div class="outcome"><b>Итог:</b> компрометация учебного домена и план защиты.</div></div></div></details>
-        <details class="mod"><summary><span class="no">M5</span><span class="t">Защита и мониторинг (SOC)<small>Обнаружение атак и реагирование</small></span><span class="w">7 нед</span></summary>
-          <div class="body"><div><h4>Темы</h4><ul class="topics"><li>Журналы событий и Sysmon</li><li>SIEM и правила корреляции</li><li>Реагирование на инциденты по шагам</li><li>Поиск угроз (threat hunting)</li></ul></div>
-          <div><h4>Инструменты</h4><div class="chips"><span>Wazuh</span><span>ELK Stack</span><span>Sigma</span><span>Sysmon</span></div><div class="outcome"><b>Итог:</b> расследование атаки из прошлых модулей и набор правил обнаружения.</div></div></div></details>
-        <details class="mod"><summary><span class="no">M6</span><span class="t">Дипломный проект<small>Полный пентест и защита перед экспертом</small></span><span class="w">8 нед</span></summary>
-          <div class="body"><div><h4>Этапы</h4><ul class="topics"><li>Согласование рамок тестирования, как с реальным заказчиком</li><li>Полное тестирование сети вымышленной компании</li><li>Отчёт для руководства и для технических специалистов</li><li>Защита работы перед экспертом из индустрии</li></ul></div>
-          <div><h4>Что получите</h4><div class="chips"><span>Дипломный отчёт</span><span>Удостоверение</span><span>Сертификат</span></div><div class="outcome"><b>Итог:</b> главная работа в портфолио, которую можно показать на собеседовании.</div></div></div></details>
+      <div class="eyebrow">Сопровождение</div>
+      <h2>Дополнительные услуги</h2>
+      <div class="grid3">
+        <article class="svc"><h3>Поиск и проверка фабрики</h3><p>Проверим лицензию, проведём видеозвонок с производства, запросим образцы.</p><div class="meta"><span>Срок</span><b>2–5 дней</b></div></article>
+        <article class="svc"><h3>Выкуп и оплата поставщику</h3><p>Оплачиваем в юанях на Alipay, WeChat или счёт фабрики. Выкупаем с 1688 и Taobao.</p><div class="meta"><span>Комиссия</span><b>от 1,5%</b></div></article>
+        <article class="svc"><h3>Проверка качества</h3><p>Вскрытие, пересчёт, фото и видео каждой позиции. Отчёт в день приёмки.</p><div class="meta"><span>Стоимость</span><b>бесплатно</b></div></article>
+        <article class="svc"><h3>Маркировка для маркетплейсов</h3><p>«Честный знак», этикетки WB и Ozon, упаковка по требованиям складов.</p><div class="meta"><span>Стоимость</span><b>от 15 ₽/шт</b></div></article>
+        <article class="svc"><h3>Белое таможенное оформление</h3><p>Контракт, декларация, сертификаты ЕАЭС. НДС к вычету.</p><div class="meta"><span>Подходит</span><b>юрлица и ИП</b></div></article>
+        <article class="svc"><h3>Доставка до двери</h3><p>От склада в Москве до вашего адреса или через транспортную компанию по РФ.</p><div class="meta"><span>По Москве</span><b>от 2 500 ₽</b></div></article>
       </div>
     </div>
   </section>
-
   <section>
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Формат</span><h2>Как проходит обычная неделя</h2></div>
-      <ul class="week">
-        <li><span class="d">Понедельник</span><b>Урок в записи</b><span>1–1,5 часа теории в удобное время</span></li>
-        <li><span class="d">Вт–Чт</span><b>Практика на стенде</b><span>3–5 часов заданий в облачной лаборатории</span></li>
-        <li><span class="d">В течение 24 ч</span><b>Проверка ментором</b><span>Подробный разбор вашего решения</span></li>
-        <li><span class="d">Суббота, 12:00</span><b>Живой разбор</b><span>Вопросы и сложные задачи недели, есть запись</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Ближайшие потоки</span><h2>Когда можно начать</h2></div>
-      <div class="streams">
-        <div class="stream first"><span class="date">1 декабря 2026</span><span class="seats">Осталось 12 мест из 40</span><a class="btn btn-primary btn-block" href="#signup" style="margin-top:8px">Занять место</a></div>
-        <div class="stream"><span class="date">9 февраля 2027</span><span class="seats">Набор открыт</span><a class="btn btn-ghost btn-block" href="#signup" style="margin-top:8px">Записаться</a></div>
-        <div class="stream"><span class="date">6 апреля 2027</span><span class="seats">Предзапись</span><a class="btn btn-ghost btn-block" href="#signup" style="margin-top:8px">Записаться</a></div>
+      <div class="eyebrow">Как мы работаем</div>
+      <h2>От заявки до вашего склада за 5 шагов</h2>
+      <ol class="steps">
+        <li class="step"><div><h3>Заявка</h3><p>Оставляете контакты или пишете в Telegram.</p><span class="when">15 минут</span></div></li>
+        <li class="step"><div><h3>Расчёт и договор</h3><p>Считаем точную цену и фиксируем её в договоре.</p><span class="when">1 день</span></div></li>
+        <li class="step"><div><h3>Приёмка в Китае</h3><p>Принимаем товар, проверяем и присылаем фотоотчёт.</p><span class="when">1–3 дня</span></div></li>
+        <li class="step"><div><h3>Доставка и таможня</h3><p>Везём выбранным способом, оформляем документы.</p><span class="when">7–35 дней</span></div></li>
+        <li class="step"><div><h3>Получение</h3><p>Забираете на складе в Москве или получаете у двери.</p><span class="when">день прибытия</span></div></li>
+      </ol>
+      <div class="pay">
+        <div><b>Оплата</b>Безнал для юрлиц и ИП, перевод на карту для частных лиц.</div>
+        <div><b>Когда платить</b>Доставку оплачиваете после взвешивания груза на складе в Китае.</div>
+        <div><b>Получение</b>Самовывоз в Москве бесплатно 7 дней, доставка по РФ через ТК.</div>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap grid g2" style="gap:24px">
-      <div><div class="head"><span class="eyebrow">Что нужно для старта</span><h2>Требования</h2></div>
-        <ul class="checks"><li><span>Ноутбук или компьютер от 8 ГБ оперативной памяти, любая ОС</span></li><li><span>Интернет от 10 Мбит/с: все стенды работают в облаке</span></li><li><span>6–8 часов в неделю</span></li><li><span>Английский на уровне чтения документации. Если сложно, дадим глоссарий терминов</span></li></ul></div>
-      <div><div class="head"><span class="eyebrow">После выпуска</span><h2>Документы и портфолио</h2></div>
-        <ul class="checks"><li><span>Удостоверение о повышении квалификации</span></li><li><span>Сертификат HayOS с перечнем модулей и оценкой за диплом</span></li><li><span>6 отчётов о пентесте и расследовании в портфолио</span></li><li><span>Доступ к материалам курса ещё на 6 месяцев</span></li></ul></div>
     </div>
   </section>
 </div>
 
 <!-- ============ ЦЕНЫ ============ -->
-<div class="view" data-view="pricing" hidden>
-  <section class="phead">
-    <div class="wrap">
-      <div class="crumbs"><a href="#home">Главная</a> / Цены</div>
-      <span class="eyebrow">Цены и оплата</span>
-      <h1>Тарифы без скрытых платежей</h1>
-      <p class="lead">Цена фиксируется в договоре и не меняется до конца обучения. Стенды, материалы и сертификат уже включены.</p>
-    </div>
-  </section>
-
+<div class="page" data-page="prices" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / Цены</div>
+    <h1>Цены и калькулятор</h1>
+    <p class="lead">Ставка зависит от плотности груза: чем тяжелее кубометр, тем дешевле килограмм. Все цены указаны «под ключ» с таможней, до склада в Москве.</p>
+  </div>
   <section style="padding-top:12px">
     <div class="wrap">
-      <div class="toggle" role="group" aria-label="Способ оплаты">
-        <button id="payMonth" aria-pressed="true">Рассрочка 12 мес, 0%</button>
-        <button id="payFull" aria-pressed="false">Сразу −10%</button>
-      </div>
-      <div class="plans">
-        <div class="plan">
-          <span class="name">Самостоятельный</span>
-          <div><div class="price" data-full="89000"></div><div class="old" data-old="89000"></div></div>
-          <ul><li>Все 6 модулей и записи уроков</li><li>Облачные стенды на 12 месяцев</li><li>Общий чат группы</li><li class="off">Проверка заданий ментором</li><li class="off">Помощь с трудоустройством</li></ul>
-          <a class="btn btn-ghost btn-block" href="#signup" data-plan="Самостоятельный">Выбрать</a>
-        </div>
-        <div class="plan best">
-          <span class="badge">Выбирают 7 из 10</span>
-          <span class="name">С ментором</span>
-          <div><div class="price" data-full="149000"></div><div class="old" data-old="149000"></div></div>
-          <ul><li>Всё из тарифа «Самостоятельный»</li><li>Проверка каждого задания, ответ за 24 ч</li><li>Еженедельные живые разборы</li><li>Пробный сертификационный экзамен</li><li class="off">Помощь с трудоустройством</li></ul>
-          <a class="btn btn-primary btn-block" href="#signup" data-plan="С ментором">Выбрать</a>
-        </div>
-        <div class="plan">
-          <span class="name">Pro + карьера</span>
-          <div><div class="price" data-full="219000"></div><div class="old" data-old="219000"></div></div>
-          <ul><li>Всё из тарифа «С ментором»</li><li>Личные встречи с ментором раз в 2 недели</li><li>Резюме и тренировочные собеседования</li><li>Рекомендации партнёрам-работодателям</li><li>Карьерная поддержка до оффера</li></ul>
-          <a class="btn btn-ghost btn-block" href="#signup" data-plan="Pro + карьера">Выбрать</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Сравнение</span><h2>Чем отличаются тарифы</h2></div>
-      <div class="tbl-wrap">
+      <div class="rates">
         <table>
-          <thead><tr><th>Что входит</th><th>Самостоятельный</th><th class="hl">С ментором</th><th>Pro + карьера</th></tr></thead>
+          <thead><tr><th>Способ</th><th>Срок</th><th>Цена, $/кг</th><th>Для чего</th></tr></thead>
           <tbody>
-            <tr><td>6 модулей и записи уроков</td><td class="y">Да</td><td class="y hl">Да</td><td class="y">Да</td></tr>
-            <tr><td>Облачные стенды</td><td>12 мес</td><td class="hl">18 мес</td><td>24 мес</td></tr>
-            <tr><td>Проверка заданий ментором</td><td class="n">Нет</td><td class="y hl">За 24 ч</td><td class="y">За 24 ч</td></tr>
-            <tr><td>Живые разборы</td><td class="n">Запись</td><td class="y hl">Каждую неделю</td><td class="y">Каждую неделю</td></tr>
-            <tr><td>Пробный экзамен</td><td class="n">Нет</td><td class="y hl">Да</td><td class="y">Да</td></tr>
-            <tr><td>Личные встречи с ментором</td><td class="n">Нет</td><td class="n hl">Нет</td><td class="y">Раз в 2 недели</td></tr>
-            <tr><td>Резюме и собеседования</td><td class="n">Нет</td><td class="n hl">Нет</td><td class="y">Да</td></tr>
-            <tr><td>Доступ после выпуска</td><td>6 мес</td><td class="hl">1 год</td><td>Навсегда</td></tr>
+            <tr><td><b>Авто</b></td><td class="n">18–25 дн</td><td class="n">2,4–3,6</td><td>Самый популярный вариант</td></tr>
+            <tr><td><b>Ж/д</b></td><td class="n">25–35 дн</td><td class="n">1,9–2,9</td><td>Крупные и тяжёлые партии</td></tr>
+            <tr><td><b>Авиа</b></td><td class="n">7–12 дн</td><td class="n">6,5–8,5</td><td>Срочно и дорогой товар</td></tr>
+            <tr><td><b>Контейнер 40′</b></td><td class="n">35–45 дн</td><td class="n">от $4 900</td><td>От 10 тонн</td></tr>
           </tbody>
         </table>
       </div>
+      <p class="scroll-hint">Таблицу можно прокрутить вбок</p>
     </div>
   </section>
-
-  <section>
+  <section class="band">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Скидки</span><h2>Как заплатить меньше</h2></div>
-      <div class="disc">
-        <div><b>−10%</b><span>при оплате всего курса сразу</span></div>
-        <div><b>−15%</b><span>каждому, если приходите вдвоём с другом</span></div>
-        <div><b>−5%</b><span>студентам вузов и колледжей</span></div>
-        <div><b>13%</b><span>налоговый вычет за обучение для граждан РФ</span></div>
-      </div>
-      <p class="prog" style="margin-top:12px;font-size:14px;color:var(--muted)">Скидки не суммируются, применяется самая выгодная.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Оплата</span><h2>Способы оплаты</h2></div>
-      <div class="pay">
-        <div class="card"><h3>Картой онлайн</h3><p>Visa, Mastercard, МИР, ArCa. Чек приходит на почту сразу после оплаты.</p></div>
-        <div class="card"><h3>Рассрочка 0%</h3><p>Через банк-партнёр на 6, 12 или 24 месяца. Решение за 5 минут, первый платёж через месяц.</p></div>
-        <div class="card"><h3>По счёту для компаний</h3><p>Договор, счёт и закрывающие документы. Подходит, если обучение оплачивает работодатель.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Гарантии</span><h2>Если что-то пойдёт не так</h2></div>
-      <div class="grid g3">
-        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>Вернём 100% за 14 дней</b><p>Если в первые две недели поймёте, что профессия не ваша, вернём всю сумму без объяснения причин.</p></div>
-        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 3-6.2"/><path d="M4 4v4h4"/></svg><b>Возврат за непройденное</b><p>Решили остановиться позже? Вернём деньги за модули, которые вы ещё не начали.</p></div>
-        <div class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Заморозка до 3 месяцев</b><p>Болезнь, сессия или переезд — поставим обучение на паузу и переведём в следующий поток.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="teaser">
-        <div style="display:grid;gap:8px"><span class="eyebrow">Для компаний</span><h2 style="font-size:clamp(22px,5vw,30px)">Обучение команды от 5 человек</h2><p class="lead" style="font-size:16px">Закрытая группа, программа под ваш стек, отчёт о прогрессе каждого сотрудника. Стоимость считаем после 20-минутного звонка.</p></div>
-        <a class="btn btn-primary" href="#signup" data-plan="Обучение для компании">Обсудить обучение</a>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Вопросы об оплате</span><h2>Частые вопросы</h2></div>
-      <div class="faq">
-        <details><summary>Можно ли сменить тариф после начала?</summary><p>Да. В первые 2 месяца можно перейти на тариф выше, доплатив разницу. Переход на тариф ниже возможен в первые 14 дней.</p></details>
-        <details><summary>Что будет, если я не смогу платить по рассрочке?</summary><p>Напишите куратору заранее. Можно заморозить обучение и платежи или перейти на более длинную рассрочку через банк.</p></details>
-        <details><summary>Как оформить возврат?</summary><p>Напишите на почту или в Telegram. Деньги вернутся на карту в течение 10 рабочих дней. Для рассрочки банк закроет кредит без процентов.</p></details>
-        <details><summary>Есть ли дополнительные платежи?</summary><p>Нет. Стенды, программы, материалы и сертификат уже входят в стоимость. Отдельно оплачивается только официальный международный экзамен, если решите его сдавать.</p></details>
+      <div class="eyebrow">Калькулятор</div>
+      <h2>Посчитайте доставку за минуту</h2>
+      <div class="calc-wrap">
+        <form class="calc" id="calc" aria-label="Калькулятор стоимости" novalidate>
+          <div class="field">
+            <label>Способ доставки</label>
+            <div class="seg" role="radiogroup" aria-label="Способ доставки">
+              <input type="radio" name="mode" id="m-auto" value="auto" checked><label for="m-auto">Авто</label>
+              <input type="radio" name="mode" id="m-rail" value="rail"><label for="m-rail">Ж/д</label>
+              <input type="radio" name="mode" id="m-air" value="air"><label for="m-air">Авиа</label>
+            </div>
+          </div>
+          <div class="calc-grid">
+            <div class="field"><label for="c-kg">Вес, кг</label><input id="c-kg" type="number" inputmode="decimal" min="1" value="300"></div>
+            <div class="field"><label for="c-m3">Объём, м³</label><input id="c-m3" type="number" inputmode="decimal" min="0.01" step="0.1" value="1.5"></div>
+            <div class="field"><label for="c-type">Тип товара</label>
+              <select id="c-type">
+                <option value="1">Одежда, текстиль, обувь</option>
+                <option value="1">Товары для дома</option>
+                <option value="1.15">Электроника, гаджеты</option>
+                <option value="1.1">Автозапчасти</option>
+                <option value="0.95">Стройматериалы</option>
+              </select></div>
+            <div class="field"><label for="c-val">Стоимость товара, $ <span class="hint">для страховки</span></label><input id="c-val" type="number" inputmode="decimal" min="0" value="6000"></div>
+          </div>
+          <div class="result" aria-live="polite">
+            <span class="lbl">Примерная стоимость под ключ</span>
+            <span class="sum" id="r-sum">$ —</span>
+            <div class="meta"><span>Плотность <b id="r-den">—</b></span><span>Срок <b id="r-days">—</b></span><span>Страховка <b id="r-ins">—</b></span></div>
+          </div>
+          <a class="btn btn-primary btn-block" href="#lead-band" data-lead id="calc-cta">Зафиксировать эту цену</a>
+        </form>
+        <div class="factors">
+          <h3>От чего зависит итоговая сумма</h3>
+          <div class="item"><span class="k">1</span><div><b>Плотность груза</b><p>Вес делим на объём. Лёгкий груз до 100 кг/м³ считается за кубометр.</p></div></div>
+          <div class="item"><span class="k">2</span><div><b>Категория товара</b><p>Электроника и бренды дороже из-за таможенных требований.</p></div></div>
+          <div class="item"><span class="k">3</span><div><b>Тип оформления</b><p>Карго дешевле, белая доставка даёт документы и НДС к вычету.</p></div></div>
+          <div class="item"><span class="k">4</span><div><b>Упаковка</b><p>Обрешётка, паллет или мешок с лентой: от 1 до 15 $ за место.</p></div></div>
+        </div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ============ О ШКОЛЕ ============ -->
-<div class="view" data-view="about" hidden>
-  <section class="phead">
-    <div class="wrap">
-      <div class="crumbs"><a href="#home">Главная</a> / О школе</div>
-      <span class="eyebrow">О школе</span>
-      <h1>HayOS — школа, где учат практики</h1>
-      <p class="lead">Мы основали школу в Ереване в 2020 году, когда сами искали джунов в команды и не могли найти людей с реальными навыками. Сейчас учим онлайн студентов из Армении, России, Казахстана и других стран.</p>
+<!-- ============ КЕЙСЫ ============ -->
+<div class="page" data-page="cases" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / Кейсы</div>
+    <h1>Кейсы</h1>
+    <p class="lead">Реальные задачи клиентов и то, как мы их решили: сроки, цена и результат в цифрах.</p>
+    <div class="filters" role="group" aria-label="Фильтр кейсов">
+      <button class="tab" type="button" data-f="all" aria-selected="true">Все</button>
+      <button class="tab" type="button" data-f="mp" aria-selected="false">Маркетплейсы</button>
+      <button class="tab" type="button" data-f="opt" aria-selected="false">Опт</button>
+      <button class="tab" type="button" data-f="prod" aria-selected="false">Производство</button>
     </div>
-  </section>
-
+  </div>
   <section style="padding-top:12px">
+    <div class="wrap"><div class="grid2" id="all-cases" style="margin-top:0"></div></div>
+  </section>
+</div>
+
+<!-- ============ О КОМПАНИИ ============ -->
+<div class="page" data-page="about" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / О компании</div>
+    <h1>О компании «Чистый путь»</h1>
+  </div>
+  <section style="padding-top:16px">
+    <div class="wrap about-grid">
+      <div class="about-text">
+        <p>Мы возим товары из Китая с 2018 года. Начинали с небольших партий одежды для знакомых предпринимателей, сейчас отправляем больше 150 грузов в месяц.</p>
+        <p>Название «Чистый путь» отражает главный принцип работы: прозрачная цена, понятный маршрут и честные документы. Клиент знает, где его груз и сколько он заплатит, ещё до отправки.</p>
+        <p>У нас свои склады в Гуанчжоу, Иу и Москве, команда из 40 человек в двух странах и менеджеры, которые говорят на русском и китайском.</p>
+      </div>
+      <ol class="timeline">
+        <li><b>2018</b><span>Первый склад в Гуанчжоу, авто через Казахстан</span></li>
+        <li><b>2020</b><span>Запустили ж/д доставку и белое оформление</span></li>
+        <li><b>2022</b><span>Открыли склад в Иу и маркировку для маркетплейсов</span></li>
+        <li><b>2024</b><span>Свой склад в Москве и трекинг в Telegram</span></li>
+        <li><b>2026</b><span>Больше 14 200 доставленных партий</span></li>
+      </ol>
+    </div>
     <div class="wrap">
       <div class="stats">
-        <div><b>6 лет</b><span>обучаем специалистов по информационной безопасности</span></div>
-        <div><b>3 400</b><span>выпускников</span></div>
-        <div><b>78%</b><span>нашли работу в ИБ в течение 6 месяцев после выпуска</span></div>
-        <div><b>4,8 / 5</b><span>средняя оценка уроков студентами</span></div>
+        <div class="stat"><b>8 лет</b><span>на рынке</span></div>
+        <div class="stat"><b>3 склада</b><span>в Китае и России</span></div>
+        <div class="stat"><b>40</b><span>сотрудников</span></div>
+        <div class="stat"><b>2 100+</b><span>постоянных клиентов</span></div>
+      </div>
+      <div class="docs">
+        <div class="doc"><b>Договор</b>Работаем как ООО по договору</div>
+        <div class="doc"><b>Реквизиты</b>ИНН и ОГРН открыты</div>
+        <div class="doc"><b>Страховка</b>Полис на каждый груз</div>
+        <div class="doc"><b>Таможня</b>Партнёр — лицензированный брокер</div>
       </div>
     </div>
   </section>
-
-  <section>
+  <section class="tinted">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Наши принципы</span><h2>Как мы учим</h2></div>
-      <div class="grid g3">
-        <div class="card"><h3>Только практика</h3><p>70% времени вы работаете руками на стендах, а не смотрите лекции. Теория даётся ровно под задачу.</p></div>
-        <div class="card"><h3>Честно о профессии</h3><p>Говорим, что первые полгода в ИБ даются тяжело, и показываем реальные зарплаты джунов, а не мечты.</p></div>
-        <div class="card"><h3>Законно и этично</h3><p>Атакуем только свои стенды. Отдельный урок про закон и этику: где граница между пентестом и преступлением.</p></div>
+      <div class="eyebrow">Отзывы</div>
+      <h2>Что говорят клиенты</h2>
+      <div class="grid3">
+        <article class="review"><span class="sample">Пример отзыва</span><q>Возим одежду на Wildberries второй год. За это время ни одной потерянной коробки, фото приходят в день приёмки.</q><div class="who"><span class="ava">АК</span><div><b>Анна К.</b><span>Селлер WB, Казань</span></div></div></article>
+        <article class="review"><span class="sample">Пример отзыва</span><q>Нашли брак в 40 единицах ещё на складе в Иу. Поставщик заменил товар, мы ничего не доплатили.</q><div class="who"><span class="ava">ДС</span><div><b>Дмитрий С.</b><span>Оптовик, Новосибирск</span></div></div></article>
+        <article class="review"><span class="sample">Пример отзыва</span><q>Привезли станок 2,8 тонны по железной дороге. Помогли с кодом ТН ВЭД, пошлина вышла меньше, чем мы считали.</q><div class="who"><span class="ava">ИП</span><div><b>Игорь П.</b><span>Производство, Екатеринбург</span></div></div></article>
       </div>
     </div>
   </section>
-
   <section>
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Преподаватели</span><h2>Учат специалисты, которые работают в индустрии</h2><p class="lead">Каждый ментор совмещает преподавание с работой в ИБ и проходит отбор: тестовый разбор задания и пробный урок.</p></div>
-      <div class="grid g2" id="mentors"></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="reviews-head"><div class="head" style="margin:0"><span class="eyebrow">Отзывы</span><h2>Истории выпускников</h2></div><span class="demo">Пример: замените на реальные отзывы</span></div>
-      <div class="reviews" id="revAbout"></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap grid g2" style="gap:32px">
-      <div>
-        <div class="head"><span class="eyebrow">История</span><h2>Как мы росли</h2></div>
-        <ol class="timeline">
-          <li><span class="y">2020</span><div><b>Первый поток</b><p>18 студентов, один модуль по веб-безопасности, занятия в офисе в Ереване.</p></div></li>
-          <li><span class="y">2022</span><div><b>Переход в онлайн</b><p>Запустили облачные стенды, и учиться стало можно из любой страны.</p></div></li>
-          <li><span class="y">2024</span><div><b>Модуль по защите</b><p>Добавили SOC и мониторинг: курс стал готовить не только пентестеров.</p></div></li>
-          <li><span class="y">2026</span><div><b>3 400 выпускников</b><p>Программы для компаний и карьерный трек с партнёрами-работодателями.</p></div></li>
-        </ol>
+      <div class="eyebrow">Гарантии</div>
+      <h2>Если что-то пойдёт не так, отвечаем деньгами</h2>
+      <div class="grid2">
+        <div class="g"><h3>Утеря или повреждение</h3><p>Возмещаем 100% стоимости товара по страховке в течение 14 дней.</p></div>
+        <div class="g"><h3>Задержка сроков</h3><p>Скидка 1% от стоимости доставки за каждый день опоздания сверх договора.</p></div>
+        <div class="g"><h3>Брак от поставщика</h3><p>Выявляем на приёмке и решаем с фабрикой возврат или замену до отправки.</p></div>
+        <div class="g"><h3>Пересорт и недовложение</h3><p>Сверяем количество по каждой коробке. Расхождения фиксируем на видео.</p></div>
       </div>
-      <div>
-        <div class="head"><span class="eyebrow">Документы</span><h2>Официально и прозрачно</h2></div>
-        <ul class="docs">
-          <li><div>Лицензия на образовательную деятельность<span>№ 0000 (пример, замените на реальный)</span></div><span class="tag">PDF</span></li>
-          <li><div>Договор-оферта<span>Условия обучения, оплаты и возврата</span></div><span class="tag">PDF</span></li>
-          <li><div>Политика конфиденциальности<span>Как мы храним и используем данные</span></div><span class="tag">PDF</span></li>
-          <li><div>Образец удостоверения<span>Документ, который получит выпускник</span></div><span class="tag">PDF</span></li>
-        </ul>
+      <div class="faq">
+        <details><summary>Чем отличается карго от белой доставки?</summary><p>Карго дешевле и быстрее: груз оформляется на перевозчика, вы получаете товар без таможенных документов на себя. Белая доставка дороже, но вы получаете полный пакет документов, НДС к вычету и можете продавать на маркетплейсах без рисков.</p></details>
+        <details><summary>Какой минимальный объём груза?</summary><p>От 30 кг для авто и ж/д, от 5 кг для авиа. Небольшие партии мы объединяем с другими грузами, чтобы снизить цену.</p></details>
+        <details><summary>Можно ли привезти бренды и электронику?</summary><p>Да, для этих категорий действует отдельная ставка. Менеджер проверит товар и скажет, какое оформление подойдёт.</p></details>
+        <details><summary>Как узнать, где сейчас груз?</summary><p>После отправки вы получаете номер трека. Статусы приходят в Telegram или WhatsApp на каждом этапе маршрута.</p></details>
       </div>
     </div>
   </section>
 </div>
 
 <!-- ============ КОНТАКТЫ ============ -->
-<div class="view" data-view="contacts" hidden>
-  <section class="phead">
+<div class="page" data-page="contacts" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / Контакты</div>
+    <h1>Контакты</h1>
+    <p class="lead">Отвечает живой менеджер, без ботов. Обычно в течение 15 минут.</p>
+  </div>
+  <section style="padding-top:8px">
     <div class="wrap">
-      <div class="crumbs"><a href="#home">Главная</a> / Контакты</div>
-      <span class="eyebrow">Контакты</span>
-      <h1>Ответит живой человек, а не бот</h1>
-      <p class="lead">Выберите удобный способ связи. Быстрее всего отвечаем в Telegram.</p>
-    </div>
-  </section>
-
-  <section style="padding-top:12px">
-    <div class="wrap grid g4">
-      <div class="ct"><span class="k">Telegram</span><span class="v"><a href="https://t.me/hayos_school" target="_blank" rel="noopener">@hayos_school</a></span><span class="sub">Ответ в среднем за 5 минут, ежедневно до 22:00</span><button class="copy" data-copy="@hayos_school">Скопировать</button></div>
-      <div class="ct"><span class="k">Телефон</span><span class="v"><a href="tel:+37410000000">+374 10 00-00-00</a></span><span class="sub">Звонки в рабочее время</span><button class="copy" data-copy="+374 10 00-00-00">Скопировать</button></div>
-      <div class="ct"><span class="k">Почта</span><span class="v">hello@hayos.school</span><span class="sub">Для компаний, документов и возвратов. Ответ за 1 рабочий день</span><button class="copy" data-copy="hello@hayos.school">Скопировать</button></div>
-      <div class="ct"><span class="k">Офис для консультаций</span><span class="v">Ереван, ул. Абовяна, 12</span><span class="sub">По предварительной записи</span><a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Yerevan+Abovyan+12" target="_blank" rel="noopener">Открыть на карте →</a></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap grid g2" style="gap:32px">
-      <div>
-        <div class="head"><span class="eyebrow">Время работы</span><h2>Когда мы на связи</h2></div>
-        <div class="card" style="padding:6px 20px">
-          <table class="hours"><tbody>
-            <tr><td>Понедельник – пятница</td><td>10:00–20:00</td></tr>
-            <tr><td>Суббота</td><td>11:00–17:00</td></tr>
-            <tr><td>Воскресенье</td><td>только Telegram</td></tr>
-            <tr><td>Техподдержка стендов</td><td>круглосуточно</td></tr>
-          </tbody></table>
-        </div>
-        <p style="margin-top:10px;font-size:14px;color:var(--muted)">Время указано по Еревану (UTC+4).</p>
+      <div class="ccards">
+        <div class="cc"><span class="lbl">Телефон</span><a class="big" href="tel:+79001234567">+7 900 123-45-67</a><div class="row-btns"><button class="chipbtn" type="button" data-copy="+7 900 123-45-67">Скопировать номер</button></div></div>
+        <div class="cc"><span class="lbl">Мессенджеры</span><span class="big">@chistyput_cargo</span><div class="row-btns"><a class="chipbtn" href="https://t.me/" target="_blank" rel="noopener">Telegram</a><a class="chipbtn" href="https://wa.me/79001234567" target="_blank" rel="noopener">WhatsApp</a></div></div>
+        <div class="cc"><span class="lbl">Почта</span><span class="big">info@chistyput.ru</span><div class="row-btns"><button class="chipbtn" type="button" data-copy="info@chistyput.ru">Скопировать адрес</button></div></div>
       </div>
-      <div>
-        <div class="head"><span class="eyebrow">Как добраться</span><h2>Офис в центре Еревана</h2></div>
-        <ul class="checks">
-          <li><span>5 минут пешком от станции метро «Еритасардакан»</span></li>
-          <li><span>Вход со двора, 3 этаж, звонок «HayOS»</span></li>
-          <li><span>Приходите на консультацию только по записи, чтобы ментор был свободен</span></li>
-        </ul>
+      <div class="eyebrow" style="margin-top:40px">Склады</div>
+      <div class="wh">
+        <div class="whc"><div class="mapph" aria-hidden="true"></div><div class="in"><h3>Москва</h3><p>ТК «Южные ворота», 19-й км МКАД, стр. 3. Выдача грузов и самовывоз.</p><a class="more" style="margin-top:6px" href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D1%80%D0%BE%D1%82%D0%B0%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0" target="_blank" rel="noopener">Открыть на карте</a></div></div>
+        <div class="whc"><div class="mapph" aria-hidden="true"></div><div class="in"><h3>Гуанчжоу и Иу</h3><p>Приёмка, проверка и упаковка. Точный адрес склада менеджер пришлёт после заявки.</p></div></div>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="head"><span class="eyebrow">Частые вопросы</span><h2>Ответы до того, как вы спросите</h2></div>
-      <div class="faq">
-        <details><summary>Нужно ли уметь программировать?</summary><p>Нет. Основы Python и bash даём внутри курса, ровно в том объёме, который нужен для работы.</p></details>
-        <details><summary>Сколько времени нужно в неделю?</summary><p>6–8 часов: урок в записи и практические задания. Живые разборы проходят по субботам и записываются.</p></details>
-        <details><summary>Какой нужен компьютер?</summary><p>Любой ноутбук от 8 ГБ оперативной памяти. Все стенды работают в облаке, ставить тяжёлые программы не нужно.</p></details>
-        <details><summary>Учиться взлому законно?</summary><p>Да. Вы атакуете только учебные стенды школы. Отдельный урок посвящён закону и этике: что можно делать в работе, а что нельзя.</p></details>
-        <details><summary>Какой документ я получу?</summary><p>Удостоверение о повышении квалификации и сертификат школы с перечнем пройденных модулей и оценкой за диплом.</p></details>
-        <details><summary>Можно ли учиться, если я живу не в Армении?</summary><p>Да. Обучение полностью онлайн, офис нужен только для очных консультаций по желанию.</p></details>
+      <div class="hours">
+        <table>
+          <tr><td>Менеджеры, Москва</td><td>ежедневно 9:00–21:00</td></tr>
+          <tr><td>Склад, Москва</td><td>пн–сб 10:00–19:00</td></tr>
+          <tr><td>Склады, Китай</td><td>пн–сб 9:00–18:00 (UTC+8)</td></tr>
+        </table>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ============ ФОРМА (на всех страницах) ============ -->
-<section class="signup" id="signup">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow">Бесплатный урок</span>
-      <h2 style="margin:14px 0 12px">Попробуйте первый урок, прежде чем платить</h2>
-      <p class="lead">Оставьте контакт, и мы откроем доступ к вводному занятию и стенду. Это ни к чему не обязывает.</p>
-      <ul><li>Разберёте настоящую уязвимость за 40 минут</li><li>Получите консультацию по выбору тарифа</li><li>Узнаете, какая скидка доступна вам сейчас</li></ul>
+<!-- ============ ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ============ -->
+<div class="page" data-page="privacy" hidden>
+  <div class="wrap phead">
+    <div class="crumbs"><a href="#home">Главная</a> / Политика конфиденциальности</div>
+    <h1>Политика конфиденциальности</h1>
+    <p class="lead">Как ООО «Чистый путь» собирает, использует и защищает персональные данные посетителей сайта.</p>
+  </div>
+  <section style="padding-top:20px">
+    <div class="wrap policy">
+      <p class="upd">Редакция от 10 ноября 2026 года</p>
+
+      <div><h2>1. Общие положения</h2>
+        <p>Настоящая политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных пользователей сайта ООО «Чистый путь» (далее — Оператор).</p>
+        <p>Отправляя заявку на сайте, пользователь даёт согласие на обработку своих персональных данных на условиях этой политики. Если пользователь не согласен с условиями, ему следует не отправлять свои данные через сайт.</p></div>
+
+      <div><h2>2. Какие данные мы собираем</h2>
+        <ul><li>имя;</li><li>номер телефона или имя пользователя в Telegram;</li><li>описание груза, которое пользователь указывает в заявке;</li><li>технические данные: IP-адрес, тип браузера и устройства, файлы cookie, сведения о посещённых страницах.</li></ul>
+        <p>Мы не собираем специальные категории персональных данных (о здоровье, убеждениях и т. п.) и биометрические данные.</p></div>
+
+      <div><h2>3. Цели обработки</h2>
+        <ul><li>связаться с пользователем и ответить на заявку;</li><li>рассчитать стоимость доставки и подготовить договор;</li><li>информировать о статусе груза;</li><li>улучшать работу сайта и анализировать посещаемость.</li></ul></div>
+
+      <div><h2>4. Правовые основания</h2>
+        <p>Оператор обрабатывает персональные данные на основании согласия пользователя, а также для заключения и исполнения договора, стороной которого является пользователь.</p></div>
+
+      <div><h2>5. Порядок обработки и хранения</h2>
+        <p>Оператор собирает, записывает, систематизирует, хранит, уточняет, использует и удаляет персональные данные. Обработка ведётся как с помощью средств автоматизации, так и без них.</p>
+        <p>Данные хранятся не дольше, чем этого требуют цели обработки, но не более 3 лет с момента последнего обращения пользователя, если более долгий срок не установлен законом или договором. Базы данных с персональными данными граждан РФ находятся на территории Российской Федерации.</p></div>
+
+      <div><h2>6. Передача данных третьим лицам</h2>
+        <p>Оператор не продаёт и не передаёт персональные данные третьим лицам, кроме случаев, когда это нужно для исполнения договора с пользователем (например, перевозчику или таможенному брокеру), а также в случаях, предусмотренных законодательством РФ.</p></div>
+
+      <div><h2>7. Файлы cookie</h2>
+        <p>Сайт использует cookie, чтобы правильно работать и собирать обезличенную статистику посещений. Пользователь может отключить cookie в настройках браузера, но часть функций сайта может перестать работать.</p></div>
+
+      <div><h2>8. Права пользователя</h2>
+        <ul><li>получить информацию о том, какие его данные обрабатываются;</li><li>потребовать уточнить, заблокировать или удалить свои данные;</li><li>отозвать согласие на обработку, направив запрос на адрес электронной почты Оператора;</li><li>обжаловать действия Оператора в Роскомнадзоре или в суде.</li></ul>
+        <p>Оператор отвечает на запрос в течение 10 рабочих дней.</p></div>
+
+      <div><h2>9. Защита данных</h2>
+        <p>Оператор принимает организационные и технические меры для защиты персональных данных от неправомерного доступа, изменения, распространения и уничтожения. Доступ к данным есть только у сотрудников, которым он нужен для работы.</p></div>
+
+      <div><h2>10. Изменение политики</h2>
+        <p>Оператор может изменять эту политику. Новая редакция вступает в силу с момента публикации на сайте. Действующая редакция всегда доступна на этой странице.</p></div>
+
+      <div class="req">
+        <b>Оператор персональных данных</b>
+        <span>ООО «Чистый путь»</span>
+        <span>ИНН 0000000000, ОГРН 0000000000000</span>
+        <span>Адрес: г. Москва, 19-й км МКАД, стр. 3</span>
+        <span>Почта для запросов: info@chistyput.ru</span>
+      </div>
     </div>
-    <form id="form" novalidate>
-      <div id="formFields" style="display:grid;gap:14px">
-        <label for="fName">Как вас зовут<input type="text" id="fName" autocomplete="given-name" placeholder="Например, Анна"></label>
-        <label for="fContact">Телефон или Telegram<input type="text" id="fContact" autocomplete="tel" placeholder="+374 … или @username"></label>
-        <label for="fPlan">Что вас интересует
-          <select id="fPlan">
-            <option>Пока не знаю, нужна консультация</option>
-            <option>Самостоятельный</option>
-            <option>С ментором</option>
-            <option>Pro + карьера</option>
-            <option>Обучение для компании</option>
-          </select>
-        </label>
-        <label class="check" for="fAgree"><input type="checkbox" id="fAgree" checked><span>Согласен на обработку персональных данных</span></label>
-        <div class="err" id="fErr" aria-live="polite"></div>
-        <button class="btn btn-primary btn-block" type="submit">Получить бесплатный урок</button>
-      </div>
-      <div class="done" id="formDone" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></svg>
-        <h3>Заявка принята</h3>
-        <p style="color:var(--muted)">Свяжемся в течение 15 минут в рабочее время и пришлём ссылку на урок.</p>
-        <span class="note">Демо: заявка никуда не отправляется, подключите обработчик формы</span>
-      </div>
+  </section>
+</div>
+
+<!-- ============ ЗАЯВКА: на каждой странице ============ -->
+<section class="leadband" id="lead-band">
+  <div class="wrap lb-grid">
+    <div>
+      <div class="eyebrow">Заявка</div>
+      <h2>Получите точный расчёт за 15 минут</h2>
+      <p class="lead">Оставьте телефон или Telegram. Менеджер уточнит детали и пришлёт цену, которую зафиксируем в договоре.</p>
+      <ul class="lb-points"><li>Расчёт бесплатный и ни к чему не обязывает</li><li>Ответим в мессенджере, если вам неудобно говорить</li><li>Принимаем партии от 30 кг</li></ul>
+    </div>
+    <form class="form" id="lead-form" novalidate>
+      <div class="field"><label for="f-name">Имя</label><input id="f-name" autocomplete="name" placeholder="Как к вам обращаться"></div>
+      <div class="field"><label for="f-phone">Телефон или Telegram</label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__"></div>
+      <div class="field"><label for="f-what">Что везём <span class="hint">необязательно</span></label><textarea id="f-what" placeholder="Например: детская одежда, 500 кг, из Гуанчжоу"></textarea></div>
+      <p class="err" id="f-err" hidden>Укажите телефон или Telegram, чтобы мы могли прислать расчёт.</p>
+      <button class="btn btn-primary btn-block" type="submit" id="f-submit">Получить расчёт</button>
+      <small>Нажимая кнопку, вы соглашаетесь с <a href="#privacy">политикой конфиденциальности</a>.</small>
+      <div class="ok-msg" id="f-ok" hidden><b>Заявка принята.</b> Менеджер свяжется с вами в течение 15 минут в рабочее время.</div>
     </form>
   </div>
 </section>
@@ -895,168 +791,135 @@ footer .legal{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);
 
 <footer>
   <div class="wrap">
-    <div class="cols">
-      <div>
-        <a class="logo" href="#home"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 9V3h6M19 3h6v6M25 19v6h-6M9 25H3v-6"/><circle cx="14" cy="14" r="3.2" fill="currentColor" stroke="none"/></svg>HayOS</a>
-        <p class="about">Онлайн-школа кибербезопасности. Учим защищать системы и находить уязвимости с 2020 года.</p>
-      </div>
-      <div><h4>Разделы</h4><ul><li><a href="#program">Программа</a></li><li><a href="#pricing">Цены</a></li><li><a href="#about">О школе</a></li><li><a href="#contacts">Контакты</a></li></ul></div>
-      <div><h4>Связь</h4><ul><li>@hayos_school</li><li>+374 10 00-00-00</li><li>hello@hayos.school</li></ul></div>
-      <div><h4>Адрес</h4><ul><li>Ереван, ул. Абовяна, 12</li><li>Пн–Пт 10:00–20:00</li><li>Сб 11:00–17:00</li></ul></div>
+    <div class="f-grid">
+      <div><a class="logo" href="#home"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a><p style="margin-top:10px;max-width:34ch">Доставка грузов из Китая в Россию: авто, ж/д, авиа и контейнеры под ключ.</p></div>
+      <nav aria-label="Страницы в подвале"><h4>Страницы</h4><a href="#services">Услуги</a><a href="#prices">Цены</a><a href="#cases">Кейсы</a><a href="#about">О компании</a><a href="#contacts">Контакты</a></nav>
+      <div style="display:grid;gap:6px;align-content:start"><h4>Связь</h4><a href="tel:+79001234567" style="text-decoration:none" class="num">+7 900 123-45-67</a><span>info@chistyput.ru</span><span>Ежедневно 9:00–21:00 МСК</span></div>
     </div>
-    <div class="legal">
-      <div>© 2026 Онлайн-школа кибербезопасности HayOS. Лицензия на образовательную деятельность № 0000.</div>
-      <div>Демо-сайт: цифры, имена, отзывы и контакты указаны как примеры и подлежат замене.</div>
-    </div>
+    <div class="f-bottom"><span>© 2026 ООО «Чистый путь»</span><a href="#privacy">Политика конфиденциальности</a></div>
   </div>
 </footer>
 
-<div class="mcta" id="mcta">
-  <a class="btn btn-primary" href="#signup">Бесплатный урок</a>
-  <a class="icon-btn" href="#contacts" aria-label="Контакты">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
-  </a>
-</div>
-</div>
+<nav class="mbar" aria-label="Быстрые действия">
+  <a class="sq" href="tel:+79001234567" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+  <a class="sq" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 4 2-15z"/><path d="M9 13l8-6"/></svg></a>
+  <a class="btn btn-primary" href="#prices">Рассчитать доставку</a>
+</nav>
 
 <script>
 (function(){
-  var VIEWS=['home','program','pricing','about','contacts'];
-  var NAMES={home:'',program:'Программа',pricing:'Цены',about:'О школе',contacts:'Контакты'};
-  var current='home';
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // --- data rendered into several pages ---
-  var reviews=[
-    {i:'МА',n:'Мария А.',r:'Аналитик SOC',c:'бухгалтер → SOC L1',t:'Пришла из бухгалтерии, Linux видела впервые. Первые две недели было тяжело, но ментор разбирал каждую ошибку. На третьем месяце нашла первую SQL-инъекцию сама.'},
-    {i:'ГС',n:'Гор С.',r:'Инженер ИБ',c:'сисадмин → инженер ИБ',t:'Работал сисадмином и хотел расти. Модуль по Active Directory оказался самым полезным: через месяц после выпуска провёл аудит сети у себя на работе.'},
-    {i:'ИЛ',n:'Илья Л.',r:'Junior-пентестер',c:'QA → пентест',t:'Брал тариф с карьерой. Сделали резюме и прогнали три тренировочных собеседования. На четвёртом настоящем получил оффер.'},
-    {i:'АМ',n:'Ани М.',r:'AppSec-стажёр',c:'frontend → AppSec',t:'Была фронтенд-разработчиком. После модуля по вебу стала по-другому смотреть на свой код и нашла две уязвимости в проекте, который сама писала.'},
-    {i:'ТК',n:'Тимур К.',r:'Студент 3 курса',c:'студент → стажировка',t:'Учился параллельно с университетом. Нагрузка выше, чем обещали, но стенды доступны ночью, а записи разборов спасали перед сессией.'}
+  /* ---------- Кейсы: один список, выводится на главной и на странице кейсов ---------- */
+  var CASES=[
+    {seg:'mp',tag:'Маркетплейс · Авто',title:'Сезонная партия пуховиков к ноябрю',task:'Успеть на склад Коледино до начала холодов, 2 400 шт.',sol:'Маркировка в Гуанчжоу, авто через Хоргос, запись на поставку заранее.',res:[['19 дн','в пути'],['2,7 $','за кг'],['0','брака']]},
+    {seg:'opt',tag:'Опт · Ж/д',title:'Посуда от трёх фабрик одной отправкой',task:'Собрать заказы трёх поставщиков из разных провинций.',sol:'Консолидация на складе в Иу, обрешётка, ж/д до Новосибирска.',res:[['4,6 т','груз'],['−22%','к прошлой цене'],['28 дн','в пути']]},
+    {seg:'prod',tag:'Производство · Белая',title:'Станок ЧПУ с полным пакетом документов',task:'Официальный ввоз с НДС к вычету и сертификатом ЕАЭС.',sol:'Подбор кода ТН ВЭД, декларация, страхование, доставка до цеха.',res:[['2,8 т','вес'],['32 дн','под ключ'],['100%','документов']]},
+    {seg:'mp',tag:'Маркетплейс · Авиа',title:'Срочная допоставка наушников на Ozon',task:'Товар закончился в разгар распродажи, нужно 800 шт. за 2 недели.',sol:'Выкуп у поставщика за сутки, авиа до Москвы, этикетки Ozon в Китае.',res:[['9 дн','до склада'],['800','штук'],['+1,4 млн ₽','выручки']]}
   ];
-  function revHTML(x){return '<div class="review"><p>'+x.t+'</p><div class="who"><div class="ava">'+x.i+'</div><div><b>'+x.n+'</b><span>'+x.r+'</span><div class="change">'+x.c+'</div></div></div></div>'}
-  document.getElementById('revHome').innerHTML=reviews.slice(0,3).map(revHTML).join('');
-  document.getElementById('revAbout').innerHTML=reviews.map(revHTML).join('');
-
-  var mentors=[
-    {i:'АП',n:'Арман Петросян',r:'Пентестер, 9 лет в ИБ',b:'Проводит тесты на проникновение для банков и телекома. Ведёт модули по инфраструктуре и Active Directory.',c:['OSCP','OSEP']},
-    {i:'ОС',n:'Ольга Смирнова',r:'Руководитель SOC, 11 лет в ИБ',b:'Строила центры мониторинга с нуля. Ведёт модуль по защите и отвечает за дипломные проекты.',c:['GCIH','CISSP']},
-    {i:'ДК',n:'Дмитрий Ким',r:'AppSec-инженер, 7 лет',b:'Ищет уязвимости в веб-приложениях и учит разработчиков писать безопасный код. Ведёт модуль по вебу.',c:['OSWE','BSCP']},
-    {i:'ЛГ',n:'Лусине Григорян',r:'Карьерный консультант, 8 лет в IT-рекрутинге',b:'Помогает выпускникам составить резюме, готовит к собеседованиям и ведёт переговоры с партнёрами.',c:['HR','IT-рекрутинг']}
-  ];
-  document.getElementById('mentors').innerHTML=mentors.map(function(m){return '<div class="mentor"><div class="ava">'+m.i+'</div><div><b>'+m.n+'</b><span class="role">'+m.r+'</span><p class="bio">'+m.b+'</p><div class="certs">'+m.c.map(function(c){return '<span>'+c+'</span>'}).join('')+'</div></div></div>'}).join('');
-
-  // --- router: one page per hash, other anchors scroll inside the current page ---
-  function show(v,scroll){
-    current=v;
-    document.querySelectorAll('[data-view]').forEach(function(el){el.hidden=el.dataset.view!==v});
-    document.querySelectorAll('[data-nav]').forEach(function(a){if(a.dataset.nav===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=NAMES[v]?'HayOS · '+NAMES[v]:'HayOS';
-    if(scroll!==false) window.scrollTo(0,0);
-    updBar();
+  function caseHTML(c){
+    return '<article class="case" data-seg="'+c.seg+'"><div class="case-top"><span class="tag">'+c.tag+'</span><h3>'+c.title+'</h3></div>'+
+      '<dl><div><dt>Задача</dt><dd>'+c.task+'</dd></div><div><dt>Решение</dt><dd>'+c.sol+'</dd></div></dl>'+
+      '<div class="case-res">'+c.res.map(function(r){return '<div><b>'+r[0]+'</b><span>'+r[1]+'</span></div>'}).join('')+'</div></article>';
   }
-  function route(){var h=location.hash.slice(1);show(VIEWS.indexOf(h)>-1?h:'home');}
+  document.getElementById('home-cases').innerHTML=CASES.slice(0,2).map(caseHTML).join('');
+  document.getElementById('all-cases').innerHTML=CASES.map(caseHTML).join('');
+  var fbtns=[].slice.call(document.querySelectorAll('[data-f]'));
+  fbtns.forEach(function(b){b.addEventListener('click',function(){
+    fbtns.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
+    document.querySelectorAll('#all-cases .case').forEach(function(c){c.hidden=!(b.dataset.f==='all'||c.dataset.seg===b.dataset.f)});
+  })});
+
+  /* ---------- Страницы (роутинг по #хэшу) ---------- */
+  var PAGES=['home','services','prices','cases','about','contacts','privacy'];
+  var menu=document.getElementById('menu'), burger=document.getElementById('burger'), bico=document.getElementById('burger-ico');
+  function setMenu(open){
+    menu.hidden=!open; burger.setAttribute('aria-expanded',open); burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');
+    bico.setAttribute('d',open?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h10');
+    document.documentElement.style.overflow=open?'hidden':'';
+  }
+  burger.addEventListener('click',function(){setMenu(menu.hidden)});
+  function route(){
+    var h=location.hash.slice(1);
+    if(h==='lead-band') return;
+    if(PAGES.indexOf(h)<0) h='home';
+    document.querySelectorAll('.page').forEach(function(p){p.hidden=p.dataset.page!==h});
+    document.querySelectorAll('.nav a, .menu a.mi').forEach(function(a){
+      if(a.getAttribute('href')==='#'+h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    setMenu(false);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
   window.addEventListener('hashchange',route);
-  document.addEventListener('click',function(e){
-    var a=e.target.closest('a[href^="#"]'); if(!a) return;
-    var id=a.getAttribute('href').slice(1);
-    closeMenu();
-    if(VIEWS.indexOf(id)>-1){
-      if(id===current){e.preventDefault();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});}
-      return; // hashchange does the rest
-    }
-    var el=document.getElementById(id);
-    if(el){e.preventDefault();el.scrollIntoView({behavior:reduce?'auto':'smooth'});}
-  });
-
-  // --- mobile menu ---
-  var mb=document.getElementById('menuBtn'), sh=document.getElementById('sheet');
-  function closeMenu(){sh.hidden=true;mb.setAttribute('aria-expanded','false')}
-  mb.addEventListener('click',function(e){e.stopPropagation();var o=sh.hidden;sh.hidden=!o;mb.setAttribute('aria-expanded',String(o));});
-
-  // --- mini challenge (desktop) ---
-  var out=document.getElementById('chOut');
-  var hints={1:'Это объявление функции, здесь ничего опасного.',2:'Ввод здесь только читается. Опасность в том, куда он попадёт дальше.',3:'Пароль хешируется, тут всё в порядке.',5:'Эта строка выполняет запрос, но сам запрос собран раньше.'};
-  document.getElementById('code').addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    document.querySelectorAll('#code button').forEach(function(x){x.classList.remove('hit','miss')});
-    var l=b.dataset.l;
-    if(l==='4'){b.classList.add('hit');out.innerHTML='<span class="ok">Верно, это SQL-инъекция (CWE-89).</span> Если ввести имя <b>admin\'--</b>, всё после кавычки станет комментарием и проверка пароля исчезнет. Такие задачи вы решаете с первой недели. <a href="#signup" style="color:#9fb0ff">Попробовать урок →</a>';}
-    else{b.classList.add('miss');out.innerHTML='<span class="no">Не эта строка.</span> '+hints[l];}
-  });
-
-  // --- audience tabs ---
-  var aud={
-    'new':{t:'Вы не из IT и начинаете с нуля',p:'Программировать уметь не нужно. Начнём с того, как устроены сети, Linux и сайты, и только потом перейдём к атакам и защите.',l:['Вводный модуль по сетям и Linux','Ментор разбирает каждое задание','Через 3 месяца — первые находки на учебных стендах'],r:'Подойдёт тариф <b>«С ментором»</b>'},
-    'it':{t:'Вы сисадмин, разработчик или тестировщик',p:'Основы засчитаем по входному тесту, и вы сразу перейдёте к атакам на веб, инфраструктуру и Active Directory.',l:['Зачёт модуля M1 по тесту','Курс короче на 1 месяц','Упор на пентест и безопасную разработку'],r:'Подойдёт тариф <b>«Pro + карьера»</b>'},
-    'team':{t:'Вы обучаете сотрудников компании',p:'Для групп от 5 человек собираем программу под ваш стек и риски. Финал — учебный аудит на копии вашей инфраструктуры.',l:['Закрытая группа и удобное расписание','Договор и оплата по счёту','Отчёт о прогрессе каждого сотрудника'],r:'Стоимость — <b>индивидуальный расчёт</b>'}
-  };
-  var tabs=document.querySelectorAll('[role=tab]'), panel=document.getElementById('aud');
-  var tmap={'t-new':'new','t-it':'it','t-team':'team'};
-  function showAud(id){
-    var d=aud[tmap[id]];
-    document.getElementById('audTitle').textContent=d.t;
-    document.getElementById('audText').textContent=d.p;
-    document.getElementById('audList').innerHTML=d.l.map(function(x){return '<li><span>'+x+'</span></li>'}).join('');
-    document.getElementById('audRec').innerHTML=d.r;
-    tabs.forEach(function(t){t.setAttribute('aria-selected',String(t.id===id))});
-    panel.setAttribute('aria-labelledby',id);
-  }
-  tabs.forEach(function(t){t.addEventListener('click',function(){showAud(t.id)})});
-  showAud('t-new');
-
-  // --- pricing ---
-  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ')};
-  var mode='month';
-  function renderPrices(){
-    document.querySelectorAll('.price[data-full]').forEach(function(p){
-      var f=+p.dataset.full;
-      p.innerHTML= mode==='month' ? fmt(f/12)+' ₽<small> / мес</small>' : fmt(f*0.9)+' ₽';
-    });
-    document.querySelectorAll('.old[data-old]').forEach(function(o){
-      var f=+o.dataset.old;
-      o.textContent= mode==='month' ? 'Полная стоимость '+fmt(f)+' ₽, 12 платежей' : 'Вместо '+fmt(f)+' ₽';
-    });
-    document.getElementById('payMonth').setAttribute('aria-pressed',String(mode==='month'));
-    document.getElementById('payFull').setAttribute('aria-pressed',String(mode==='full'));
-  }
-  document.getElementById('payMonth').onclick=function(){mode='month';renderPrices()};
-  document.getElementById('payFull').onclick=function(){mode='full';renderPrices()};
-  renderPrices();
-  document.querySelectorAll('[data-plan]').forEach(function(a){a.addEventListener('click',function(){
-    var s=document.getElementById('fPlan');[].forEach.call(s.options,function(o,i){if(o.text===a.dataset.plan)s.selectedIndex=i});
-  })});
-
-  // --- form ---
-  document.getElementById('form').addEventListener('submit',function(e){
-    e.preventDefault();
-    var n=document.getElementById('fName').value.trim(), c=document.getElementById('fContact').value.trim(), err=document.getElementById('fErr');
-    if(!n){err.textContent='Укажите имя, чтобы мы знали, как к вам обращаться.';return}
-    if(c.replace(/\D/g,'').length<7 && !/^@?[a-zA-Z0-9_]{4,}$/.test(c)){err.textContent='Введите номер телефона или ник в Telegram, например @username.';return}
-    if(!document.getElementById('fAgree').checked){err.textContent='Отметьте согласие на обработку данных.';return}
-    err.textContent='';
-    document.getElementById('formFields').hidden=true;
-    document.getElementById('formDone').hidden=false;
-  });
-
-  // --- copy buttons ---
-  document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){
-    var t=b.dataset.copy, done=function(){b.textContent='Скопировано';setTimeout(function(){b.textContent='Скопировать'},1600)};
-    try{navigator.clipboard.writeText(t).then(done,function(){sel(b)})}catch(_){sel(b)}
-  })});
-  function sel(b){var v=b.parentNode.querySelector('.v');if(!v)return;var r=document.createRange();r.selectNodeContents(v);var s=getSelection();s.removeAllRanges();s.addRange(r);}
-
-  // --- sticky mobile CTA: hidden on the home hero and near the form ---
-  var bar=document.getElementById('mcta'), heroIn=true, formIn=false;
-  function updBar(){bar.classList.toggle('show',!(current==='home'&&heroIn)&&!formIn)}
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){heroIn=es[0].isIntersecting;updBar()}).observe(document.querySelector('.hero .cta-row'));
-    new IntersectionObserver(function(es){formIn=es[0].isIntersecting;updBar()},{threshold:.15}).observe(document.getElementById('signup'));
-  } else { heroIn=false; }
-
   route();
+
+  /* Кнопки «Оставить заявку» прокручивают к форме, не меняя страницу */
+  document.querySelectorAll('[data-lead]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault(); setMenu(false);
+      document.getElementById('lead-band').scrollIntoView({behavior:'smooth'});
+      setTimeout(function(){document.getElementById('f-phone').focus({preventScroll:true})},500);
+    });
+  });
+
+  /* ---------- Вкладки «Для кого» ---------- */
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected','false');document.getElementById(x.getAttribute('aria-controls')).hidden=true});
+    t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
+  })});
+
+  /* ---------- Калькулятор ---------- */
+  var RATES={ // [плотность от, мин $/кг, макс $/кг]; m3 — цена за м³ для лёгких грузов
+    auto:{days:'18–25 дн',tiers:[[400,2.4,2.8],[250,2.7,3.1],[150,3.0,3.4],[100,3.3,3.6]],m3:[300,360]},
+    rail:{days:'25–35 дн',tiers:[[400,1.9,2.3],[250,2.2,2.5],[150,2.4,2.7],[100,2.6,2.9]],m3:[250,300]},
+    air:{days:'7–12 дн',tiers:[[167,6.5,7.5],[0,7.5,8.5]]}
+  };
+  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU')};
+  function calc(){
+    var mode=document.querySelector('input[name=mode]:checked').value;
+    var kg=parseFloat(document.getElementById('c-kg').value)||0;
+    var m3=parseFloat(document.getElementById('c-m3').value)||0;
+    var k=parseFloat(document.getElementById('c-type').value)||1;
+    var val=parseFloat(document.getElementById('c-val').value)||0;
+    var r=RATES[mode], sum=document.getElementById('r-sum');
+    if(kg<=0||m3<=0){sum.textContent='Укажите вес и объём';return}
+    var den=kg/m3, lo, hi;
+    if(mode==='air'){var w=Math.max(kg,m3*167),t=w===kg?r.tiers[0]:r.tiers[1];lo=w*t[1];hi=w*t[2];}
+    else if(den<100){lo=m3*r.m3[0];hi=m3*r.m3[1];}
+    else{var tier=r.tiers.find(function(x){return den>=x[0]});lo=kg*tier[1];hi=kg*tier[2];}
+    var ins=val*0.02;
+    sum.textContent='$ '+fmt(lo*k+ins)+' – '+fmt(hi*k+ins);
+    document.getElementById('r-den').textContent=fmt(den)+' кг/м³';
+    document.getElementById('r-days').textContent=r.days;
+    document.getElementById('r-ins').textContent='$ '+fmt(ins);
+  }
+  var calcForm=document.getElementById('calc');
+  calcForm.addEventListener('input',calc);
+  calcForm.addEventListener('submit',function(e){e.preventDefault()});
+  calc();
+  document.getElementById('calc-cta').addEventListener('click',function(){
+    var what=document.getElementById('f-what');
+    var mode=document.querySelector('input[name=mode]:checked+label').textContent.toLowerCase();
+    what.value=document.getElementById('c-type').selectedOptions[0].text+', '+document.getElementById('c-kg').value+' кг, '+document.getElementById('c-m3').value+' м³, '+mode+'. Расчёт: '+document.getElementById('r-sum').textContent;
+  });
+
+  /* ---------- Форма заявки (заглушка: подключите отправку в Telegram-бота или CRM) ---------- */
+  document.getElementById('lead-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var ph=document.getElementById('f-phone').value.trim();
+    document.getElementById('f-err').hidden=ph.length>=5;
+    if(ph.length<5){document.getElementById('f-phone').focus();return}
+    document.getElementById('f-submit').hidden=true;
+    document.getElementById('f-ok').hidden=false;
+  });
+
+  /* ---------- Копирование ---------- */
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var old=b.textContent, done=function(){b.textContent='Скопировано';setTimeout(function(){b.textContent=old},1600)};
+      try{navigator.clipboard.writeText(b.dataset.copy).then(done,function(){})}catch(_){}
+    });
+  });
 })();
 </script>
-
 </body>
 </html>
