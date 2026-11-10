@@ -1,0 +1,31 @@
+<!--META {"title":"Контакты и адреса складов | {{company}}","description":"Телефон, Telegram, MAX, WhatsApp и почта компании. Адреса складов в Москве, Гуанчжоу и Иу, часы работы.","nav":"contacts"} -->
+<div class="wrap phead">
+  <div class="crumbs"><a href="index.html">Главная</a> / Контакты</div>
+  <h1>Контакты</h1>
+  <p class="lead">Отвечает живой менеджер, без ботов. Обычно в течение {{responseMinutes}} минут.</p>
+</div>
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="ccards">
+      <div class="cc"><span class="lbl">Телефон</span><a class="big" href="tel:{{phoneHref}}">{{phone}}</a><p>{{hours}}</p><div class="row-btns"><button class="chipbtn" type="button" data-copy="{{phone}}">Скопировать номер</button></div></div>
+      <div class="cc"><span class="lbl">Мессенджеры</span><span class="big">@{{telegram}}</span><div class="row-btns"><a class="chipbtn" href="https://t.me/{{telegram}}" target="_blank" rel="noopener">Telegram</a><a class="chipbtn" href="{{max}}" target="_blank" rel="noopener">MAX</a><a class="chipbtn" href="https://wa.me/{{whatsapp}}" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="cc"><span class="lbl">Почта</span><span class="big">{{email}}</span><div class="row-btns"><button class="chipbtn" type="button" data-copy="{{email}}">Скопировать адрес</button></div></div>
+    </div>
+    <div class="eyebrow" style="margin-top:44px">Склады</div>
+    <div class="wh">
+      <div class="whc"><h3>Москва</h3><p>{{warehouseMoscow}}. Выдача грузов и самовывоз пн–сб 10:00–19:00.</p><a class="more" style="margin-top:6px" href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D1%80%D0%BE%D1%82%D0%B0%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0" target="_blank" rel="noopener">Открыть на карте</a></div>
+      <div class="whc"><h3>Гуанчжоу</h3><p>{{warehouseGuangzhou}}. Приёмка пн–сб 9:00–18:00 по местному времени.</p><a class="more" style="margin-top:6px" href="supplier.html">Инструкция для поставщика</a></div>
+      <div class="whc"><h3>Иу</h3><p>{{warehouseYiwu}}. Приёмка пн–сб 9:00–18:00 по местному времени.</p><a class="more" style="margin-top:6px" href="supplier.html">Инструкция для поставщика</a></div>
+    </div>
+    <div class="cc" style="margin-top:24px"><span class="lbl">Для поставщиков в Китае</span><p>WeChat: <b style="color:var(--ink)">{{wechat}}</b>. Отправьте поставщику ссылку на <a href="supplier.html">страницу на английском</a> с адресом склада и правилами маркировки.</p></div>
+    <div class="tbl">
+      <table>
+        <tbody>
+          <tr><td>Менеджеры</td><td class="n">{{hours}}</td></tr>
+          <tr><td>Склад в Москве</td><td class="n">пн–сб 10:00–19:00</td></tr>
+          <tr><td>Склады в Китае</td><td class="n">пн–сб 9:00–18:00 (UTC+8)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

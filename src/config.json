@@ -1,0 +1,39 @@
+{
+  "_readme": "Все данные компании в одном месте. Поменяйте значения и запустите python3 build.py — они подставятся на все страницы.",
+
+  "company": "Чистый путь",
+  "legalName": "ООО «Чистый путь»",
+  "inn": "0000000000",
+  "ogrn": "0000000000000",
+  "legalAddress": "г. Москва, 19-й км МКАД, стр. 3",
+  "foundedYear": 2018,
+
+  "phone": "+7 900 123-45-67",
+  "phoneHref": "+79001234567",
+  "email": "info@chistyput.ru",
+  "telegram": "chistyput_cargo",
+  "whatsapp": "79001234567",
+  "max": "https://max.ru/",
+  "wechat": "chistyput_cn",
+  "hours": "ежедневно 9:00–21:00 МСК",
+  "responseMinutes": 15,
+
+  "warehouseMoscow": "ТК «Южные ворота», 19-й км МКАД, стр. 3",
+  "warehouseGuangzhou": "Guangzhou, Baiyun District, [warehouse address]",
+  "warehouseYiwu": "Yiwu, Futian Street, [warehouse address]",
+
+  "insuranceAmount": "50 млн ₽",
+  "freeStorageDays": 30,
+  "priceValidDays": 7,
+
+  "yandexReviewsUrl": "https://yandex.ru/maps/?text=%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D0%B9%20%D0%BF%D1%83%D1%82%D1%8C%20%D0%BA%D0%B0%D1%80%D0%B3%D0%BE",
+  "twoGisReviewsUrl": "https://2gis.ru/moscow/search/%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D0%B9%20%D0%BF%D1%83%D1%82%D1%8C",
+
+  "siteUrl": "https://ayanamiraaaay.github.io/hayos/",
+
+  "_runtime": "Эти поля читает скрипт в браузере.",
+  "leadEndpoint": "",
+  "trackEndpoint": "",
+  "metrikaId": "",
+  "showSampleBadges": true
+}

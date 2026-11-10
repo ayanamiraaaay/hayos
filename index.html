@@ -3,362 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Доставка грузов из Китая в Россию под ключ: авто, ж/д, авиа и контейнеры. Калькулятор стоимости, фиксированная цена в договоре, страховка груза.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Доставка грузов из Китая в Россию под ключ за 18–35 дней | Чистый путь</title>
+<meta name="description" content="Карго и белая доставка из Гуанчжоу, Иу и Шэньчжэня в любой город России. Калькулятор с пошлинами, фиксированная цена в договоре, отслеживание груза, страховка.">
+
+<link rel="canonical" href="https://ayanamiraaaay.github.io/hayos/">
+<meta property="og:type" content="website"><meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Доставка грузов из Китая в Россию под ключ за 18–35 дней | Чистый путь"><meta property="og:description" content="Карго и белая доставка из Гуанчжоу, Иу и Шэньчжэня в любой город России. Калькулятор с пошлинами, фиксированная цена в договоре, отслеживание груза, страховка.">
+<meta property="og:url" content="https://ayanamiraaaay.github.io/hayos/"><meta property="og:image" content="https://ayanamiraaaay.github.io/hayos/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFFFFF">
-<style>
-:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-</style>
-<title>Чистый путь Карго</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-<style>
-/* Layout: mobile-first, 6 страниц через #хэш; цвета и шрифт взяты из логотипа «Чистый путь» (синий + тёмно-синий, жирный гротеск) */
-:root{
-  --bg:#FFFFFF; --surface:#FFFFFF; --tint:#F2F7FE; --ink:#0E1A30; --muted:#5B6B82; --line:#E1E8F2;
-  --blue:#2D74E0; --blue-ink:#FFFFFF; --blue-soft:#E6F0FD; --on-blue-muted:#D6E5FB;
-  --navy:#0E1A30; --navy-ink:#FFFFFF; --navy-muted:#97A8C0; --ok:#1F8A5B; color-scheme:light;
-  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --r:14px; --gut-l:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
-}
-/* Сайт намеренно только светлый: белая основа, голубые акценты, тёмно-синие мелкие детали */
-
-/* Голубые блоки: переопределяем переменные внутри, чтобы текст стал белым */
-.route,.case-top,.leadband{--navy:var(--blue);--navy-ink:#FFFFFF;--navy-muted:var(--on-blue-muted)}
-.tinted{background:var(--tint)}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-font-smoothing:antialiased;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-@media (min-width:900px){body{padding-bottom:0}}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
-a{color:inherit}
-h1,h2,h3{font-weight:800;line-height:1.12;letter-spacing:-.025em;text-wrap:balance;margin:0}
-h2{font-size:clamp(1.55rem,6vw,2.4rem)}
-h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;line-height:1.3}
-p{margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-section{padding-block:52px}
-.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.eyebrow::before{content:"";width:20px;height:3px;border-radius:2px;background:var(--ink);transform:skewX(-35deg)}
-.lead{color:var(--muted);max-width:60ch;margin-top:12px}
-.num{font-variant-numeric:tabular-nums}
-:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
-.more{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--blue);text-decoration:none;margin-top:20px}
-.more::after{content:"→";transition:transform .15s}.more:hover::after{transform:translateX(3px)}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:12px;border:0;font:600 1rem var(--font);text-decoration:none;cursor:pointer;transition:transform .15s,filter .15s,border-color .15s}
-.btn:active{transform:scale(.98)}
-.btn-primary{background:var(--blue);color:var(--blue-ink)}
-.btn-primary:hover{filter:brightness(1.08)}
-.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn-ghost:hover{border-color:var(--ink)}
-.btn-block{width:100%}
-
-/* logo */
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.15rem;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
-.logo svg{width:44px;height:27px;flex:none}
-.logo .l-blue{fill:var(--blue)} .logo .l-ink{fill:var(--ink)}
-
-/* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
-.nav{display:none;gap:4px;font-weight:500;font-size:.93rem}
-.nav a{text-decoration:none;color:var(--muted);padding:8px 12px;border-radius:8px}
-.nav a:hover{color:var(--ink)}
-.nav a[aria-current="page"]{color:var(--blue);background:var(--blue-soft)}
-.top-right{display:flex;align-items:center;gap:14px}
-.top-phone{display:none;text-decoration:none;text-align:right;line-height:1.15}
-.top-phone b{font-weight:700;display:block;white-space:nowrap;font-variant-numeric:tabular-nums}
-.top-phone span{font-size:.72rem;color:var(--muted)}
-.burger{width:46px;height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer}
-.burger svg{width:22px;height:22px}
-.menu{position:fixed;inset:calc(64px + env(safe-area-inset-top,0px)) 0 0;z-index:49;background:var(--surface);padding:12px var(--gut-r) calc(24px + env(safe-area-inset-bottom,0px)) var(--gut-l);overflow-y:auto;display:flex;flex-direction:column;gap:4px}
-.menu a.mi{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-size:1.25rem;font-weight:700;letter-spacing:-.02em}
-.menu a.mi[aria-current="page"]{color:var(--blue)}
-.menu a.mi::after{content:"→";color:var(--muted);font-weight:400}
-.menu .menu-foot{margin-top:24px;display:grid;gap:10px}
-.menu .menu-foot p{color:var(--muted);font-size:.9rem}
-@media (min-width:1000px){.nav{display:flex}.burger{display:none}.menu{display:none!important}}
-@media (min-width:640px){.top-phone{display:block}}
-
-/* page header (inner pages) */
-.phead{padding-block:36px 8px}
-.phead h1{font-size:clamp(1.9rem,8vw,3rem)}
-.crumbs{font-size:.82rem;color:var(--muted);margin-bottom:14px}
-.crumbs a{color:var(--muted)}
-
-/* hero */
-.hero{padding-block:28px 40px}
-.hero-grid{display:grid;gap:28px}
-.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;font-size:.8rem;font-weight:500;margin-bottom:16px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 20%,transparent)}
-.hero h1{font-size:clamp(2rem,9vw,3.6rem);letter-spacing:-.035em}
-.hero h1 em{font-style:normal;color:var(--blue)}
-.hero .lead{font-size:1.05rem;margin-top:16px}
-.hero-cta{display:grid;gap:10px;margin-top:24px}
-.hero-note{font-size:.82rem;color:var(--muted);margin-top:12px;display:flex;gap:6px;align-items:center}
-@media (min-width:560px){.hero-cta{grid-template-columns:auto auto;justify-content:start}}
-@media (min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr;align-items:center;gap:48px}.hero{padding-block:56px 64px}}
-
-/* route card */
-.route{background:var(--navy);color:var(--navy-ink);border-radius:20px;padding:22px 20px;position:relative;overflow:hidden}
-.route{box-shadow:0 18px 40px -18px color-mix(in srgb,var(--blue) 60%,transparent)}
-.route::after{content:"";position:absolute;right:-40px;top:-30px;width:180px;height:60px;background:#FFFFFF;opacity:.12;transform:skewX(-40deg);border-radius:6px;pointer-events:none}
-.route-head{display:flex;justify-content:space-between;gap:12px;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-muted);position:relative;z-index:1}
-.stops{list-style:none;margin:20px 0 0;padding:0}
-.stop{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:start;position:relative;padding-bottom:18px}
-.stop:last-child{padding-bottom:0}
-.stop::before{content:"";position:absolute;left:10px;top:18px;bottom:-2px;width:2px;background:var(--navy-muted);opacity:.35}
-.stop.on::before{background:#FFFFFF;opacity:1}
-.stop:last-child::before{display:none}
-.pin{width:22px;height:22px;border-radius:50%;border:2px solid var(--navy-muted);background:var(--navy);position:relative;z-index:1;margin-top:1px}
-.stop.on .pin{border-color:#FFFFFF;background:#FFFFFF}
-.stop.now .pin{border-color:#FFFFFF;background:var(--ink);box-shadow:0 0 0 5px rgb(255 255 255/.3)}
-.stop b{display:block;font-weight:600}
-.stop span{font-size:.82rem;color:var(--navy-muted)}
-.stop .d{font-size:.8rem;font-weight:600;color:var(--navy-muted);white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums}
-.route-foot{margin-top:20px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--navy-muted) 30%,transparent);display:flex;justify-content:space-between;gap:12px;font-size:.82rem;color:var(--navy-muted)}
-.route-foot b{color:var(--navy-ink)}
-
-/* stats */
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:28px}
-.stat{background:var(--surface);padding:16px}
-.stat b{display:block;color:var(--blue);font-size:1.55rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat span{font-size:.8rem;color:var(--muted)}
-@media (min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
-
-/* cards: benefits / services */
-.grid2{display:grid;gap:12px;margin-top:28px}
-@media (min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
-.grid3{display:grid;gap:12px;margin-top:28px}
-@media (min-width:760px){.grid3{grid-template-columns:1fr 1fr}}
-@media (min-width:1000px){.grid3{grid-template-columns:repeat(3,1fr)}}
-.benefit{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
-.ico{width:44px;height:44px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
-.ico svg{width:22px;height:22px}
-.benefit p{color:var(--muted);font-size:.93rem;margin-top:6px}
-.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
-.svc .ico{margin-bottom:4px}
-.svc p{color:var(--muted);font-size:.93rem}
-.svc .meta{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;font-size:.85rem}
-.svc .meta span{color:var(--muted)} .svc .meta b{font-variant-numeric:tabular-nums}
-
-/* segments */
-.tabs{display:flex;gap:8px;overflow-x:auto;margin:24px calc(var(--gut-r) * -1) 0 calc(var(--gut-l) * -1);padding:2px var(--gut-r) 6px var(--gut-l);scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:500 .92rem var(--font);cursor:pointer}
-.tab[aria-selected="true"]{background:var(--blue);color:var(--blue-ink);border-color:var(--blue)}
-.panel{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;display:grid;gap:16px}
-.panel h3{font-size:1.15rem}
-.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-.checks li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.95rem}
-.checks li::before{content:"";width:20px;height:20px;border-radius:6px;background:var(--blue-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%232D74E0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;margin-top:2px}
-.panel .btn{justify-self:start}
-
-/* navy bands */
-.band{background:var(--tint);color:var(--ink);--navy-ink:var(--ink);--navy-muted:var(--muted)}
-.band .lead{color:var(--muted)}
-.band .calc{border:1px solid var(--line)}
-
-/* rates */
-.rates{margin-top:24px;overflow-x:auto;border-radius:var(--r);border:1px solid var(--line);background:var(--surface)}
-.rates table{width:100%;border-collapse:collapse;min-width:540px;font-size:.93rem}
-.rates th,.rates td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
-.rates tr:last-child td{border-bottom:0}
-.rates th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.rates td.n{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
-.scroll-hint{font-size:.75rem;color:var(--muted);margin-top:8px}
-@media (min-width:600px){.scroll-hint{display:none}}
-
-/* calculator */
-.calc{background:var(--surface);color:var(--ink);border-radius:20px;padding:22px 20px;display:grid;gap:18px}
-.calc-wrap{display:grid;gap:24px;margin-top:28px}
-@media (min-width:960px){.calc-wrap{grid-template-columns:1.2fr .8fr;align-items:start}}
-.calc-grid{display:grid;gap:14px}
-@media (min-width:640px){.calc-grid{grid-template-columns:1fr 1fr}}
-.field label{display:block;font-size:.84rem;font-weight:600;margin-bottom:6px}
-.field .hint{font-weight:400;color:var(--muted)}
-input,select,textarea{width:100%;min-height:50px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:500 1rem var(--font);padding:0 14px}
-textarea{padding:12px 14px;min-height:90px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:4px;border-radius:12px;border:1.5px solid var(--line);position:relative}
-.seg input{position:absolute;opacity:0;pointer-events:none;width:1px;min-height:0}
-.seg label{margin:0;text-align:center;padding:10px 4px;border-radius:9px;font-size:.9rem;font-weight:600;cursor:pointer;color:var(--muted)}
-.seg input:checked+label{background:var(--blue);color:var(--blue-ink)}
-.seg input:focus-visible+label{outline:3px solid var(--blue);outline-offset:2px}
-.result{border-radius:14px;background:var(--blue-soft);padding:18px;display:grid;gap:8px}
-.result .lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.result .sum{font-size:clamp(1.6rem,7.5vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
-.result .meta{font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px}
-.result .meta b{color:var(--ink);font-variant-numeric:tabular-nums}
-.factors{display:grid;gap:12px}
-.factors .item{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-.factors .item:last-child{border-bottom:0}
-.factors .k{width:36px;height:36px;border-radius:10px;background:var(--blue);color:var(--blue-ink);display:grid;place-items:center;font-weight:800;font-size:.9rem}
-.factors p{color:var(--navy-muted);font-size:.9rem;margin-top:2px}
-
-/* reviews / docs */
-.review{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px}
-.review q{quotes:none;font-size:.95rem}
-.who{display:flex;gap:12px;align-items:center;margin-top:auto}
-.ava{width:42px;height:42px;border-radius:50%;background:var(--ink);color:#FFFFFF;display:grid;place-items:center;font-weight:700;font-size:.85rem;flex:none}
-.who b{display:block;font-size:.92rem}
-.who span{font-size:.8rem;color:var(--muted)}
-.sample{font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:3px 7px;align-self:flex-start}
-.docs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
-@media (min-width:760px){.docs{grid-template-columns:repeat(4,1fr)}}
-.doc{border:1px solid var(--line);border-radius:12px;padding:14px;font-size:.88rem;background:var(--surface)}
-.doc b{display:block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
-
-/* cases */
-.case{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
-.case-top{background:var(--navy);color:var(--navy-ink);padding:18px 20px;display:grid;gap:6px}
-.case-top .tag{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-muted)}
-.case dl{margin:0;padding:18px 20px;display:grid;gap:12px;font-size:.93rem}
-.case dt{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.case dd{margin:2px 0 0}
-.case-res{margin-top:auto;border-top:1px solid var(--line);padding:14px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.case-res b{display:block;font-size:1.1rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--blue)}
-.case-res span{font-size:.74rem;color:var(--muted)}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
-
-/* steps */
-.steps{list-style:none;padding:0;margin:28px 0 0;counter-reset:s}
-.step{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:16px;position:relative;padding-bottom:24px}
-.step:last-child{padding-bottom:0}
-.step::before{content:counter(s);width:48px;height:48px;border-radius:14px;background:var(--blue-soft);color:var(--blue);border:1.5px solid var(--blue-soft);display:grid;place-items:center;font-weight:800;font-size:1.1rem;position:relative;z-index:1}
-.step:first-child::before{background:var(--blue);color:var(--blue-ink);border-color:var(--blue)}
-.step::after{content:"";position:absolute;left:23px;top:50px;bottom:2px;width:2px;background:var(--line)}
-.step:last-child::after{display:none}
-.step p{color:var(--muted);font-size:.93rem;margin-top:4px}
-.step .when{font-size:.78rem;font-weight:700;color:var(--ink);margin-top:6px;display:block}
-@media (min-width:960px){
-  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-  .step{grid-template-columns:1fr;padding-bottom:0}
-  .step::after{left:56px;right:-14px;top:23px;bottom:auto;width:auto;height:2px}
-}
-.pay{margin-top:24px;display:grid;gap:10px}
-@media (min-width:760px){.pay{grid-template-columns:repeat(3,1fr)}}
-.pay div{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);font-size:.92rem}
-.pay b{display:block;margin-bottom:4px}
-
-/* guarantees */
-.g{border-left:3px solid var(--blue);background:var(--surface);border-radius:0 var(--r) var(--r) 0;padding:18px 20px}
-.g p{color:var(--muted);font-size:.92rem;margin-top:6px}
-
-/* about */
-.about-grid{display:grid;gap:24px;margin-top:8px}
-@media (min-width:900px){.about-grid{grid-template-columns:1fr 1fr;align-items:start;gap:48px}}
-.about-text p+p{margin-top:14px}
-.about-text p{color:var(--muted)}
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0}
-.timeline li{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
-.timeline li:last-child{border-bottom:0}
-.timeline b{color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
-.timeline span{font-size:.93rem}
-
-/* faq */
-.faq{margin-top:24px;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{list-style:none;cursor:pointer;padding:18px 36px 18px 0;font-weight:600;position:relative}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:400;color:var(--blue);transition:transform .2s}
-.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
-.faq details p{padding:0 0 18px;color:var(--muted);max-width:65ch}
-
-/* contacts page */
-.ccards{display:grid;gap:12px;margin-top:28px}
-@media (min-width:760px){.ccards{grid-template-columns:repeat(3,1fr)}}
-.cc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start}
-.cc .lbl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.cc .big{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-decoration:none}
-.cc p{color:var(--muted);font-size:.92rem}
-.row-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.chipbtn{display:inline-flex;align-items:center;min-height:42px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font:600 .88rem var(--font);cursor:pointer}
-.chipbtn:hover{border-color:var(--blue);color:var(--blue)}
-.wh{display:grid;gap:12px;margin-top:12px}
-@media (min-width:760px){.wh{grid-template-columns:1fr 1fr}}
-.whc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.whc .mapph{height:120px;background:
-  linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,
-  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px,var(--blue-soft);position:relative}
-.whc .mapph::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--blue);box-shadow:0 0 0 6px color-mix(in srgb,var(--blue) 25%,transparent)}
-.whc .in{padding:18px 20px;display:grid;gap:6px}
-.whc p{color:var(--muted);font-size:.92rem}
-.hours{margin-top:24px;overflow-x:auto}
-.hours table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:320px}
-.hours td{padding:12px 0;border-bottom:1px solid var(--line)}
-.hours td:last-child{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
-
-/* privacy */
-.policy{max-width:72ch;display:grid;gap:28px}
-.policy h2{font-size:1.25rem;letter-spacing:-.015em;margin-bottom:10px}
-.policy p,.policy li{color:var(--muted)}
-.policy p+p{margin-top:10px}
-.policy ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
-.policy .upd{font-size:.85rem;color:var(--muted)}
-.policy .req{background:var(--tint);border-radius:var(--r);padding:18px 20px;font-size:.93rem;display:grid;gap:4px}
-.policy .req b{color:var(--ink)}
-
-/* lead band (на каждой странице) */
-.leadband{background:var(--navy);color:var(--navy-ink)}
-.leadband .lead{color:var(--navy-muted)}
-.lb-grid{display:grid;gap:28px}
-@media (min-width:900px){.lb-grid{grid-template-columns:1fr 1fr;align-items:center}}
-.lb-points{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
-.lb-points li{display:flex;gap:10px;align-items:center;font-size:.95rem}
-.leadband .eyebrow{color:#FFFFFF}
-.leadband .eyebrow::before{background:var(--ink)}
-.lb-points li::before{content:"";width:16px;height:4px;border-radius:2px;background:var(--ink);transform:skewX(-35deg);flex:none}
-.form{background:var(--surface);color:var(--ink);border-radius:20px;padding:22px 20px;display:grid;gap:14px}
-.form small{color:var(--muted);font-size:.78rem}
-.ok-msg{background:color-mix(in srgb,var(--ok) 14%,var(--surface));border:1px solid var(--ok);border-radius:12px;padding:16px;font-size:.95rem}
-.err{color:#D9412B;font-size:.88rem}
-
-footer{padding-block:32px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line)}
-.f-grid{display:grid;gap:24px}
-@media (min-width:760px){.f-grid{grid-template-columns:1.2fr 1fr 1fr}}
-.f-grid nav{display:grid;gap:8px}
-.f-grid nav a{text-decoration:none;color:var(--muted)} .f-grid nav a:hover{color:var(--ink)}
-.f-grid h4{margin:0 0 4px;font-size:.8rem;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
-.f-bottom{margin-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
-
-/* mobile action bar */
-.mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--surface);border-top:1px solid var(--line);padding:10px var(--gut-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut-l);display:grid;grid-template-columns:52px 52px 1fr;gap:8px;box-shadow:0 -6px 20px rgb(0 0 0/.06)}
-.mbar a.sq{display:grid;place-items:center;border-radius:12px;border:1.5px solid var(--line);color:var(--ink);min-height:52px}
-.mbar svg{width:22px;height:22px}
-@media (min-width:900px){.mbar{display:none}}
-
-.page{animation:fade .25s ease}
-@keyframes fade{from{opacity:.4;transform:translateY(6px)}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
-@media (prefers-reduced-motion:no-preference){.stop.now .pin{animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--blue) 0%,transparent)}}}
-</style>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MovingCompany", "name": "ООО «Чистый путь»", "url": "https://ayanamiraaaay.github.io/hayos/", "telephone": "+7 900 123-45-67", "email": "info@chistyput.ru", "address": {"@type": "PostalAddress", "addressLocality": "Москва", "streetAddress": "г. Москва, 19-й км МКАД, стр. 3"}, "areaServed": "RU", "description": "Карго и белая доставка из Гуанчжоу, Иу и Шэньчжэня в любой город России. Калькулятор с пошлинами, фиксированная цена в договоре, отслеживание груза, страховка."}</script>
 </head>
 <body>
-<!-- Логотип: знак из двух стрелок (синяя + тёмная), повторяет присланный логотип -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="mark" viewBox="0 0 60 36">
-      <path class="l-blue" d="M2 33 L13.5 15 Q16 11.5 20 11.5 L47.5 11.5 L42 6 L48 6 L59 16.5 L21 16.5 Q19 16.5 17.8 18.2 L8 33 Z"/>
-      <path class="l-ink" d="M14 33 L19.8 24.5 Q21.6 22 25 22 L59 22 L48 33 L42 33 L47.5 27 L26 27 Q24 27 23 28.3 L19.8 33 Z"/>
-    </symbol>
-  </defs>
-</svg>
-
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="mark" viewBox="0 0 60 36">
+<path class="l-blue" d="M2 33 L13.5 15 Q16 11.5 20 11.5 L47.5 11.5 L42 6 L48 6 L59 16.5 L21 16.5 Q19 16.5 17.8 18.2 L8 33 Z"/>
+<path class="l-ink" d="M14 33 L19.8 24.5 Q21.6 22 25 22 L59 22 L48 33 L42 33 L47.5 27 L26 27 Q24 27 23 28.3 L19.8 33 Z"/>
+</symbol></defs></svg>
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#home" aria-label="Чистый путь — на главную"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a>
-    <nav class="nav" aria-label="Страницы">
-      <a href="#home">Главная</a><a href="#services">Услуги</a><a href="#prices">Цены</a><a href="#cases">Кейсы</a><a href="#about">О компании</a><a href="#contacts">Контакты</a>
-    </nav>
+    <a class="logo" href="index.html" aria-label="Чистый путь — на главную"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a>
+    <nav class="nav" aria-label="Страницы"><a href="services.html">Услуги</a><a href="prices.html">Цены</a><a href="cases.html">Кейсы</a><a href="about.html">О компании</a><a href="knowledge.html">Статьи</a><a href="contacts.html">Контакты</a></nav>
     <div class="top-right">
+      <a class="top-track" href="tracking.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>Отследить груз</a>
       <a class="top-phone" href="tel:+79001234567"><b>+7 900 123-45-67</b><span>ежедневно 9:00–21:00 МСК</span></a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Открыть меню">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path id="burger-ico" d="M4 7h16M4 12h16M4 17h10"/></svg>
@@ -366,560 +37,195 @@ footer{padding-block:32px;font-size:.85rem;color:var(--muted);border-top:1px sol
     </div>
   </div>
 </header>
-
 <nav class="menu" id="menu" aria-label="Меню" hidden>
-  <a class="mi" href="#home">Главная</a>
-  <a class="mi" href="#services">Услуги</a>
-  <a class="mi" href="#prices">Цены и калькулятор</a>
-  <a class="mi" href="#cases">Кейсы</a>
-  <a class="mi" href="#about">О компании</a>
-  <a class="mi" href="#contacts">Контакты</a>
+  <a class="mi" href="index.html" aria-current="page">Главная</a>
+  <a class="mi" href="services.html">Услуги</a><a class="mi" href="prices.html">Цены</a><a class="mi" href="cases.html">Кейсы</a><a class="mi" href="about.html">О компании</a><a class="mi" href="knowledge.html">Статьи</a><a class="mi" href="contacts.html">Контакты</a>
+  <a class="mi" href="tracking.html">Отследить груз</a>
   <div class="menu-foot">
-    <a class="btn btn-primary btn-block" href="#lead-band" data-lead>Оставить заявку</a>
+    <a class="btn btn-primary btn-block" href="#lead" data-to-lead="">Оставить заявку</a>
     <a class="btn btn-ghost btn-block" href="tel:+79001234567">+7 900 123-45-67</a>
-    <p>Ежедневно 9:00–21:00 по Москве</p>
+    <p>ежедневно 9:00–21:00 МСК. Ответим за 15 минут.</p>
   </div>
 </nav>
-
 <main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span>Склады в Гуанчжоу, Иу и Москве · хранение 30 дней бесплатно</span>
+      <h1>Доставка грузов из Китая в любой город России <em>за&nbsp;18–35&nbsp;дней</em></h1>
+      <p class="lead">Выкупим товар у поставщика, проверим, растаможим и привезём до вашего склада или склада Wildberries и Ozon. Цена фиксируется в договоре до отправки.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="prices.html">Рассчитать с пошлинами</a>
+        <a class="btn btn-ghost" href="#lead" data-to-lead="">Получить консультацию</a>
+      </div>
+      <p class="hero-note"><span><span class="dot"></span>Ответим за 15 минут</span><span>Страховка груза на 100%</span><span><a href="tracking.html">Отследить груз</a></span></p>
+    </div>
+    <aside class="route" aria-label="Пример маршрута груза">
+      <div class="route-head"><span>Трек ЧП-48213</span><span>Авто · 1,2 т</span></div>
+      <ol class="stops">
+        <li class="stop on"><span class="pin"></span><div><b>Гуанчжоу</b><span>Приёмка, фотоотчёт, упаковка</span></div><span class="d">день 0</span></li>
+        <li class="stop on"><span class="pin"></span><div><b>Урумчи</b><span>Консолидация, погрузка</span></div><span class="d">день 6</span></li>
+        <li class="stop now"><span class="pin"></span><div><b>Хоргос → Казахстан</b><span>Пересечение границы</span></div><span class="d">день 11</span></li>
+        <li class="stop"><span class="pin"></span><div><b>Москва, склад</b><span>Выдача или доставка до двери</span></div><span class="d">день 19</span></li>
+      </ol>
+      <div class="route-foot"><span>Посмотрите этот груз онлайн</span><a href="tracking.html?n=48213"><b>Отследить →</b></a></div>
+    </aside>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>с 2018</b><span>возим из Китая</span></div>
+      <div class="stat"><b>14 200+</b><span>доставленных партий</span></div>
+      <div class="stat"><b>0,3%</b><span>грузов с претензиями</span></div>
+      <div class="stat"><b>50 млн ₽</b><span>страховой полис</span></div>
+    </div>
+  </div>
+</section>
 
-<!-- ============ ГЛАВНАЯ ============ -->
-<div class="page" data-page="home">
-  <section class="hero">
-    <div class="wrap hero-grid">
+<section class="tinted">
+  <div class="wrap">
+    <div class="eyebrow">Что вы получаете</div>
+    <h2>Вы занимаетесь продажами, остальное берём на себя</h2>
+    <div class="grid3">
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><h3>Цена не вырастет в пути</h3><p>Ставка фиксируется в договоре. Расчёт с сайта действует 7 дней.</p></div></article>
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><div><h3>Проверим товар до отправки</h3><p>Вскрываем коробки, считаем, снимаем фото и видео. Брак возвращаем поставщику ещё в Китае.</p></div></article>
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><h3>Отслеживание по номеру</h3><p>Статус груза на сайте и в Telegram: склад, граница, таможня, выдача.</p></div></article>
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 9l9-5 9 5v11H3z"/><path d="M8 20v-6h8v6"/></svg></span><div><h3>30 дней хранения бесплатно</h3><p>Собирайте товар от разных фабрик на нашем складе в Китае и отправляйте одной партией.</p></div></article>
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></span><div><h3>Ежедневный фотоотчёт</h3><p>Пока груз на складе, каждый день присылаем фото: приёмка, упаковка, погрузка.</p></div></article>
+      <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M7 7h7a3 3 0 010 6H8a3 3 0 000 6h9"/></svg></span><div><h3>Оплата поставщику в юанях</h3><p>Переводим деньги на Alipay, WeChat или счёт фабрики. Комиссия от 1,5%.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Ближайшие отправки</div>
+    <h2>Успейте сдать груз на склад к отправке</h2>
+    <p class="lead">Отправки по расписанию. Сдайте груз на склад до указанной даты, и он уедет в этот рейс.</p>
+    <div class="deps" id="deps" data-limit="6"></div>
+  </div>
+</section>
+
+<section class="pt0">
+  <div class="wrap">
+    <div class="eyebrow">Для кого</div>
+    <h2>Выберите, кто вы, и посмотрите, чем поможем</h2>
+    <div class="tabs" role="tablist" aria-label="Тип клиента">
+      <button class="tab" role="tab" id="t-mp" aria-selected="true" aria-controls="p-mp">Селлер маркетплейса</button>
+      <button class="tab" role="tab" id="t-opt" aria-selected="false" aria-controls="p-opt">Оптовая торговля</button>
+      <button class="tab" role="tab" id="t-prod" aria-selected="false" aria-controls="p-prod">Производство</button>
+      <button class="tab" role="tab" id="t-new" aria-selected="false" aria-controls="p-new">Первая закупка</button>
+    </div>
+    <div class="panel" role="tabpanel" id="p-mp" aria-labelledby="t-mp">
+      <h3>Поставки на Wildberries, Ozon и Яндекс Маркет</h3>
+      <ul class="checks"><li>Маркировка «Честный знак» и этикетки маркетплейса ещё в Китае</li><li>Доставка сразу на склады Коледино, Электросталь, Казань</li><li>Белое оформление с документами для маркетплейса</li></ul>
+      <div class="row-btns"><a class="btn btn-primary" href="marketplaces.html">Подробнее для селлеров</a><a class="btn btn-ghost" href="checklist.html">Чек-лист по ввозу</a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-opt" aria-labelledby="t-opt" hidden>
+      <h3>Регулярные партии от 1 тонны</h3>
+      <ul class="checks"><li>Сниженная ставка при поставках от 2 раз в месяц</li><li>Консолидация товаров от разных фабрик в одну отправку</li><li>Отсрочка оплаты доставки для постоянных клиентов</li></ul>
+      <div class="row-btns"><a class="btn btn-primary" href="#lead" data-to-lead="Опт, регулярные партии: ">Обсудить условия для опта</a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-prod" aria-labelledby="t-prod" hidden>
+      <h3>Оборудование, сырьё, комплектующие</h3>
+      <ul class="checks"><li>Подбор кода ТН ВЭД и расчёт пошлин до закупки</li><li>Сертификаты и декларации соответствия ЕАЭС</li><li>Негабарит и ж/д контейнеры 20 и 40 футов</li></ul>
+      <div class="row-btns"><a class="btn btn-primary" href="#lead" data-to-lead="Оборудование для производства: ">Отправить спецификацию</a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-new" aria-labelledby="t-new" hidden>
+      <h3>Первый раз закупаете в Китае</h3>
+      <ul class="checks"><li>Проверим фабрику перед оплатой: лицензия, отзывы, видеозвонок</li><li>Выкупим товар с 1688 и Taobao, если нет прямого контакта</li><li>Принимаем небольшие партии от 30 кг</li></ul>
+      <div class="row-btns"><a class="btn btn-primary" href="knowledge.html">Начать со статей</a><a class="btn btn-ghost" href="#lead" data-to-lead="Первая закупка в Китае: ">Бесплатная консультация</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="pt0">
+  <div class="wrap">
+    <div class="magnet">
       <div>
-        <span class="badge"><span class="dot"></span>Принимаем грузы на складах в Гуанчжоу и Иу</span>
-        <h1>Доставим товар из Китая в Россию <em>за&nbsp;18–35&nbsp;дней</em> под ключ</h1>
-        <p class="lead">Выкуп у поставщика, проверка качества, таможня и доставка до вашего склада или пункта Wildberries и Ozon. Цена фиксируется в договоре до отправки.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#prices">Рассчитать стоимость</a>
-          <a class="btn btn-ghost" href="#lead-band" data-lead>Получить консультацию</a>
-        </div>
-        <p class="hero-note"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5.5 2v4c0 3.3-2.3 6-5.5 7-3.2-1-5.5-3.7-5.5-7v-4L8 1.5z" stroke="currentColor" stroke-width="1.5"/></svg>Каждый груз застрахован на 100% стоимости</p>
+        <div class="eyebrow">Бесплатно</div>
+        <h2>Чек-лист «Как ввезти товар из Китая для Wildberries и Ozon»</h2>
+        <ul><li>какие документы нужны для каждой категории товара</li><li>как промаркировать коробки, чтобы склад принял поставку</li><li>5 ошибок, из-за которых поставку возвращают</li></ul>
       </div>
-      <aside class="route" aria-label="Пример маршрута груза">
-        <div class="route-head"><span>Трек ЧП-48213</span><span>Авто · 1,2 т</span></div>
-        <ol class="stops">
-          <li class="stop on"><span class="pin"></span><div><b>Гуанчжоу</b><span>Приёмка, фотоотчёт, упаковка</span></div><span class="d">день 0</span></li>
-          <li class="stop on"><span class="pin"></span><div><b>Урумчи</b><span>Консолидация, погрузка</span></div><span class="d">день 6</span></li>
-          <li class="stop now"><span class="pin"></span><div><b>Хоргос → Казахстан</b><span>Пересечение границы</span></div><span class="d">день 11</span></li>
-          <li class="stop"><span class="pin"></span><div><b>Москва, склад</b><span>Выдача или доставка до двери</span></div><span class="d">день 19</span></li>
-        </ol>
-        <div class="route-foot"><span>Статусы приходят в Telegram</span><b>Цена зафиксирована</b></div>
-      </aside>
-    </div>
-    <div class="wrap">
-      <div class="stats">
-        <div class="stat"><b>8 лет</b><span>возим из Китая</span></div>
-        <div class="stat"><b>14 200+</b><span>доставленных партий</span></div>
-        <div class="stat"><b>0,3%</b><span>грузов с претензиями</span></div>
-        <div class="stat"><b>от 30 кг</b><span>минимальная партия</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tinted">
-    <div class="wrap">
-      <div class="eyebrow">Что вы получаете</div>
-      <h2>Вы занимаетесь продажами, остальное берём на себя</h2>
-      <div class="grid2">
-        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><h3>Цена не вырастет в пути</h3><p>Ставка фиксируется в договоре. Никаких доплат «за курс» или «за склад» после отправки.</p></div></article>
-        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><div><h3>Проверим товар до оплаты доставки</h3><p>Вскрываем коробки, считаем, снимаем фото и видео. Брак возвращаем поставщику ещё в Китае.</p></div></article>
-        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><div><h3>Видите груз на каждом этапе</h3><p>Персональный менеджер и статусы в Telegram: склад, граница, таможня, выдача.</p></div></article>
-        <article class="benefit"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M7 7h7a3 3 0 010 6H8a3 3 0 000 6h9"/></svg></span><div><h3>Оплата поставщику в юанях</h3><p>Переводим деньги на Alipay, WeChat или счёт фабрики. Комиссия от 1,5%.</p></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="eyebrow">Для кого</div>
-      <h2>Выберите, кто вы, и посмотрите, чем поможем</h2>
-      <div class="tabs" role="tablist" aria-label="Тип клиента">
-        <button class="tab" role="tab" id="t-mp" aria-selected="true" aria-controls="p-mp">Селлер маркетплейса</button>
-        <button class="tab" role="tab" id="t-opt" aria-selected="false" aria-controls="p-opt">Оптовая торговля</button>
-        <button class="tab" role="tab" id="t-prod" aria-selected="false" aria-controls="p-prod">Производство</button>
-        <button class="tab" role="tab" id="t-new" aria-selected="false" aria-controls="p-new">Первая закупка</button>
-      </div>
-      <div class="panel" role="tabpanel" id="p-mp" aria-labelledby="t-mp">
-        <h3>Поставки на Wildberries, Ozon и Яндекс Маркет</h3>
-        <ul class="checks"><li>Маркировка «Честный знак» и этикетки маркетплейса ещё в Китае</li><li>Доставка сразу на склады Коледино, Электросталь, Казань</li><li>Белое оформление с документами для маркетплейса</li></ul>
-        <a class="btn btn-primary" href="#lead-band" data-lead>Рассчитать поставку</a>
-      </div>
-      <div class="panel" role="tabpanel" id="p-opt" aria-labelledby="t-opt" hidden>
-        <h3>Регулярные партии от 1 тонны</h3>
-        <ul class="checks"><li>Сниженная ставка при поставках от 2 раз в месяц</li><li>Консолидация товаров от разных фабрик в одну отправку</li><li>Отсрочка оплаты доставки для постоянных клиентов</li></ul>
-        <a class="btn btn-primary" href="#lead-band" data-lead>Обсудить условия для опта</a>
-      </div>
-      <div class="panel" role="tabpanel" id="p-prod" aria-labelledby="t-prod" hidden>
-        <h3>Оборудование, сырьё, комплектующие</h3>
-        <ul class="checks"><li>Подбор кода ТН ВЭД и расчёт пошлин до закупки</li><li>Сертификаты и декларации соответствия ЕАЭС</li><li>Негабарит и ж/д контейнеры 20 и 40 футов</li></ul>
-        <a class="btn btn-primary" href="#lead-band" data-lead>Отправить спецификацию</a>
-      </div>
-      <div class="panel" role="tabpanel" id="p-new" aria-labelledby="t-new" hidden>
-        <h3>Первый раз закупаете в Китае</h3>
-        <ul class="checks"><li>Проверим фабрику перед оплатой: лицензия, отзывы, видеозвонок</li><li>Выкупим товар с 1688 и Taobao, если нет прямого контакта</li><li>Принимаем небольшие партии от 30 кг</li></ul>
-        <a class="btn btn-primary" href="#lead-band" data-lead>Получить консультацию</a>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="eyebrow">Кейсы</div>
-      <h2>Последние доставки</h2>
-      <div class="grid2" id="home-cases"></div>
-      <a class="more" href="#cases">Все кейсы</a>
-    </div>
-  </section>
-</div>
-
-<!-- ============ УСЛУГИ ============ -->
-<div class="page" data-page="services" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / Услуги</div>
-    <h1>Услуги</h1>
-    <p class="lead">Возьмём на себя весь путь товара: от поиска фабрики до выдачи на складе в России. Можно заказать всё сразу или отдельную услугу.</p>
-  </div>
-  <section style="padding-top:12px">
-    <div class="wrap">
-      <div class="eyebrow">Доставка</div>
-      <h2>Способы перевозки</h2>
-      <div class="grid2">
-        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 10h4l4 4v2h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><h3>Автодоставка</h3><p>Самый популярный вариант для сборных грузов. Через Казахстан или Забайкальск.</p><div class="meta"><span>18–25 дней</span><b>от 2,4 $/кг</b></div></article>
-        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 21l2-4M16 21l-2-4"/></svg></span><h3>Железная дорога</h3><p>Для тяжёлых и крупных партий. Сборный груз или контейнер целиком.</p><div class="meta"><span>25–35 дней</span><b>от 1,9 $/кг</b></div></article>
-        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M10 14l-7-2 1-2 7 1 4-7h2l-2 8 5 1 1-2h1l-1 4 1 4h-1l-1-2-5 1 2 8h-2l-4-7z"/></svg></span><h3>Авиадоставка</h3><p>Когда нужно срочно: образцы, электроника, дорогой товар.</p><div class="meta"><span>7–12 дней</span><b>от 6,5 $/кг</b></div></article>
-        <article class="svc"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="1"/><path d="M6 9v6M10 9v6M14 9v6M18 9v6"/></svg></span><h3>Контейнер 20′ / 40′</h3><p>Полная загрузка от 10 тонн. Ж/д или море до Владивостока и далее.</p><div class="meta"><span>35–45 дней</span><b>от $4 900</b></div></article>
-      </div>
-    </div>
-  </section>
-  <section class="tinted">
-    <div class="wrap">
-      <div class="eyebrow">Сопровождение</div>
-      <h2>Дополнительные услуги</h2>
-      <div class="grid3">
-        <article class="svc"><h3>Поиск и проверка фабрики</h3><p>Проверим лицензию, проведём видеозвонок с производства, запросим образцы.</p><div class="meta"><span>Срок</span><b>2–5 дней</b></div></article>
-        <article class="svc"><h3>Выкуп и оплата поставщику</h3><p>Оплачиваем в юанях на Alipay, WeChat или счёт фабрики. Выкупаем с 1688 и Taobao.</p><div class="meta"><span>Комиссия</span><b>от 1,5%</b></div></article>
-        <article class="svc"><h3>Проверка качества</h3><p>Вскрытие, пересчёт, фото и видео каждой позиции. Отчёт в день приёмки.</p><div class="meta"><span>Стоимость</span><b>бесплатно</b></div></article>
-        <article class="svc"><h3>Маркировка для маркетплейсов</h3><p>«Честный знак», этикетки WB и Ozon, упаковка по требованиям складов.</p><div class="meta"><span>Стоимость</span><b>от 15 ₽/шт</b></div></article>
-        <article class="svc"><h3>Белое таможенное оформление</h3><p>Контракт, декларация, сертификаты ЕАЭС. НДС к вычету.</p><div class="meta"><span>Подходит</span><b>юрлица и ИП</b></div></article>
-        <article class="svc"><h3>Доставка до двери</h3><p>От склада в Москве до вашего адреса или через транспортную компанию по РФ.</p><div class="meta"><span>По Москве</span><b>от 2 500 ₽</b></div></article>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="wrap">
-      <div class="eyebrow">Как мы работаем</div>
-      <h2>От заявки до вашего склада за 5 шагов</h2>
-      <ol class="steps">
-        <li class="step"><div><h3>Заявка</h3><p>Оставляете контакты или пишете в Telegram.</p><span class="when">15 минут</span></div></li>
-        <li class="step"><div><h3>Расчёт и договор</h3><p>Считаем точную цену и фиксируем её в договоре.</p><span class="when">1 день</span></div></li>
-        <li class="step"><div><h3>Приёмка в Китае</h3><p>Принимаем товар, проверяем и присылаем фотоотчёт.</p><span class="when">1–3 дня</span></div></li>
-        <li class="step"><div><h3>Доставка и таможня</h3><p>Везём выбранным способом, оформляем документы.</p><span class="when">7–35 дней</span></div></li>
-        <li class="step"><div><h3>Получение</h3><p>Забираете на складе в Москве или получаете у двери.</p><span class="when">день прибытия</span></div></li>
-      </ol>
-      <div class="pay">
-        <div><b>Оплата</b>Безнал для юрлиц и ИП, перевод на карту для частных лиц.</div>
-        <div><b>Когда платить</b>Доставку оплачиваете после взвешивания груза на складе в Китае.</div>
-        <div><b>Получение</b>Самовывоз в Москве бесплатно 7 дней, доставка по РФ через ТК.</div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ============ ЦЕНЫ ============ -->
-<div class="page" data-page="prices" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / Цены</div>
-    <h1>Цены и калькулятор</h1>
-    <p class="lead">Ставка зависит от плотности груза: чем тяжелее кубометр, тем дешевле килограмм. Все цены указаны «под ключ» с таможней, до склада в Москве.</p>
-  </div>
-  <section style="padding-top:12px">
-    <div class="wrap">
-      <div class="rates">
-        <table>
-          <thead><tr><th>Способ</th><th>Срок</th><th>Цена, $/кг</th><th>Для чего</th></tr></thead>
-          <tbody>
-            <tr><td><b>Авто</b></td><td class="n">18–25 дн</td><td class="n">2,4–3,6</td><td>Самый популярный вариант</td></tr>
-            <tr><td><b>Ж/д</b></td><td class="n">25–35 дн</td><td class="n">1,9–2,9</td><td>Крупные и тяжёлые партии</td></tr>
-            <tr><td><b>Авиа</b></td><td class="n">7–12 дн</td><td class="n">6,5–8,5</td><td>Срочно и дорогой товар</td></tr>
-            <tr><td><b>Контейнер 40′</b></td><td class="n">35–45 дн</td><td class="n">от $4 900</td><td>От 10 тонн</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="scroll-hint">Таблицу можно прокрутить вбок</p>
-    </div>
-  </section>
-  <section class="band">
-    <div class="wrap">
-      <div class="eyebrow">Калькулятор</div>
-      <h2>Посчитайте доставку за минуту</h2>
-      <div class="calc-wrap">
-        <form class="calc" id="calc" aria-label="Калькулятор стоимости" novalidate>
-          <div class="field">
-            <label>Способ доставки</label>
-            <div class="seg" role="radiogroup" aria-label="Способ доставки">
-              <input type="radio" name="mode" id="m-auto" value="auto" checked><label for="m-auto">Авто</label>
-              <input type="radio" name="mode" id="m-rail" value="rail"><label for="m-rail">Ж/д</label>
-              <input type="radio" name="mode" id="m-air" value="air"><label for="m-air">Авиа</label>
-            </div>
-          </div>
-          <div class="calc-grid">
-            <div class="field"><label for="c-kg">Вес, кг</label><input id="c-kg" type="number" inputmode="decimal" min="1" value="300"></div>
-            <div class="field"><label for="c-m3">Объём, м³</label><input id="c-m3" type="number" inputmode="decimal" min="0.01" step="0.1" value="1.5"></div>
-            <div class="field"><label for="c-type">Тип товара</label>
-              <select id="c-type">
-                <option value="1">Одежда, текстиль, обувь</option>
-                <option value="1">Товары для дома</option>
-                <option value="1.15">Электроника, гаджеты</option>
-                <option value="1.1">Автозапчасти</option>
-                <option value="0.95">Стройматериалы</option>
-              </select></div>
-            <div class="field"><label for="c-val">Стоимость товара, $ <span class="hint">для страховки</span></label><input id="c-val" type="number" inputmode="decimal" min="0" value="6000"></div>
-          </div>
-          <div class="result" aria-live="polite">
-            <span class="lbl">Примерная стоимость под ключ</span>
-            <span class="sum" id="r-sum">$ —</span>
-            <div class="meta"><span>Плотность <b id="r-den">—</b></span><span>Срок <b id="r-days">—</b></span><span>Страховка <b id="r-ins">—</b></span></div>
-          </div>
-          <a class="btn btn-primary btn-block" href="#lead-band" data-lead id="calc-cta">Зафиксировать эту цену</a>
-        </form>
-        <div class="factors">
-          <h3>От чего зависит итоговая сумма</h3>
-          <div class="item"><span class="k">1</span><div><b>Плотность груза</b><p>Вес делим на объём. Лёгкий груз до 100 кг/м³ считается за кубометр.</p></div></div>
-          <div class="item"><span class="k">2</span><div><b>Категория товара</b><p>Электроника и бренды дороже из-за таможенных требований.</p></div></div>
-          <div class="item"><span class="k">3</span><div><b>Тип оформления</b><p>Карго дешевле, белая доставка даёт документы и НДС к вычету.</p></div></div>
-          <div class="item"><span class="k">4</span><div><b>Упаковка</b><p>Обрешётка, паллет или мешок с лентой: от 1 до 15 $ за место.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ============ КЕЙСЫ ============ -->
-<div class="page" data-page="cases" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / Кейсы</div>
-    <h1>Кейсы</h1>
-    <p class="lead">Реальные задачи клиентов и то, как мы их решили: сроки, цена и результат в цифрах.</p>
-    <div class="filters" role="group" aria-label="Фильтр кейсов">
-      <button class="tab" type="button" data-f="all" aria-selected="true">Все</button>
-      <button class="tab" type="button" data-f="mp" aria-selected="false">Маркетплейсы</button>
-      <button class="tab" type="button" data-f="opt" aria-selected="false">Опт</button>
-      <button class="tab" type="button" data-f="prod" aria-selected="false">Производство</button>
+      <form class="form" data-lead-form="checklist" data-reveal="#checklist-link" novalidate>
+        <div class="field"><label for="m-contact">Телефон или Telegram</label><input id="m-contact" name="contact" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00 или @username"></div>
+        <div class="hp" aria-hidden="true"><label for="m-website">Не заполняйте</label><input id="m-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <p class="err" hidden>Укажите телефон или ник в Telegram.</p>
+        <button class="btn btn-primary btn-block" type="submit">Получить чек-лист</button>
+        <small>Пришлём чек-лист в мессенджер. Нажимая кнопку, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</small>
+        <div class="ok-msg" hidden><b>Готово.</b> <a id="checklist-link" href="checklist.html" hidden>Открыть чек-лист сейчас →</a><p class="demo-note" hidden>Демо-режим: адрес отправки не настроен в config.json.</p></div>
+      </form>
     </div>
   </div>
-  <section style="padding-top:12px">
-    <div class="wrap"><div class="grid2" id="all-cases" style="margin-top:0"></div></div>
-  </section>
-</div>
+</section>
 
-<!-- ============ О КОМПАНИИ ============ -->
-<div class="page" data-page="about" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / О компании</div>
-    <h1>О компании «Чистый путь»</h1>
+<section class="tinted">
+  <div class="wrap">
+    <div class="eyebrow">Кейсы</div>
+    <h2>Последние доставки</h2>
+    <div class="grid2">
+      <article class="case"><div class="case-top"><span class="tag">Маркетплейс · Авто <span class="sample">Пример</span></span><h3>Сезонная партия пуховиков к ноябрю</h3></div><dl><div><dt>Задача</dt><dd>Успеть на склад Коледино до начала холодов, 2 400 шт.</dd></div><div><dt>Решение</dt><dd>Маркировка в Гуанчжоу, авто через Хоргос, запись на поставку заранее.</dd></div></dl><div class="case-res"><div><b>19 дн</b><span>в пути</span></div><div><b>2,7 $</b><span>за кг</span></div><div><b>0</b><span>брака</span></div></div></article>
+      <article class="case"><div class="case-top"><span class="tag">Опт · Ж/д <span class="sample">Пример</span></span><h3>Посуда от трёх фабрик одной отправкой</h3></div><dl><div><dt>Задача</dt><dd>Собрать заказы трёх поставщиков из разных провинций.</dd></div><div><dt>Решение</dt><dd>Хранение и консолидация на складе в Иу, обрешётка, ж/д до Новосибирска.</dd></div></dl><div class="case-res"><div><b>4,6 т</b><span>груз</span></div><div><b>−22%</b><span>к прошлой цене</span></div><div><b>28 дн</b><span>в пути</span></div></div></article>
+    </div>
+    <a class="more" href="cases.html">Все кейсы</a>
   </div>
-  <section style="padding-top:16px">
-    <div class="wrap about-grid">
-      <div class="about-text">
-        <p>Мы возим товары из Китая с 2018 года. Начинали с небольших партий одежды для знакомых предпринимателей, сейчас отправляем больше 150 грузов в месяц.</p>
-        <p>Название «Чистый путь» отражает главный принцип работы: прозрачная цена, понятный маршрут и честные документы. Клиент знает, где его груз и сколько он заплатит, ещё до отправки.</p>
-        <p>У нас свои склады в Гуанчжоу, Иу и Москве, команда из 40 человек в двух странах и менеджеры, которые говорят на русском и китайском.</p>
-      </div>
-      <ol class="timeline">
-        <li><b>2018</b><span>Первый склад в Гуанчжоу, авто через Казахстан</span></li>
-        <li><b>2020</b><span>Запустили ж/д доставку и белое оформление</span></li>
-        <li><b>2022</b><span>Открыли склад в Иу и маркировку для маркетплейсов</span></li>
-        <li><b>2024</b><span>Свой склад в Москве и трекинг в Telegram</span></li>
-        <li><b>2026</b><span>Больше 14 200 доставленных партий</span></li>
-      </ol>
-    </div>
-    <div class="wrap">
-      <div class="stats">
-        <div class="stat"><b>8 лет</b><span>на рынке</span></div>
-        <div class="stat"><b>3 склада</b><span>в Китае и России</span></div>
-        <div class="stat"><b>40</b><span>сотрудников</span></div>
-        <div class="stat"><b>2 100+</b><span>постоянных клиентов</span></div>
-      </div>
-      <div class="docs">
-        <div class="doc"><b>Договор</b>Работаем как ООО по договору</div>
-        <div class="doc"><b>Реквизиты</b>ИНН и ОГРН открыты</div>
-        <div class="doc"><b>Страховка</b>Полис на каждый груз</div>
-        <div class="doc"><b>Таможня</b>Партнёр — лицензированный брокер</div>
-      </div>
-    </div>
-  </section>
-  <section class="tinted">
-    <div class="wrap">
-      <div class="eyebrow">Отзывы</div>
-      <h2>Что говорят клиенты</h2>
-      <div class="grid3">
-        <article class="review"><span class="sample">Пример отзыва</span><q>Возим одежду на Wildberries второй год. За это время ни одной потерянной коробки, фото приходят в день приёмки.</q><div class="who"><span class="ava">АК</span><div><b>Анна К.</b><span>Селлер WB, Казань</span></div></div></article>
-        <article class="review"><span class="sample">Пример отзыва</span><q>Нашли брак в 40 единицах ещё на складе в Иу. Поставщик заменил товар, мы ничего не доплатили.</q><div class="who"><span class="ava">ДС</span><div><b>Дмитрий С.</b><span>Оптовик, Новосибирск</span></div></div></article>
-        <article class="review"><span class="sample">Пример отзыва</span><q>Привезли станок 2,8 тонны по железной дороге. Помогли с кодом ТН ВЭД, пошлина вышла меньше, чем мы считали.</q><div class="who"><span class="ava">ИП</span><div><b>Игорь П.</b><span>Производство, Екатеринбург</span></div></div></article>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="wrap">
-      <div class="eyebrow">Гарантии</div>
-      <h2>Если что-то пойдёт не так, отвечаем деньгами</h2>
-      <div class="grid2">
-        <div class="g"><h3>Утеря или повреждение</h3><p>Возмещаем 100% стоимости товара по страховке в течение 14 дней.</p></div>
-        <div class="g"><h3>Задержка сроков</h3><p>Скидка 1% от стоимости доставки за каждый день опоздания сверх договора.</p></div>
-        <div class="g"><h3>Брак от поставщика</h3><p>Выявляем на приёмке и решаем с фабрикой возврат или замену до отправки.</p></div>
-        <div class="g"><h3>Пересорт и недовложение</h3><p>Сверяем количество по каждой коробке. Расхождения фиксируем на видео.</p></div>
-      </div>
-      <div class="faq">
-        <details><summary>Чем отличается карго от белой доставки?</summary><p>Карго дешевле и быстрее: груз оформляется на перевозчика, вы получаете товар без таможенных документов на себя. Белая доставка дороже, но вы получаете полный пакет документов, НДС к вычету и можете продавать на маркетплейсах без рисков.</p></details>
-        <details><summary>Какой минимальный объём груза?</summary><p>От 30 кг для авто и ж/д, от 5 кг для авиа. Небольшие партии мы объединяем с другими грузами, чтобы снизить цену.</p></details>
-        <details><summary>Можно ли привезти бренды и электронику?</summary><p>Да, для этих категорий действует отдельная ставка. Менеджер проверит товар и скажет, какое оформление подойдёт.</p></details>
-        <details><summary>Как узнать, где сейчас груз?</summary><p>После отправки вы получаете номер трека. Статусы приходят в Telegram или WhatsApp на каждом этапе маршрута.</p></details>
-      </div>
-    </div>
-  </section>
-</div>
+</section>
 
-<!-- ============ КОНТАКТЫ ============ -->
-<div class="page" data-page="contacts" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / Контакты</div>
-    <h1>Контакты</h1>
-    <p class="lead">Отвечает живой менеджер, без ботов. Обычно в течение 15 минут.</p>
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Отзывы</div>
+    <h2>Что говорят клиенты</h2>
+    <div class="grid3">
+      <article class="review"><span class="sample">Пример отзыва</span><q>Возим одежду на Wildberries второй год. За это время ни одной потерянной коробки, фото приходят в день приёмки.</q><div class="who"><span class="ava">АК</span><div><b>Анна К.</b><span>Селлер WB, Казань</span></div></div></article>
+      <article class="review"><span class="sample">Пример отзыва</span><q>Нашли брак в 40 единицах ещё на складе в Иу. Поставщик заменил товар, мы ничего не доплатили.</q><div class="who"><span class="ava">ДС</span><div><b>Дмитрий С.</b><span>Оптовик, Новосибирск</span></div></div></article>
+      <article class="review"><span class="sample">Пример отзыва</span><q>Привезли станок 2,8 тонны по железной дороге. Помогли с кодом ТН ВЭД, пошлина вышла меньше, чем мы считали.</q><div class="who"><span class="ava">ИП</span><div><b>Игорь П.</b><span>Производство, Екатеринбург</span></div></div></article>
+    </div>
+    <div class="rev-links"><a class="chipbtn" href="https://yandex.ru/maps/?text=%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D0%B9%20%D0%BF%D1%83%D1%82%D1%8C%20%D0%BA%D0%B0%D1%80%D0%B3%D0%BE" target="_blank" rel="noopener">Отзывы на Яндекс Картах →</a><a class="chipbtn" href="https://2gis.ru/moscow/search/%D0%A7%D0%B8%D1%81%D1%82%D1%8B%D0%B9%20%D0%BF%D1%83%D1%82%D1%8C" target="_blank" rel="noopener">Отзывы в 2ГИС →</a></div>
   </div>
-  <section style="padding-top:8px">
-    <div class="wrap">
-      <div class="ccards">
-        <div class="cc"><span class="lbl">Телефон</span><a class="big" href="tel:+79001234567">+7 900 123-45-67</a><div class="row-btns"><button class="chipbtn" type="button" data-copy="+7 900 123-45-67">Скопировать номер</button></div></div>
-        <div class="cc"><span class="lbl">Мессенджеры</span><span class="big">@chistyput_cargo</span><div class="row-btns"><a class="chipbtn" href="https://t.me/" target="_blank" rel="noopener">Telegram</a><a class="chipbtn" href="https://wa.me/79001234567" target="_blank" rel="noopener">WhatsApp</a></div></div>
-        <div class="cc"><span class="lbl">Почта</span><span class="big">info@chistyput.ru</span><div class="row-btns"><button class="chipbtn" type="button" data-copy="info@chistyput.ru">Скопировать адрес</button></div></div>
-      </div>
-      <div class="eyebrow" style="margin-top:40px">Склады</div>
-      <div class="wh">
-        <div class="whc"><div class="mapph" aria-hidden="true"></div><div class="in"><h3>Москва</h3><p>ТК «Южные ворота», 19-й км МКАД, стр. 3. Выдача грузов и самовывоз.</p><a class="more" style="margin-top:6px" href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D1%80%D0%BE%D1%82%D0%B0%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0" target="_blank" rel="noopener">Открыть на карте</a></div></div>
-        <div class="whc"><div class="mapph" aria-hidden="true"></div><div class="in"><h3>Гуанчжоу и Иу</h3><p>Приёмка, проверка и упаковка. Точный адрес склада менеджер пришлёт после заявки.</p></div></div>
-      </div>
-      <div class="hours">
-        <table>
-          <tr><td>Менеджеры, Москва</td><td>ежедневно 9:00–21:00</td></tr>
-          <tr><td>Склад, Москва</td><td>пн–сб 10:00–19:00</td></tr>
-          <tr><td>Склады, Китай</td><td>пн–сб 9:00–18:00 (UTC+8)</td></tr>
-        </table>
-      </div>
-    </div>
-  </section>
-</div>
+</section>
 
-<!-- ============ ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ============ -->
-<div class="page" data-page="privacy" hidden>
-  <div class="wrap phead">
-    <div class="crumbs"><a href="#home">Главная</a> / Политика конфиденциальности</div>
-    <h1>Политика конфиденциальности</h1>
-    <p class="lead">Как ООО «Чистый путь» собирает, использует и защищает персональные данные посетителей сайта.</p>
-  </div>
-  <section style="padding-top:20px">
-    <div class="wrap policy">
-      <p class="upd">Редакция от 10 ноября 2026 года</p>
-
-      <div><h2>1. Общие положения</h2>
-        <p>Настоящая политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных пользователей сайта ООО «Чистый путь» (далее — Оператор).</p>
-        <p>Отправляя заявку на сайте, пользователь даёт согласие на обработку своих персональных данных на условиях этой политики. Если пользователь не согласен с условиями, ему следует не отправлять свои данные через сайт.</p></div>
-
-      <div><h2>2. Какие данные мы собираем</h2>
-        <ul><li>имя;</li><li>номер телефона или имя пользователя в Telegram;</li><li>описание груза, которое пользователь указывает в заявке;</li><li>технические данные: IP-адрес, тип браузера и устройства, файлы cookie, сведения о посещённых страницах.</li></ul>
-        <p>Мы не собираем специальные категории персональных данных (о здоровье, убеждениях и т. п.) и биометрические данные.</p></div>
-
-      <div><h2>3. Цели обработки</h2>
-        <ul><li>связаться с пользователем и ответить на заявку;</li><li>рассчитать стоимость доставки и подготовить договор;</li><li>информировать о статусе груза;</li><li>улучшать работу сайта и анализировать посещаемость.</li></ul></div>
-
-      <div><h2>4. Правовые основания</h2>
-        <p>Оператор обрабатывает персональные данные на основании согласия пользователя, а также для заключения и исполнения договора, стороной которого является пользователь.</p></div>
-
-      <div><h2>5. Порядок обработки и хранения</h2>
-        <p>Оператор собирает, записывает, систематизирует, хранит, уточняет, использует и удаляет персональные данные. Обработка ведётся как с помощью средств автоматизации, так и без них.</p>
-        <p>Данные хранятся не дольше, чем этого требуют цели обработки, но не более 3 лет с момента последнего обращения пользователя, если более долгий срок не установлен законом или договором. Базы данных с персональными данными граждан РФ находятся на территории Российской Федерации.</p></div>
-
-      <div><h2>6. Передача данных третьим лицам</h2>
-        <p>Оператор не продаёт и не передаёт персональные данные третьим лицам, кроме случаев, когда это нужно для исполнения договора с пользователем (например, перевозчику или таможенному брокеру), а также в случаях, предусмотренных законодательством РФ.</p></div>
-
-      <div><h2>7. Файлы cookie</h2>
-        <p>Сайт использует cookie, чтобы правильно работать и собирать обезличенную статистику посещений. Пользователь может отключить cookie в настройках браузера, но часть функций сайта может перестать работать.</p></div>
-
-      <div><h2>8. Права пользователя</h2>
-        <ul><li>получить информацию о том, какие его данные обрабатываются;</li><li>потребовать уточнить, заблокировать или удалить свои данные;</li><li>отозвать согласие на обработку, направив запрос на адрес электронной почты Оператора;</li><li>обжаловать действия Оператора в Роскомнадзоре или в суде.</li></ul>
-        <p>Оператор отвечает на запрос в течение 10 рабочих дней.</p></div>
-
-      <div><h2>9. Защита данных</h2>
-        <p>Оператор принимает организационные и технические меры для защиты персональных данных от неправомерного доступа, изменения, распространения и уничтожения. Доступ к данным есть только у сотрудников, которым он нужен для работы.</p></div>
-
-      <div><h2>10. Изменение политики</h2>
-        <p>Оператор может изменять эту политику. Новая редакция вступает в силу с момента публикации на сайте. Действующая редакция всегда доступна на этой странице.</p></div>
-
-      <div class="req">
-        <b>Оператор персональных данных</b>
-        <span>ООО «Чистый путь»</span>
-        <span>ИНН 0000000000, ОГРН 0000000000000</span>
-        <span>Адрес: г. Москва, 19-й км МКАД, стр. 3</span>
-        <span>Почта для запросов: info@chistyput.ru</span>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ============ ЗАЯВКА: на каждой странице ============ -->
-<section class="leadband" id="lead-band">
+<section class="leadband" id="lead">
   <div class="wrap lb-grid">
     <div>
       <div class="eyebrow">Заявка</div>
       <h2>Получите точный расчёт за 15 минут</h2>
       <p class="lead">Оставьте телефон или Telegram. Менеджер уточнит детали и пришлёт цену, которую зафиксируем в договоре.</p>
-      <ul class="lb-points"><li>Расчёт бесплатный и ни к чему не обязывает</li><li>Ответим в мессенджере, если вам неудобно говорить</li><li>Принимаем партии от 30 кг</li></ul>
+      <ul class="lb-points"><li>Расчёт бесплатный и ни к чему не обязывает</li><li>Ответим в мессенджере, если неудобно говорить</li><li>Принимаем партии от 30 кг</li></ul>
     </div>
-    <form class="form" id="lead-form" novalidate>
-      <div class="field"><label for="f-name">Имя</label><input id="f-name" autocomplete="name" placeholder="Как к вам обращаться"></div>
-      <div class="field"><label for="f-phone">Телефон или Telegram</label><input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__"></div>
-      <div class="field"><label for="f-what">Что везём <span class="hint">необязательно</span></label><textarea id="f-what" placeholder="Например: детская одежда, 500 кг, из Гуанчжоу"></textarea></div>
-      <p class="err" id="f-err" hidden>Укажите телефон или Telegram, чтобы мы могли прислать расчёт.</p>
-      <button class="btn btn-primary btn-block" type="submit" id="f-submit">Получить расчёт</button>
-      <small>Нажимая кнопку, вы соглашаетесь с <a href="#privacy">политикой конфиденциальности</a>.</small>
-      <div class="ok-msg" id="f-ok" hidden><b>Заявка принята.</b> Менеджер свяжется с вами в течение 15 минут в рабочее время.</div>
+    <form class="form" id="lead-form" data-lead-form="lead" novalidate>
+      <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>
+      <div class="field"><label for="f-contact">Телефон или Telegram</label><input id="f-contact" name="contact" type="text" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00 или @username"></div>
+      <div class="field"><label for="f-comment">Что везём <span class="hint">необязательно</span></label><textarea id="f-comment" name="comment" placeholder="Например: детская одежда, 500 кг, из Гуанчжоу в Казань"></textarea></div>
+      <div class="hp" aria-hidden="true"><label for="f-website">Не заполняйте</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <p class="err" hidden>Укажите телефон (10 цифр) или ник в Telegram, чтобы мы могли прислать расчёт.</p>
+      <div><button class="btn btn-primary btn-block" type="submit">Получить расчёт</button><span class="btn-sub">Ответим за 15 минут в рабочее время</span></div>
+      <small>Нажимая кнопку, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</small>
+      <div class="ok-msg" hidden><b>Заявка принята.</b> Менеджер свяжется с вами в течение 15 минут в рабочее время.<p class="demo-note" hidden>Демо-режим: адрес отправки не настроен в config.json, заявка никуда не ушла.</p></div>
     </form>
   </div>
 </section>
 </main>
-
 <footer>
   <div class="wrap">
     <div class="f-grid">
-      <div><a class="logo" href="#home"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a><p style="margin-top:10px;max-width:34ch">Доставка грузов из Китая в Россию: авто, ж/д, авиа и контейнеры под ключ.</p></div>
-      <nav aria-label="Страницы в подвале"><h4>Страницы</h4><a href="#services">Услуги</a><a href="#prices">Цены</a><a href="#cases">Кейсы</a><a href="#about">О компании</a><a href="#contacts">Контакты</a></nav>
-      <div style="display:grid;gap:6px;align-content:start"><h4>Связь</h4><a href="tel:+79001234567" style="text-decoration:none" class="num">+7 900 123-45-67</a><span>info@chistyput.ru</span><span>Ежедневно 9:00–21:00 МСК</span></div>
+      <div class="f-col"><a class="logo" href="index.html"><svg aria-hidden="true"><use href="#mark"/></svg>Чистый путь</a><p style="margin-top:6px;max-width:34ch">Доставка грузов из Китая в Россию: авто, ж/д, авиа и контейнеры под ключ.</p></div>
+      <nav aria-label="Услуги"><h4>Клиентам</h4><a href="prices.html">Цены и калькулятор</a><a href="tracking.html">Отследить груз</a><a href="marketplaces.html">Для селлеров маркетплейсов</a><a href="checklist.html">Чек-лист для маркетплейсов</a><a href="supplier.html" hreflang="en">For suppliers (English)</a></nav>
+      <nav aria-label="Компания"><h4>Компания</h4><a href="services.html">Услуги</a><a href="cases.html">Кейсы</a><a href="about.html">О компании</a><a href="knowledge.html">Статьи</a><a href="contacts.html">Контакты</a></nav>
+      <div class="f-col"><h4>Связь</h4><a href="tel:+79001234567" class="num">+7 900 123-45-67</a><span>info@chistyput.ru</span><span>ежедневно 9:00–21:00 МСК</span><span>Доставка в <a href="dostavka-kazan.html">Казань</a>, <a href="dostavka-ekaterinburg.html">Екатеринбург</a>, <a href="dostavka-novosibirsk.html">Новосибирск</a></span></div>
     </div>
-    <div class="f-bottom"><span>© 2026 ООО «Чистый путь»</span><a href="#privacy">Политика конфиденциальности</a></div>
+    <div class="f-bottom"><span>© 2018–<span data-year></span> ООО «Чистый путь» · ИНН 0000000000 · ОГРН 0000000000000</span><a href="privacy.html">Политика конфиденциальности</a></div>
   </div>
 </footer>
-
 <nav class="mbar" aria-label="Быстрые действия">
   <a class="sq" href="tel:+79001234567" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
-  <a class="sq" href="https://t.me/" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 4 2-15z"/><path d="M9 13l8-6"/></svg></a>
-  <a class="btn btn-primary" href="#prices">Рассчитать доставку</a>
+  <a class="sq" href="https://t.me/chistyput_cargo" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 4 2-15z"/><path d="M9 13l8-6"/></svg></a>
+  <a class="sq" href="https://max.ru/" target="_blank" rel="noopener" aria-label="Написать в MAX">MAX</a>
+  <a class="btn btn-primary" href="prices.html">Рассчитать доставку</a>
 </nav>
-
-<script>
-(function(){
-  /* ---------- Кейсы: один список, выводится на главной и на странице кейсов ---------- */
-  var CASES=[
-    {seg:'mp',tag:'Маркетплейс · Авто',title:'Сезонная партия пуховиков к ноябрю',task:'Успеть на склад Коледино до начала холодов, 2 400 шт.',sol:'Маркировка в Гуанчжоу, авто через Хоргос, запись на поставку заранее.',res:[['19 дн','в пути'],['2,7 $','за кг'],['0','брака']]},
-    {seg:'opt',tag:'Опт · Ж/д',title:'Посуда от трёх фабрик одной отправкой',task:'Собрать заказы трёх поставщиков из разных провинций.',sol:'Консолидация на складе в Иу, обрешётка, ж/д до Новосибирска.',res:[['4,6 т','груз'],['−22%','к прошлой цене'],['28 дн','в пути']]},
-    {seg:'prod',tag:'Производство · Белая',title:'Станок ЧПУ с полным пакетом документов',task:'Официальный ввоз с НДС к вычету и сертификатом ЕАЭС.',sol:'Подбор кода ТН ВЭД, декларация, страхование, доставка до цеха.',res:[['2,8 т','вес'],['32 дн','под ключ'],['100%','документов']]},
-    {seg:'mp',tag:'Маркетплейс · Авиа',title:'Срочная допоставка наушников на Ozon',task:'Товар закончился в разгар распродажи, нужно 800 шт. за 2 недели.',sol:'Выкуп у поставщика за сутки, авиа до Москвы, этикетки Ozon в Китае.',res:[['9 дн','до склада'],['800','штук'],['+1,4 млн ₽','выручки']]}
-  ];
-  function caseHTML(c){
-    return '<article class="case" data-seg="'+c.seg+'"><div class="case-top"><span class="tag">'+c.tag+'</span><h3>'+c.title+'</h3></div>'+
-      '<dl><div><dt>Задача</dt><dd>'+c.task+'</dd></div><div><dt>Решение</dt><dd>'+c.sol+'</dd></div></dl>'+
-      '<div class="case-res">'+c.res.map(function(r){return '<div><b>'+r[0]+'</b><span>'+r[1]+'</span></div>'}).join('')+'</div></article>';
-  }
-  document.getElementById('home-cases').innerHTML=CASES.slice(0,2).map(caseHTML).join('');
-  document.getElementById('all-cases').innerHTML=CASES.map(caseHTML).join('');
-  var fbtns=[].slice.call(document.querySelectorAll('[data-f]'));
-  fbtns.forEach(function(b){b.addEventListener('click',function(){
-    fbtns.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
-    document.querySelectorAll('#all-cases .case').forEach(function(c){c.hidden=!(b.dataset.f==='all'||c.dataset.seg===b.dataset.f)});
-  })});
-
-  /* ---------- Страницы (роутинг по #хэшу) ---------- */
-  var PAGES=['home','services','prices','cases','about','contacts','privacy'];
-  var menu=document.getElementById('menu'), burger=document.getElementById('burger'), bico=document.getElementById('burger-ico');
-  function setMenu(open){
-    menu.hidden=!open; burger.setAttribute('aria-expanded',open); burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');
-    bico.setAttribute('d',open?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h10');
-    document.documentElement.style.overflow=open?'hidden':'';
-  }
-  burger.addEventListener('click',function(){setMenu(menu.hidden)});
-  function route(){
-    var h=location.hash.slice(1);
-    if(h==='lead-band') return;
-    if(PAGES.indexOf(h)<0) h='home';
-    document.querySelectorAll('.page').forEach(function(p){p.hidden=p.dataset.page!==h});
-    document.querySelectorAll('.nav a, .menu a.mi').forEach(function(a){
-      if(a.getAttribute('href')==='#'+h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
-    });
-    setMenu(false);
-    window.scrollTo({top:0,behavior:'instant'});
-  }
-  window.addEventListener('hashchange',route);
-  route();
-
-  /* Кнопки «Оставить заявку» прокручивают к форме, не меняя страницу */
-  document.querySelectorAll('[data-lead]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      e.preventDefault(); setMenu(false);
-      document.getElementById('lead-band').scrollIntoView({behavior:'smooth'});
-      setTimeout(function(){document.getElementById('f-phone').focus({preventScroll:true})},500);
-    });
-  });
-
-  /* ---------- Вкладки «Для кого» ---------- */
-  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
-  tabs.forEach(function(t){t.addEventListener('click',function(){
-    tabs.forEach(function(x){x.setAttribute('aria-selected','false');document.getElementById(x.getAttribute('aria-controls')).hidden=true});
-    t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
-  })});
-
-  /* ---------- Калькулятор ---------- */
-  var RATES={ // [плотность от, мин $/кг, макс $/кг]; m3 — цена за м³ для лёгких грузов
-    auto:{days:'18–25 дн',tiers:[[400,2.4,2.8],[250,2.7,3.1],[150,3.0,3.4],[100,3.3,3.6]],m3:[300,360]},
-    rail:{days:'25–35 дн',tiers:[[400,1.9,2.3],[250,2.2,2.5],[150,2.4,2.7],[100,2.6,2.9]],m3:[250,300]},
-    air:{days:'7–12 дн',tiers:[[167,6.5,7.5],[0,7.5,8.5]]}
-  };
-  var fmt=function(n){return Math.round(n).toLocaleString('ru-RU')};
-  function calc(){
-    var mode=document.querySelector('input[name=mode]:checked').value;
-    var kg=parseFloat(document.getElementById('c-kg').value)||0;
-    var m3=parseFloat(document.getElementById('c-m3').value)||0;
-    var k=parseFloat(document.getElementById('c-type').value)||1;
-    var val=parseFloat(document.getElementById('c-val').value)||0;
-    var r=RATES[mode], sum=document.getElementById('r-sum');
-    if(kg<=0||m3<=0){sum.textContent='Укажите вес и объём';return}
-    var den=kg/m3, lo, hi;
-    if(mode==='air'){var w=Math.max(kg,m3*167),t=w===kg?r.tiers[0]:r.tiers[1];lo=w*t[1];hi=w*t[2];}
-    else if(den<100){lo=m3*r.m3[0];hi=m3*r.m3[1];}
-    else{var tier=r.tiers.find(function(x){return den>=x[0]});lo=kg*tier[1];hi=kg*tier[2];}
-    var ins=val*0.02;
-    sum.textContent='$ '+fmt(lo*k+ins)+' – '+fmt(hi*k+ins);
-    document.getElementById('r-den').textContent=fmt(den)+' кг/м³';
-    document.getElementById('r-days').textContent=r.days;
-    document.getElementById('r-ins').textContent='$ '+fmt(ins);
-  }
-  var calcForm=document.getElementById('calc');
-  calcForm.addEventListener('input',calc);
-  calcForm.addEventListener('submit',function(e){e.preventDefault()});
-  calc();
-  document.getElementById('calc-cta').addEventListener('click',function(){
-    var what=document.getElementById('f-what');
-    var mode=document.querySelector('input[name=mode]:checked+label').textContent.toLowerCase();
-    what.value=document.getElementById('c-type').selectedOptions[0].text+', '+document.getElementById('c-kg').value+' кг, '+document.getElementById('c-m3').value+' м³, '+mode+'. Расчёт: '+document.getElementById('r-sum').textContent;
-  });
-
-  /* ---------- Форма заявки (заглушка: подключите отправку в Telegram-бота или CRM) ---------- */
-  document.getElementById('lead-form').addEventListener('submit',function(e){
-    e.preventDefault();
-    var ph=document.getElementById('f-phone').value.trim();
-    document.getElementById('f-err').hidden=ph.length>=5;
-    if(ph.length<5){document.getElementById('f-phone').focus();return}
-    document.getElementById('f-submit').hidden=true;
-    document.getElementById('f-ok').hidden=false;
-  });
-
-  /* ---------- Копирование ---------- */
-  document.querySelectorAll('[data-copy]').forEach(function(b){
-    b.addEventListener('click',function(){
-      var old=b.textContent, done=function(){b.textContent='Скопировано';setTimeout(function(){b.textContent=old},1600)};
-      try{navigator.clipboard.writeText(b.dataset.copy).then(done,function(){})}catch(_){}
-    });
-  });
-})();
-</script>
+<div class="cookie" id="cookie" role="dialog" aria-label="Файлы cookie" hidden>
+  <p>Мы используем cookie и Яндекс Метрику, чтобы понимать, как улучшить сайт. Подробнее в <a href="privacy.html">политике конфиденциальности</a>.</p>
+  <div class="row-btns"><button class="btn btn-white" type="button" data-cookie="all">Принять</button><button class="btn btn-ghost" type="button" data-cookie="necessary">Только необходимые</button></div>
+</div>
+<script>window.SITE={"leadEndpoint": "", "trackEndpoint": "", "metrikaId": "", "showSampleBadges": true, "phone": "+7 900 123-45-67", "priceValidDays": 7};</script>
+<script src="assets/app.js" defer></script>
 </body>
 </html>

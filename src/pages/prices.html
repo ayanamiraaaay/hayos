@@ -1,0 +1,87 @@
+<!--META {"title":"Цены на доставку из Китая и калькулятор с пошлинами | {{company}}","description":"Тарифы на авто, ж/д и авиадоставку из Китая. Калькулятор считает доставку, пошлину, НДС 22%, сертификацию и себестоимость единицы товара для любого города России.","nav":"prices"} -->
+<div class="wrap phead">
+  <div class="crumbs"><a href="index.html">Главная</a> / Цены</div>
+  <h1>Цены и калькулятор</h1>
+  <p class="lead">Калькулятор считает не только доставку, но и итоговую себестоимость: пошлину, НДС, сертификацию и цену доставки на одну единицу товара.</p>
+</div>
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="calc-wrap">
+      <form class="calc" id="calc" aria-label="Калькулятор стоимости" novalidate>
+        <div class="field">
+          <label>Способ доставки</label>
+          <div class="seg" role="radiogroup" aria-label="Способ доставки">
+            <input type="radio" name="mode" id="m-auto" value="auto" checked><label for="m-auto">Авто</label>
+            <input type="radio" name="mode" id="m-rail" value="rail"><label for="m-rail">Ж/д</label>
+            <input type="radio" name="mode" id="m-air" value="air"><label for="m-air">Авиа</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Оформление</label>
+          <div class="seg" style="--n:2" role="radiogroup" aria-label="Оформление">
+            <input type="radio" name="clr" id="c-cargo" value="cargo" checked><label for="c-cargo">Карго</label>
+            <input type="radio" name="clr" id="c-white" value="white"><label for="c-white">Белое с документами</label>
+          </div>
+        </div>
+        <div class="calc-grid">
+          <div class="field"><label for="c-from">Откуда</label>
+            <select id="c-from"><option value="gz">Гуанчжоу</option><option value="sz">Шэньчжэнь</option><option value="yw">Иу</option><option value="ur">Урумчи</option></select></div>
+          <div class="field"><label for="c-to">Куда</label>
+            <select id="c-to"><option value="msk">Москва</option><option value="spb">Санкт-Петербург</option><option value="kzn">Казань</option><option value="ekb">Екатеринбург</option><option value="nsk">Новосибирск</option><option value="krd">Краснодар</option></select></div>
+          <div class="field"><label for="c-cat">Тип товара</label>
+            <select id="c-cat"><option value="clothes">Одежда, текстиль, обувь</option><option value="home">Товары для дома</option><option value="kids">Детские товары</option><option value="electronics">Электроника, гаджеты</option><option value="auto">Автозапчасти</option><option value="build">Стройматериалы</option></select></div>
+          <div class="field"><label for="c-units">Количество, шт</label><input id="c-units" type="number" inputmode="numeric" min="1" value="1000"></div>
+          <div class="field"><label for="c-kg">Вес, кг</label><input id="c-kg" type="number" inputmode="decimal" min="1" value="300"></div>
+          <div class="field"><label for="c-m3">Объём, м³</label><input id="c-m3" type="number" inputmode="decimal" min="0.01" step="0.1" value="1.5"></div>
+          <div class="field" style="grid-column:1/-1"><label for="c-val">Стоимость товара, $ <span class="hint">для страховки и пошлин</span></label><input id="c-val" type="number" inputmode="decimal" min="0" value="6000"></div>
+        </div>
+      </form>
+      <aside class="result" aria-live="polite">
+        <span class="lbl">Итого под ключ</span>
+        <span class="sum" id="r-sum">$ —</span>
+        <div id="calc-out">
+          <p class="unit" id="r-unit"></p>
+          <div class="breakdown" id="r-rows" style="margin-top:12px"></div>
+        </div>
+        <p class="valid" id="r-valid"></p>
+        <a class="btn btn-primary btn-block" href="#lead" data-to-lead="calc">Зафиксировать цену</a>
+        <p class="note">Расчёт предварительный. Пошлина зависит от кода ТН ВЭД, здесь указана типичная ставка для категории. Точную сумму менеджер пришлёт за {{responseMinutes}} минут.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="tinted">
+  <div class="wrap">
+    <div class="eyebrow">Тарифы</div>
+    <h2>Ставки до Москвы под ключ</h2>
+    <p class="lead">Ставка зависит от плотности груза: чем тяжелее кубометр, тем дешевле килограмм. Карго включает таможню, при белом оформлении пошлина и НДС считаются отдельно.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Способ</th><th>Срок</th><th>Карго, $/кг</th><th>Лёгкий груз, $/м³</th><th>Отправки</th></tr></thead>
+        <tbody>
+          <tr><td><b>Авто</b></td><td class="n">18–25 дн</td><td class="n">2,4–3,6</td><td class="n">300–360</td><td>вт, пт из Гуанчжоу</td></tr>
+          <tr><td><b>Ж/д</b></td><td class="n">25–35 дн</td><td class="n">1,9–2,9</td><td class="n">250–300</td><td>чт из Иу</td></tr>
+          <tr><td><b>Авиа</b></td><td class="n">7–12 дн</td><td class="n">6,5–8,5</td><td>по объёмному весу</td><td>пн, ср, пт</td></tr>
+          <tr><td><b>Контейнер 40′</b></td><td class="n">35–45 дн</td><td class="n">от $4 900</td><td>за контейнер</td><td>по запросу</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scroll-hint">Таблицу можно прокрутить вбок</p>
+    <div class="grid2">
+      <div>
+        <h3>От чего зависит итоговая сумма</h3>
+        <div class="factors">
+          <div class="item"><span class="k">1</span><div><b>Плотность груза</b><p>Вес делим на объём. Груз легче 100 кг/м³ считается за кубометр.</p></div></div>
+          <div class="item"><span class="k">2</span><div><b>Категория товара</b><p>Электроника и бренды дороже из-за таможенных требований.</p></div></div>
+          <div class="item"><span class="k">3</span><div><b>Оформление</b><p>Карго дешевле, белая доставка даёт документы и НДС к вычету.</p></div></div>
+          <div class="item"><span class="k">4</span><div><b>Упаковка</b><p>Обрешётка, паллет или мешок с лентой: от 1 до 15 $ за место.</p></div></div>
+        </div>
+      </div>
+      <div>
+        <h3>Что входит в цену</h3>
+        <ul class="checks" style="margin-top:20px"><li>Приёмка, пересчёт и фотоотчёт</li><li>Хранение на складе в Китае {{freeStorageDays}} дней</li><li>Упаковка: мешок и скотч с логотипом</li><li>Доставка до склада в Москве и таможня (карго)</li><li>Хранение в Москве 7 дней</li></ul>
+        <a class="more" href="knowledge-kargo-ili-belaya.html">Карго или белая доставка: что выбрать</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<!--META {"title":"Отследить груз по номеру трека | {{company}}","description":"Узнайте, где ваш груз из Китая: статус, этапы маршрута и ожидаемая дата прибытия по номеру трека.","nav":"tracking"} -->
+<div class="wrap phead">
+  <div class="crumbs"><a href="index.html">Главная</a> / Отследить груз</div>
+  <h1>Отследить груз</h1>
+  <p class="lead">Введите номер трека вида ЧП-12345. Менеджер присылает его после приёмки груза на складе в Китае.</p>
+</div>
+<section style="padding-top:8px">
+  <div class="wrap">
+    <form class="track-form" id="track-form" novalidate>
+      <div class="field" style="margin:0"><label for="t-num" class="hp">Номер трека</label><input id="t-num" name="n" placeholder="ЧП-48213" autocomplete="off" inputmode="text" aria-label="Номер трека"></div>
+      <button class="btn btn-primary" type="submit">Найти груз</button>
+    </form>
+    <p class="muted" style="margin-top:10px;font-size:.88rem">Для примера введите <b>ЧП-48213</b>.</p>
+    <div class="track-res" id="track-res" hidden></div>
+  </div>
+</section>
+<section class="tinted">
+  <div class="wrap">
+    <div class="eyebrow">Статусы</div>
+    <h2>Что означает каждый этап</h2>
+    <div class="grid3">
+      <div class="card"><h3>Принят на складе</h3><p>Груз пересчитан, сфотографирован и взвешен. Вы получили фотоотчёт и счёт за доставку.</p></div>
+      <div class="card"><h3>В пути</h3><p>Груз отправлен из Китая. Статус обновляется на каждом складе и погранпереходе.</p></div>
+      <div class="card"><h3>Таможня</h3><p>Идёт оформление. Обычно занимает 1–3 дня, при белом оформлении до 5 дней.</p></div>
+      <div class="card"><h3>Прибыл в Москву</h3><p>Груз на складе. Бесплатное хранение 7 дней, можно заказать доставку до двери.</p></div>
+      <div class="card"><h3>Передан в ТК</h3><p>Груз едет в ваш город. Номер транспортной компании пришлём в Telegram.</p></div>
+      <div class="card"><h3>Выдан</h3><p>Груз получен. Если есть расхождения, сообщите в течение 3 дней.</p></div>
+    </div>
+  </div>
+</section>
