@@ -18,6 +18,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 SRC = ROOT / "src"
 CFG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
+# Номер версии картинки превью. Увеличьте его, когда меняете og.png или название компании:
+# соцсети кэшируют картинку по адресу и с новым номером скачают её заново.
+OG_VERSION = 2
 RUNTIME_KEYS = ["leadEndpoint", "trackEndpoint", "metrikaId", "showSampleBadges", "phone", "priceValidDays"]
 
 NAV = [
@@ -227,10 +230,12 @@ def page_html(meta, body, mode):
 <meta name="description" content="{desc}">
 {robots}
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website"><meta property="og:locale" content="ru_RU">
+<meta property="og:type" content="website"><meta property="og:locale" content="ru_RU"><meta property="og:site_name" content="{html.escape(CFG['company'])}">
 <meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
-<meta property="og:url" content="{url}"><meta property="og:image" content="{CFG['siteUrl']}assets/og.png">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="{url}"><meta property="og:image" content="{CFG['siteUrl']}assets/og.png?v={OG_VERSION}">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{html.escape(CFG['company'])}: доставка грузов из Китая в Россию">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}"><meta name="twitter:image" content="{CFG['siteUrl']}assets/og.png?v={OG_VERSION}">
 <meta name="theme-color" content="#FFFFFF">
 {icons}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
